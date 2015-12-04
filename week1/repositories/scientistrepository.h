@@ -5,6 +5,7 @@
 #include <string>
 
 #include "models/scientist.h"
+#include <QtSql>
 
 
 /**

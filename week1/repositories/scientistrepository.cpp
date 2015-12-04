@@ -1,9 +1,9 @@
 #include "repositories/scientistrepository.h"
 #include "utilities/utils.h"
 #include "utilities/constants.h"
-
 #include <fstream>
 #include <cstdlib>
+#include <iostream>
 
 using namespace std;
 
@@ -100,3 +100,9 @@ bool ScientistRepository::addScientist(Scientist scientist)
     file.close();
     return true;
 }
+
+    /* QSqlDatabase db = QSqlDatabase();
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("firstDatabase.sqlite"); */
+
+
