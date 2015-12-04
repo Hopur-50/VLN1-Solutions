@@ -251,7 +251,7 @@ bool ConsoleUI::addScientist(string data)
         string name = fields.at(0);
 
         enum sexType sex;
-        if (fields.at(1) == "male")
+        if (fields.at(1) == "male" || fields.at(1) == " male") //Because EVERYONE writes a space after a comma.
         {
             sex = sexType::male;
         }
