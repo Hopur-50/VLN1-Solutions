@@ -1,11 +1,13 @@
 #include "repositories/scientistrepository.h"
 #include "utilities/utils.h"
 #include "utilities/constants.h"
-
 #include <fstream>
 #include <cstdlib>
 #include <iostream>
+<<<<<<< HEAD
 
+=======
+>>>>>>> f9139b590152c9ce446e2d66764eb5dd6a3458bf
 
 using namespace std;
 
@@ -102,6 +104,7 @@ bool ScientistRepository::addScientist(Scientist scientist)
     file.close();
     return true;
 }
+<<<<<<< HEAD
 void ScientistRepository::OpenDatabase()
 {
     QSqlDatabase db;
@@ -120,3 +123,11 @@ void ScientistRepository::OpenDatabase()
     else
         cout << "Connected..." << endl;
 }
+=======
+
+    /* QSqlDatabase db = QSqlDatabase();
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("firstDatabase.sqlite"); */
+
+
+>>>>>>> f9139b590152c9ce446e2d66764eb5dd6a3458bf
