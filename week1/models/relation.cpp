@@ -8,10 +8,10 @@ relation::relation(int csId, int cId)
 
 int relation::getCsId() const
 {
-    return CsId;
+    return csId;
 }
 int relation::getCId() const
 {
-    return CId;
+    return cId;
 }
 
