@@ -20,6 +20,15 @@ int main()
     else
             cout << "Connected....." << endl;
 
+   /* string queryCreate = "CREATE TABLE Scientists(id INTEGER, name VARCHAR, gender CHAR, yearOfBirth INTEGER, yearOfDeath INTEGER, PRIMARY KEY (id));";
+    query.exec(QString(queryCreate.c_str())); */
+
+   /* string queryCreate = "CREATE TABLE Computers(id INTEGER, name VARCHAR, computerType VARCHAR, construct BOOL, PRIMARY KEY(id));";
+    query.exec(QString(queryCreate.c_str())); */
+
+   string queryCreate = "CREATE TABLE ScientistsComputers(scientistsID INTEGER, computersID INTEGER, PRIMARY KEY(scientistsID, computersID), FOREIGN KEY (scientistsID) REFERENCES Scientists(id), FOREIGN KEY (computersID) REFERENCES Computers(id));";
+   query.exec(QString(queryCreate.c_str()));
+
    /* int born;
     int died;
     string firstName;
