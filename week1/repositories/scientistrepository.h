@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+//#include <QtSql>
 
 #include "models/scientist.h"
 
@@ -14,6 +15,7 @@ class ScientistRepository
 {
 public:
     ScientistRepository();
+    void OpenDatabase();
 
     /**
      * @brief getAllScientists fetches all scientists from the data file

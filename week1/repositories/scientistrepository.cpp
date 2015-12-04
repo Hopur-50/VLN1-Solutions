@@ -4,6 +4,8 @@
 
 #include <fstream>
 #include <cstdlib>
+#include <iostream>
+
 
 using namespace std;
 
@@ -99,4 +101,22 @@ bool ScientistRepository::addScientist(Scientist scientist)
 
     file.close();
     return true;
+}
+void ScientistRepository::OpenDatabase()
+{
+    QSqlDatabase db;
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    QString dbName = "fistdatabase.sqlite";
+    db.setDatabaseName(dbName);
+
+
+    db.open();
+    QSqlQuery query(db);
+
+    if(!db.open())
+    {
+        cout << "Failed to open the database" << endl;
+    }
+    else
+        cout << "Connected..." << endl;
 }
