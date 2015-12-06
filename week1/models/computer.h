@@ -11,21 +11,21 @@ enum computerType{
 class Computer
 {
 public:
-    Computer(std::string name, std::string type, std::string wasItConstructed);
-    Computer(std::string name, std::string type, std::string wasItConstructed, int yearOfConstruction);
+    Computer(std::string name, std::string type, bool wasItConstructed);
+    Computer(std::string name, std::string type, bool wasItConstructed, int yearOfConstruction);
 
     std::string getName() const;
     std::string getType() const;
     //enum computerType getType() const;
     int getYearOfConstruction() const;
-    std::string getWasItConstructed()const;
+    bool getWasItConstructed()const;
 
 
 private:
     std::string name;
     std::string type;
     int yearOfConstruction;
-    std::string wasItConstructed;
+    bool wasItConstructed;
 
 };
 
