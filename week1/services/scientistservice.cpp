@@ -3,14 +3,12 @@
 
 #include <algorithm>
 
-using namespace std;
-
 ScientistService::ScientistService()
 {
 
 }
 
-std::vector<Scientist> ScientistService::getAllScientists(QString orderBy)
+std::vector<Scientist> ScientistService::getAllScientists(std::string orderBy)
 {
     std::vector<Scientist> scientists = scientistRepo.getAllScientists(orderBy);
 
@@ -40,18 +38,18 @@ bool ScientistService::addComputer(Computer computer)
     return true;
 }
 
-bool ScientistService::addRelation(string scientist, string computer)
+bool ScientistService::addRelation(std::string scientist, std::string computer)
 {
     return true;
 }
 
-vector<Computer> ScientistService::getRelatedComputers(std::string input)
+std::vector<Computer> ScientistService::getRelatedComputers(std::string input)
 {
     std::vector<Computer> compVec;
     return compVec;
 }
 
-vector<Scientist> ScientistService::getRelatedScientists(std::string input)
+std::vector<Scientist> ScientistService::getRelatedScientists(std::string input)
 {
     std::vector<Scientist> scientistVec;
     return scientistVec;

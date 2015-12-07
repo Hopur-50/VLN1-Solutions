@@ -10,12 +10,12 @@ ScientistRepository::ScientistRepository()
     fileName = constants::DATA_FILE_NAME;
 }
 
-std::vector<Scientist> ScientistRepository::getAllScientists(QString orderQuery)
+std::vector<Scientist> ScientistRepository::getAllScientists(std::string orderBy)
 {
     std::vector<Scientist> scientists;
 
-    QString finalQuery = constants::SELECT_ALL_SCIENTISTS + " " + orderQuery;
-    QSqlQuery query(finalQuery);
+    QString orderQuery = QString::fromStdString(constants::SELECT_ALL_SCIENTISTS) + " " + QString::fromStdString(orderBy);
+    QSqlQuery query(orderQuery);
 
     while (query.next()) {
         std::string name = query.value(0).toString().toStdString();

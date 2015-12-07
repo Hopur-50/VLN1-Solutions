@@ -197,7 +197,7 @@ void Interface::display() //Prints from the vector
 
 void Interface::displayAllScientists()
 {
-    QString orderBy="DELETA ÞESSU";
+    std::string orderBy="DELETA ÞESSU";
     vector<Scientist> scientists = scientistService.getAllScientists(orderBy);
     displayScientists(scientists);
     cout << '\n';

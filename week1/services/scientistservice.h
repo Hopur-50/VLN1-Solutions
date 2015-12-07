@@ -19,7 +19,7 @@ public:
      */
     std::vector<Computer> getAllComputers();
 
-    std::vector<Scientist> getAllScientists(QString orderBy);
+    std::vector<Scientist> getAllScientists(std::string orderBy);
 
     /**
      * @brief searchForScientists fetches all scientists from file and filters them on searchTerm
