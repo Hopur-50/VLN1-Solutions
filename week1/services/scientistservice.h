@@ -17,8 +17,9 @@ public:
      * @param orderAscending Should the list be sorted in ascending order?
      * @return a vector containing all scientists in the repository
      */
-    std::vector<Scientist> getAllScientists(std::string orderBy, bool orderAscending);
     std::vector<Computer> getAllComputers();
+
+    std::vector<Scientist> getAllScientists(QString orderBy);
 
     /**
      * @brief searchForScientists fetches all scientists from file and filters them on searchTerm

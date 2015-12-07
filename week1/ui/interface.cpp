@@ -197,9 +197,8 @@ void Interface::display() //Prints from the vector
 
 void Interface::displayAllScientists()
 {
-    string orderBy="DELETA ÞESSU";
-    bool ascending=true;
-    vector<Scientist> scientists = scientistService.getAllScientists(orderBy, ascending);
+    QString orderBy="DELETA ÞESSU";
+    vector<Scientist> scientists = scientistService.getAllScientists(orderBy);
     displayScientists(scientists);
     cout << '\n';
     }

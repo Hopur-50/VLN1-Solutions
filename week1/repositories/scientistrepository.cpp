@@ -5,21 +5,39 @@
 #include <cstdlib>
 #include <iostream>
 
-using namespace std;
-
 ScientistRepository::ScientistRepository()
 {
     fileName = constants::DATA_FILE_NAME;
 }
 
-std::vector<Scientist> ScientistRepository::getAllScientists()
+std::vector<Scientist> ScientistRepository::getAllScientists(QString orderQuery)
 {
-    ifstream file;
+    //ifstream file;
 
-    file.open(fileName.c_str());
+    //file.open(fileName.c_str());
 
-    vector<Scientist> scientists;
+    std::vector<Scientist> scientists;
 
+    QSqlQuery query(orderQuery);
+
+    while (query.next()) {
+        std::string name = query.value(0).toString().toStdString();
+        enum sexType sex = utils::stringToSex(query.value(1).toString().toStdString());
+        int yearBorn = query.value(2).toInt();
+
+        if (query.value(3).isNull())
+        {
+            scientists.push_back(Scientist(name, sex, yearBorn));
+        }
+        else
+        {
+            int yearDied = query.value(3).toInt();
+            scientists.push_back(Scientist(name, sex, yearBorn, yearDied));
+        }
+
+    }
+
+/*
     if (file.is_open())
     {
         string line;
@@ -48,14 +66,14 @@ std::vector<Scientist> ScientistRepository::getAllScientists()
     }
 
     file.close();
-
+*/
     return scientists;
 }
 
-vector<Scientist> ScientistRepository::searchForScientists(string searchTerm)
+std::vector<Scientist> ScientistRepository::searchForScientists(std::string searchTerm)
 {
-    vector<Scientist> allScientists = getAllScientists();
-    vector<Scientist> filteredScientists;
+    std::vector<Scientist> allScientists = getAllScientists(constants::SORT_SCIENTIST_NAME_ASCENDING);
+    std::vector<Scientist> filteredScientists;
 
     for (unsigned int i = 0; i < allScientists.size(); i++)
     {
@@ -69,14 +87,14 @@ vector<Scientist> ScientistRepository::searchForScientists(string searchTerm)
 }
 
 bool ScientistRepository::addScientist(Scientist scientist)
-{
+{/*
     ofstream file;
 
     file.open(fileName.c_str(), std::ios::app);
 
     if (file.is_open())
     {
-        string name = scientist.getName();
+        std::string name = scientist.getName();
         enum sexType sex = scientist.getSex();
         int yearBorn = scientist.getYearBorn();
         int yearDied = scientist.getYearDied();
@@ -97,6 +115,6 @@ bool ScientistRepository::addScientist(Scientist scientist)
         return false;
     }
 
-    file.close();
+    file.close();*/
     return true;
 }
