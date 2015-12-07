@@ -14,15 +14,11 @@ SOURCES += main.cpp \
     models/scientist.cpp \
     repositories/scientistrepository.cpp \
     services/scientistservice.cpp \
-    ui/consoleui.cpp \
     utilities/utils.cpp \
-<<<<<<< HEAD
     models/computer.cpp \
-    utilities/scientistcomparator.cpp
-=======
     utilities/scientistcomparator.cpp \
-    models/relation.cpp
->>>>>>> f9139b590152c9ce446e2d66764eb5dd6a3458bf
+    models/relation.cpp \
+    ui/interface.cpp
 
 HEADERS += \
     models/scientist.h \
@@ -30,11 +26,8 @@ HEADERS += \
     utilities/utils.h \
     utilities/constants.h \
     services/scientistservice.h \
-    ui/consoleui.h \
     utilities/scientistcomparator.h \
-<<<<<<< HEAD
-    models/computer.h
-=======
+    models/computer.h \
+    ui/interface.h
     models/relation.h
->>>>>>> f9139b590152c9ce446e2d66764eb5dd6a3458bf
 

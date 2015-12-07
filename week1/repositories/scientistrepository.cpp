@@ -4,10 +4,6 @@
 #include <fstream>
 #include <cstdlib>
 #include <iostream>
-<<<<<<< HEAD
-
-=======
->>>>>>> f9139b590152c9ce446e2d66764eb5dd6a3458bf
 
 using namespace std;
 
@@ -104,30 +100,3 @@ bool ScientistRepository::addScientist(Scientist scientist)
     file.close();
     return true;
 }
-<<<<<<< HEAD
-void ScientistRepository::OpenDatabase()
-{
-    QSqlDatabase db;
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    QString dbName = "fistdatabase.sqlite";
-    db.setDatabaseName(dbName);
-
-
-    db.open();
-    QSqlQuery query(db);
-
-    if(!db.open())
-    {
-        cout << "Failed to open the database" << endl;
-    }
-    else
-        cout << "Connected..." << endl;
-}
-=======
-
-    /* QSqlDatabase db = QSqlDatabase();
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("firstDatabase.sqlite"); */
-
-
->>>>>>> f9139b590152c9ce446e2d66764eb5dd6a3458bf

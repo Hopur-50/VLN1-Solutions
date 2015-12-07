@@ -1,13 +1,13 @@
 #include "computer.h"
 
-Computer::Computer(std::string name, std::string type, std::string wasItConstructed)
+Computer::Computer(std::string name, std::string type, bool wasItConstructed)
 {
     this->name = name;
     this->type = type;
     this->wasItConstructed = wasItConstructed;
 
 }
-Computer::Computer(std::string name, std::string type, std::string wasItConstructed, int yearOfConstruction)
+Computer::Computer(std::string name, std::string type, bool wasItConstructed, int yearOfConstruction)
 {
     this->name = name;
     this->type = type;

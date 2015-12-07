@@ -1,4 +1,4 @@
-#include "ui/consoleui.h"
+#include "ui/interface.h"
 
 #include <QCoreApplication>
 #include <iostream>

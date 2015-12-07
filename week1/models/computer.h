@@ -11,8 +11,8 @@ enum computerType{
 class Computer
 {
 public:
-    Computer(std::string name, std::string type, std::string wasItConstructed);
-    Computer(std::string name, std::string type, std::string wasItConstructed, int yearOfConstruction);
+    Computer(std::string name, std::string type, bool wasItConstructed);
+    Computer(std::string name, std::string type, bool wasItConstructed, int yearOfConstruction);
 
     std::string getName() const;
     std::string getType() const;
