@@ -12,13 +12,10 @@ ScientistRepository::ScientistRepository()
 
 std::vector<Scientist> ScientistRepository::getAllScientists(QString orderQuery)
 {
-    //ifstream file;
-
-    //file.open(fileName.c_str());
-
     std::vector<Scientist> scientists;
 
-    QSqlQuery query(orderQuery);
+    QString finalQuery = constants::SELECT_ALL_SCIENTISTS + " " + orderQuery;
+    QSqlQuery query(finalQuery);
 
     while (query.next()) {
         std::string name = query.value(0).toString().toStdString();
@@ -37,36 +34,6 @@ std::vector<Scientist> ScientistRepository::getAllScientists(QString orderQuery)
 
     }
 
-/*
-    if (file.is_open())
-    {
-        string line;
-        while(getline(file, line))
-        {
-            vector<string> fields = utils::splitString(line, constants::FILE_DELIMETER);
-
-            if (fields.size() >= 3)
-            {
-                string name = fields.at(0);
-                enum sexType sex = utils::stringToSex(fields.at(1));
-                int yearBorn = utils::stringToInt(fields.at(2));
-
-                if (fields.size() == 3)
-                {
-                    scientists.push_back(Scientist(name, sex, yearBorn));
-                }
-                else
-                {
-                    int yearDied = utils::stringToInt(fields.at(3));
-
-                    scientists.push_back(Scientist(name, sex, yearBorn, yearDied));
-                }
-            }
-        }
-    }
-
-    file.close();
-*/
     return scientists;
 }
 
