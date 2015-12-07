@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-#include "ui/interface.h"
 
-=======
->>>>>>> dc00e4ab57a628b105aca69fd545fc8a21f5c6d4
+#include "ui/interface.h"
 #include <QCoreApplication>
 #include <iostream>
 #include <QtSql>
