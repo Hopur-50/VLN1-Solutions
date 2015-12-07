@@ -112,7 +112,7 @@ bool Interface::addScientist()
 bool Interface::addComputer()
 {
     cout << "To add a computer, type in:" << endl;
-    cout << "Name,type,wasItBuilt?(Y/N),yearBuilt (optional)" << endl;
+    cout << "Name,type,wasItConstructed?(Y/N),yearOfConstruction (optional)" << endl;
     cout << "Comma separated like in the example above." << endl;
     cout << "If you would like to go back to the main menu, please type: back" << endl;
     cout << "Input: ";
@@ -124,13 +124,13 @@ bool Interface::addComputer()
     {
         string name = fields.at(0);
         string type = fields.at(1);
-        bool wasItBuilt;
+        bool wasItConstructed;
         if(fields.at(2)=="Y" || fields.at(2)=="y")
         {
-            wasItBuilt = true;
+            wasItConstructed = true;
         }else if(fields.at(2)=="N" || fields.at(2)=="n")
         {
-            wasItBuilt = false;
+            wasItConstructed = false;
         }else
         {
             return false;
@@ -138,13 +138,13 @@ bool Interface::addComputer()
         if (fields.size() == 3)
         {
             cout << "Successfully added a computer" << endl;
-            return scientistService.addComputer(Computer(name, type, wasItBuilt));
+            return scientistService.addComputer(Computer(name, type, wasItConstructed));
         }
         else
         {
-            int yearBuilt = utils::stringToInt(fields.at(3));
+            int yearOfConstruction = utils::stringToInt(fields.at(3));
             cout << "Successfully added a computer" << endl;
-            return scientistService.addComputer(Computer(name, type, wasItBuilt, yearBuilt));
+            return scientistService.addComputer(Computer(name, type, wasItConstructed, yearOfConstruction));
         }
     }
     cout << "There was an error in your input." << endl;
@@ -166,7 +166,7 @@ bool Interface::addRelation()
         string scientist = fields.at(0);
         string computer = fields.at(1);
         cout << "Successfully added a relation" << endl;
-        return(scientistService.addRelation(Relation(scientist, computer)));
+        return(scientistService.addRelation(scientist, computer));
     }
     cout << "There was an error in your input." << endl;
     return false;
@@ -197,7 +197,9 @@ void Interface::display() //Prints from the vector
 
 void Interface::displayAllScientists()
 {
-    vector<Scientist> scientists = scientistService.getAllScientists();
+    string orderBy="DELETA ÞESSU";
+    bool ascending=true;
+    vector<Scientist> scientists = scientistService.getAllScientists(orderBy, ascending);
     displayScientists(scientists);
     cout << '\n';
     }
@@ -257,18 +259,18 @@ void Interface::displayComputers(std::vector<Computer> computers)
     {
         string computerType = computers.at(i).getType();
 
-        int yearBuilt = computers.at(i).getYearBuilt();
+        int yearOfConstruction = computers.at(i).getYearOfConstruction();
         //Þarf að laga built um leið og veit hvernig það er storað
-        string built = (yearBuilt == constants::YEAR_DIED_DEFAULT_VALUE) ? "Not built" : utils::intToString(yearDied);
+        string built = (yearOfConstruction == constants::YEAR_DIED_DEFAULT_VALUE) ? "Not built" : utils::intToString(yearOfConstruction);
 
         cout << setw(20) << std::left << computers.at(i).getName()
              << setw(8) << std::left << computerType
-             << setw(12) << std::left << computers.at(i).getYearBuilt()
+             << setw(12) << std::left << computers.at(i).getYearOfConstruction()
              << setw(12) << std::left << built << endl;
     }
 }
 
-void displayRelations()
+void Interface::displayRelations()
 {
     cout << "Choose 1 to display all relations to a scientist" << endl;
     cout << "Choose 2 to display all relations to a computer" << endl;
@@ -287,7 +289,7 @@ void displayRelations()
     }
 }
 
-void displayScientistRelations()
+void Interface::displayScientistRelations()
 {
     cout << "Enter the scientist whose computers you would like to see: ";
     string input;
@@ -297,7 +299,7 @@ void displayScientistRelations()
     cout << '\n';
 }
 
-void displayComputerRelations()
+void Interface::displayComputerRelations()
 {
     cout << "Enter the computer whose scientists you would like to see: ";
     string input;
@@ -317,9 +319,9 @@ void Interface::selectOrder()
     cout << "2 for a list of first names in alphabetical order" << endl;
     cout << "3 for a list sorted by date of birth in ascending order" << endl;
     cout << "4 for a list sorted by date of birth in descending order" << endl;
-        cin >> userChoice2;
+    cin >> userChoice2;
 
-    if(userChoice2 > 0 && userChoice2 < 5) sl.change_sort_order(userChoice2);
+    if(userChoice2 > 0 && userChoice2 < 5) scientistService.change_sort_order(userChoice2);
     else {
         cout << "Wrong input" << endl;
         selectOrder();
@@ -359,6 +361,6 @@ void Interface::searchComputer()
     cout << "Type in the search term: ";
     string userInput;
     cin >> userInput;
-    displayComputers(scientistService.searchForComputer(userInput));
+    displayComputers(scientistService.searchForComputers(userInput));
 }
 

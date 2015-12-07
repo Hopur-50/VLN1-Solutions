@@ -18,6 +18,7 @@ public:
      * @return a vector containing all scientists in the repository
      */
     std::vector<Scientist> getAllScientists(std::string orderBy, bool orderAscending);
+    std::vector<Computer> getAllComputers();
 
     /**
      * @brief searchForScientists fetches all scientists from file and filters them on searchTerm
@@ -32,6 +33,13 @@ public:
      * @return true if it was a success, false if it was a failure
      */
     bool addScientist(Scientist scientist);
+    bool addComputer(Computer computer);
+    bool addRelation(std::string scientist, std::string computer);
+    std::vector<Computer> getRelatedComputers(std::string input);
+    std::vector<Scientist> getRelatedScientists(std::string input);
+    void change_sort_order(int input);
+    std::vector<Computer> searchForComputers(std::string searchTerm);
+
 private:
     ScientistRepository scientistRepo;
 };
