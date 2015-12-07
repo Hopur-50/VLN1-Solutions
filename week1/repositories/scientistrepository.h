@@ -6,6 +6,7 @@
 //#include <QtSql>
 
 #include "models/scientist.h"
+#include "models/computer.h"
 #include <QtSql>
 
 

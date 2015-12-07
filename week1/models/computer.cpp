@@ -19,10 +19,12 @@ std::string Computer::getName() const
 {
     return name;
 }
-/*enum Computer::computerType getType() const
+
+std::string Computer::getType() const
 {
     return type;
-}*/
+}
+
 int Computer::getYearOfConstruction() const
 {
     return yearOfConstruction;

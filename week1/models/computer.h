@@ -16,7 +16,6 @@ public:
 
     std::string getName() const;
     std::string getType() const;
-    //enum computerType getType() const;
     int getYearOfConstruction() const;
     bool getWasItConstructed()const;
 
