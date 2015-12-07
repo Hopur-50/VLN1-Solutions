@@ -84,7 +84,7 @@ private:
     ScientistService scientistService;
     enum command lastCommand;
 
-    std::string sortBy;
+    QString sortBy;
     bool sortAscending;
 };
 

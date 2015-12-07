@@ -164,7 +164,7 @@ void ConsoleUI::displayAddScientistMenu()
 
 void ConsoleUI::displayAllScientists()
 {
-    vector<Scientist> scientists = scientistService.getAllScientists(sortBy, sortAscending);
+    vector<Scientist> scientists = scientistService.getAllScientists(sortBy);
 
     displayScientists(scientists);
 
@@ -185,22 +185,22 @@ void ConsoleUI::displayScientistSortMenu()
 {
     cout << "How should the list be sorted:\n\n";
     cout << setw(constants::MENU_COMMAND_WIDTH) << std::left
-         << constants::SORT_SCIENTIST_NAME_ASCENDING << "Sorts by name, ascending.\n";
+         << "Sorts by name, ascending.\n";
 
     cout << setw(constants::MENU_COMMAND_WIDTH) << std::left
-         << constants::SORT_SCIENTIST_NAME_DESCENDING << "Sorts by name, descending.\n";
+         << "Sorts by name, descending.\n";
 
     cout << setw(constants::MENU_COMMAND_WIDTH) << std::left
-         << constants::SORT_SCIENTIST_YEAR_BORN_ASCENDING << "Sorts by year born, ascending.\n";
+         << "Sorts by year born, ascending.\n";
 
     cout << setw(constants::MENU_COMMAND_WIDTH) << std::left
-         << constants::SORT_SCIENTIST_YEAR_BORN_DESCENDING << "Sorts by year born, descending.\n";
+         << "Sorts by year born, descending.\n";
 
     cout << setw(constants::MENU_COMMAND_WIDTH) << std::left
-         << constants::SORT_SCIENTIST_YEAR_DIED_ASCENDING << "Sorts by year died, ascending.\n";
+         << "Sorts by year died, ascending.\n";
 
     cout << setw(constants::MENU_COMMAND_WIDTH) << std::left
-         << constants::SORT_SCIENTIST_YEAR_DIED_DESCENDING << "Sorts by year died, descending.\n\n";
+         << "Sorts by year died, descending.\n\n";
 
     cout << "If you would like to go back to the main menu, please type: back\n";
 
@@ -277,7 +277,7 @@ bool ConsoleUI::addScientist(string data)
 }
 
 bool ConsoleUI::setSort(string sortCommand)
-{
+{/*
     if (sortCommand == constants::SORT_SCIENTIST_NAME_ASCENDING)
     {
         sortBy = "name";
@@ -312,7 +312,7 @@ bool ConsoleUI::setSort(string sortCommand)
     {
         return false;
     }
-
+*/
     return true;
 }
 

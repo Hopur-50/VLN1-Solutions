@@ -22,7 +22,7 @@ public:
      * @brief getAllScientists fetches all scientists from the data file
      * @return a vector containing all scientists in the data file
      */
-    std::vector<Scientist> getAllScientists();
+    std::vector<Scientist> getAllScientists(QString orderQuery);
 
     /**
      * @brief searchForScientists fetches all scientists from file and filters them on searchTerm
