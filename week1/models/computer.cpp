@@ -28,7 +28,7 @@ int Computer::getYearOfConstruction() const
     return yearOfConstruction;
 
 }
-std::string Computer::getWasItConstructed() const
+bool Computer::getWasItConstructed() const
 {
     return wasItConstructed;
 

@@ -18,14 +18,14 @@ public:
     std::string getType() const;
     //enum computerType getType() const;
     int getYearOfConstruction() const;
-    std::string getWasItConstructed()const;
+    bool getWasItConstructed()const;
 
 
 private:
     std::string name;
     std::string type;
     int yearOfConstruction;
-    std::string wasItConstructed;
+    bool wasItConstructed;
 
 };
 

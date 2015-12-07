@@ -1,19 +1,16 @@
+<<<<<<< HEAD
 #include "ui/interface.h"
 
+=======
+>>>>>>> dc00e4ab57a628b105aca69fd545fc8a21f5c6d4
 #include <QCoreApplication>
 #include <iostream>
 #include <QtSql>
 #include <string>
-
 using namespace std;
 
 int main()
 {
-
-    void ScientistRepository();
-
-    //ConsoleUI ui;
-    //return ui.start();
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
     QString dbName = "secondDatabase.sqlite";
@@ -31,11 +28,11 @@ int main()
    /* string queryCreate = "CREATE TABLE Scientists(id INTEGER, name VARCHAR, gender CHAR, yearOfBirth INTEGER, yearOfDeath INTEGER, PRIMARY KEY (id));";
     query.exec(QString(queryCreate.c_str())); */
 
-   /* string queryCreate = "CREATE TABLE Computers(id INTEGER, name VARCHAR, computerType VARCHAR, construct BOOL, PRIMARY KEY(id));";
-    query.exec(QString(queryCreate.c_str())); */
+    string queryCreate = "CREATE TABLE Computers(id INTEGER, name VARCHAR, buildYear INTEGER, computerType VARCHAR, construct BOOL, PRIMARY KEY(id));";
+    query.exec(QString(queryCreate.c_str()));
 
-   string queryCreate = "CREATE TABLE ScientistsComputers(scientistsID INTEGER, computersID INTEGER, PRIMARY KEY(scientistsID, computersID), FOREIGN KEY (scientistsID) REFERENCES Scientists(id), FOREIGN KEY (computersID) REFERENCES Computers(id));";
-   query.exec(QString(queryCreate.c_str()));
+   /* string queryCreate = "CREATE TABLE ScientistsComputers(scientistsID INTEGER, computersID INTEGER, PRIMARY KEY(scientistsID, computersID), FOREIGN KEY (scientistsID) REFERENCES Scientists(id), FOREIGN KEY (computersID) REFERENCES Computers(id));";
+   query.exec(QString(queryCreate.c_str())); */
 
    /* int born;
     int died;

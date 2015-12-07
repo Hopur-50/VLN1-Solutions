@@ -4,7 +4,10 @@
 #include <fstream>
 #include <cstdlib>
 #include <iostream>
+<<<<<<< HEAD
 
+=======
+>>>>>>> dc00e4ab57a628b105aca69fd545fc8a21f5c6d4
 using namespace std;
 
 ScientistRepository::ScientistRepository()

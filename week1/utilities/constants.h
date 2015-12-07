@@ -11,6 +11,7 @@ namespace constants {
     const std::string DATA_FILE_NAME = "database.txt";
     const char FILE_DELIMETER = '\t';
     const int YEAR_DIED_DEFAULT_VALUE = 13337;
+    const int YEAR_OF_CONSTRUCTION_VALUE = 80083;
 
     const unsigned int MENU_COMMAND_WIDTH = 15;
 
