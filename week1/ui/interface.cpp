@@ -606,6 +606,6 @@ void Interface::searchComputer()
     string userInput;
     cin.ignore();
     getline(cin, userInput);
-    //displayComputers(computerService.searchForComputers(userInput));
+    displayComputers(computerService.searchForComputers(userInput));
 }
 
