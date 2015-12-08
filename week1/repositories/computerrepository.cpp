@@ -160,7 +160,12 @@ std::vector<Computer> ComputerRepository::getAllComputers(std::string orderBy)
         }
         else
         {
+
+            std::cout << "4\n";
+            computers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
+
               computers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
+
         }
     }
 

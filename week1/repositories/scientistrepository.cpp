@@ -19,7 +19,16 @@ std::vector<Scientist> ScientistRepository::getAllScientists(std::string orderBy
     while (query.next())
     {
         std::string name = query.value(0).toString().toStdString();
-        enum sexType sex = utils::stringToSex(query.value(1).toString().toStdString());
+        std::string sexString = query.value(1).toString().toStdString();
+        enum sexType sex;
+        if(sexString == "m" || sexString == " m" || sexString == "male" || sexString == " male")
+        {
+            sex = male;
+        }
+        else
+        {
+            sex = female;
+        }
         int yearBorn = query.value(2).toInt();
         int yearDied = query.value(3).toInt();
 

@@ -78,7 +78,7 @@ bool Scientist::contains(string searchTerm)
     }
     else
     {
-        if (searchTermLower == "alive")
+        if (searchTermLower == "alive") //If user inputs 0, it changes to alive
         {
             return true;
         }
