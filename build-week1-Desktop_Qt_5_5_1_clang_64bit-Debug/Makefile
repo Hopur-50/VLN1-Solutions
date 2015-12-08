@@ -733,6 +733,7 @@ scientistrepository.o: ../week1/repositories/scientistrepository.cpp ../week1/re
 
 computerrepository.o: ../week1/repositories/computerrepository.cpp ../week1/repositories/computerrepository.h \
 		../week1/models/computer.h \
+		../week1/models/scientist.h \
 		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/QtSql \
 		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsql.h \
 		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
@@ -750,7 +751,6 @@ computerrepository.o: ../week1/repositories/computerrepository.cpp ../week1/repo
 		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqltablemodel.h \
 		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qtsqlversion.h \
 		../week1/utilities/utils.h \
-		../week1/models/scientist.h \
 		../week1/utilities/constants.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o computerrepository.o ../week1/repositories/computerrepository.cpp
 

@@ -109,7 +109,7 @@ bool Interface::addScientist()
     int userChoice;
 
     cout << "To add a scientist, type in:" << endl;
-    cout << "Name,sex,yearBorn,yearDied (optional)" << endl;
+    cout << "Name, sex, yearBorn, yearDied(optional)" << endl;
     cout << "Comma separated like in the example above." << endl;
     cout << "If you would like to go back to the main menu, please type the number 0" << endl;
     cout << "Input: ";
@@ -162,7 +162,7 @@ bool Interface::addComputer()
     int userChoice;
 
     cout << "To add a computer, type in:" << endl;
-    cout << "Name,type,wasItConstructed?(Y/N),yearOfConstruction (optional)" << endl;
+    cout << "Name, type, wasItConstructed? (Y/N), yearOfConstruction(optional)" << endl;
     cout << "Comma separated like in the example above." << endl;
     cout << "If you would like to go back to the main menu, please type the number 0" << endl;
     cout << "Input: ";

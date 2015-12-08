@@ -11,6 +11,37 @@ ComputerRepository::ComputerRepository()
 {
     fileName = constants::DATA_FILE_NAME;
 }
+std::vector<Computer> ComputerRepository::searchForComputer(std::string searchTerm)
+{
+    std::vector<Computer> filteredComputers;
+    QString QSearchTerm = QString::fromStdString(searchTerm);
+    QString searchQuery = QString::fromStdString(constants::SELECT_ALL_COMPUTERS)+
+    "WHERE s.name LIKE %" + QSearchTerm + "%" +
+    "OR s.type LIKE %" + QSearchTerm + "%" +
+    "OR s.wasItConstructed LIKE %" + QSearchTerm + "%" +
+    "OR s.yearOfConstruction LIKE %" + QSearchTerm + "%";
+
+    QSqlQuery query(searchQuery);
+
+    while(query.next())
+    {
+        std::string name = query.value(0).toString().toStdString();
+        std::string type = query.value(1).toString().toStdString();
+        int wasItConstructed = query.value(3).toInt();
+        int yearOfConstruction = query.value(4).toInt();
+
+        if(wasItConstructed == 0)
+        {
+            filteredComputers.push_back(Computer(name, type, wasItConstructed));
+        }
+        else
+        {
+            filteredComputers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
+        }
+
+    }
+    return filteredComputers;
+}
 void ComputerRepository::addRelation(std::string scientist, std::string computer)
 {
     QSqlQuery query;
