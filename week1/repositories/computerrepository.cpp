@@ -84,7 +84,7 @@ std::vector<Scientist> ComputerRepository::getRelatedScientists(std::string name
     while(query.next())
     {
         int csId = query.value(i).toInt();
-        query2.prepare("SELECT name, gender, yearOfBirth, yearOfDeath FROM Scientists WHERE id = :dbCsId");
+        query2.prepare("SELECT name, sex, yearOfBirth, yearOfDeath FROM Scientists WHERE id = :dbCsId");
         query2.bindValue(":dbCsId", csId);
         query2.exec();
         while(query2.next())

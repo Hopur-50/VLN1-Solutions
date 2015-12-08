@@ -131,13 +131,14 @@ bool Interface::addScientist()
 
         if (fields.at(1) == "male" || fields.at(1) == " male") //Because EVERYONE writes a space after a comma.
         {
+            cout << "hae karl";
             sex = sexType::male;
-            fields.at(1) = sex;
         }
+
         else if(fields.at(1) == "female" || fields.at(1) == " female")
         {
+            cout << "hae kona";
             sex = sexType::female;
-            fields.at(1) = sex;
         }
 
         int yearBorn = utils::stringToInt(fields.at(2));
