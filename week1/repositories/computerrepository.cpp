@@ -15,10 +15,10 @@ std::vector<Computer> ComputerRepository::searchForComputer(std::string searchTe
     std::vector<Computer> filteredComputers;
     QString QSearchTerm = QString::fromStdString(searchTerm);
     QString searchQuery = QString::fromStdString(constants::SELECT_ALL_COMPUTERS)+
-    "WHERE s.name LIKE %" + QSearchTerm + "%" +
-    "OR s.type LIKE %" + QSearchTerm + "%" +
-    "OR s.wasItConstructed LIKE %" + QSearchTerm + "%" +
-    "OR s.yearOfConstruction LIKE %" + QSearchTerm + "%";
+    "WHERE c.name LIKE %" + QSearchTerm + "%" +
+    "OR c.computerType LIKE %" + QSearchTerm + "%" +
+    "OR c.constructed LIKE %" + QSearchTerm + "%" +
+    "OR c.buildYear LIKE %" + QSearchTerm + "%";
 
     QSqlQuery query(searchQuery);
 
@@ -26,15 +26,16 @@ std::vector<Computer> ComputerRepository::searchForComputer(std::string searchTe
     {
         std::string name = query.value(0).toString().toStdString();
         std::string type = query.value(1).toString().toStdString();
-        int wasItConstructed = query.value(3).toInt();
-        int yearOfConstruction = query.value(4).toInt();
+        int wasItConstructed = query.value(2).toInt();
+        int yearOfConstruction = query.value(3).toInt();
 
-        if(wasItConstructed == 0)
+        if(query.value(2).isNull())
         {
             filteredComputers.push_back(Computer(name, type, wasItConstructed));
         }
         else
         {
+
             filteredComputers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
         }
 
@@ -83,7 +84,7 @@ std::vector<Scientist> ComputerRepository::getRelatedScientists(std::string name
     while(query.next())
     {
         int csId = query.value(i).toInt();
-        query2.prepare("SELECT name, sex, yearOfBirth, yearOfDeath FROM Scientists WHERE id = :dbCsId");
+        query2.prepare("SELECT name, gender, yearOfBirth, yearOfDeath FROM Scientists WHERE id = :dbCsId");
         query2.bindValue(":dbCsId", csId);
         query2.exec();
         while(query2.next())
@@ -160,15 +161,10 @@ std::vector<Computer> ComputerRepository::getAllComputers(std::string orderBy)
         }
         else
         {
-
-            std::cout << "4\n";
             computers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
-
-              computers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
-
+            computers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
         }
     }
-
     return computers;
 }
 
