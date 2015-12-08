@@ -13,7 +13,7 @@ public:
     std::vector<Computer> getAllComputers();
     std::vector<Computer> searchForComputers(std::string searchTerm);
     bool addComputer(Computer computer);
-    bool addRelation(std::string sci, std::string comp);
+    bool addRelation(Scientist scientist, Computer computer);
     std::vector<Scientist> getRelatedScientists(std::string input);
     void changeSortOrder(int input);
 
