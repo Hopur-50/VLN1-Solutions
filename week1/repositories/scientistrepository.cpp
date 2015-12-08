@@ -39,6 +39,48 @@ std::vector<Scientist> ScientistRepository::getAllScientists(std::string orderBy
     return scientists;
 }
 
+std::vector<Computer> ScientistRepository::getRelatedComputers(std::string name)
+{
+    QSqlQuery query;
+    std::vector<Computer> computers;
+    query.prepare("SELECT id FROM Scientists WHERE name = :dbName");
+    query.bindValue(":dbName", QString::fromStdString(name));
+    query.exec();
+    query.next();
+    int scientistId = query.value(0).toInt();
+
+    query.prepare("SELECT cId FROM Relations WHERE csId = :dbCsId");
+    query.bindValue(":dbCsId", scientistId);
+    query.exec();
+    int i=0;
+    QSqlQuery query2;
+    while(query.next())
+    {
+        int cId=query.value(i).toInt();
+        query2.prepare("SELECT name, buildYear, computerType, constructed FROM Computers WHERE id = :dbCId");
+        query2.bindValue(":dbCId", cId);
+        query2.exec();
+        while(query2.next())
+        {
+            std::string name = query2.value(0).toString().toStdString();
+            int buildYear = query2.value(1).toInt();
+            std::string type = query2.value(2).toString().toStdString();
+            bool wasItConstructed = query2.value(3).toBool();
+            if(query2.value(1).isNull())
+            {
+                computers.push_back(Computer(name, type, wasItConstructed));
+            }
+            else
+            {
+                computers.push_back(Computer(name, type, wasItConstructed, buildYear));
+            }
+        }
+        i++;
+    }
+
+    return computers;
+}
+
 std::vector<Scientist> ScientistRepository::searchForScientists(std::string searchTerm)
 {
     //std::vector<Scientist> allScientists = getAllScientists(constants::SORT_SCIENTIST_NAME_ASCENDING);
