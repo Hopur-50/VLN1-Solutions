@@ -9,7 +9,7 @@ std::vector<Computer> ComputerService::getAllComputers()
 {
     return computerRepo.getAllComputers(currentOrder);
 }
-/*
+
 std::vector<Computer> ComputerService::searchForComputers(std::string searchTerm)
 {
     return computerRepo.searchForComputer(searchTerm);
@@ -23,8 +23,7 @@ bool ComputerService::addComputer(Computer computer)
 
 std::vector<Scientist> ComputerService::getRelatedScientists(std::string input)
 {
-    std::vector<Scientist> scientistVec;
-    return scientistVec; //TODO implement
+    return computerRepo.getRelatedScientists(input);
 }
 
 void ComputerService::changeSortOrder(int input)
