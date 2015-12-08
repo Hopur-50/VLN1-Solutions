@@ -41,12 +41,12 @@ std::vector<Scientist> ScientistRepository::searchForScientists(std::string sear
 {
     //std::vector<Scientist> allScientists = getAllScientists(constants::SORT_SCIENTIST_NAME_ASCENDING);
     std::vector<Scientist> filteredScientists;
-
+    QString QSearchTerm = QString::fromStdString(searchTerm);
     QString searchQuery = QString::fromStdString(constants::SELECT_ALL_SCIENTISTS) +
-    " WHERE s.name LIKE %" + QString::fromStdString(searchTerm) + "%" +
-    " OR s.gender LIKE %" + QString::fromStdString(searchTerm) + "%" +
-    " OR s.yearOfBirth LIKE %" + QString::fromStdString(searchTerm) + "%" +
-    " OR s.yearOfDeath LIKE %" + QString::fromStdString(searchTerm) + "%";
+    " WHERE s.name LIKE %" + QSearchTerm + "%" +
+    " OR s.gender LIKE %" + QSearchTerm + "%" +
+    " OR s.yearOfBirth LIKE %" + QSearchTerm + "%" +
+    " OR s.yearOfDeath LIKE %" + QSearchTerm + "%";
 
     QSqlQuery query(searchQuery);
 
@@ -71,34 +71,32 @@ std::vector<Scientist> ScientistRepository::searchForScientists(std::string sear
 }
 
 bool ScientistRepository::addScientist(Scientist scientist)
-{/*
-    ofstream file;
+{
+    QSqlQuery query;
 
-    file.open(fileName.c_str(), std::ios::app);
+    std::string name = scientist.getName();
+    enum sexType sex = scientist.getSex();
+    int yearBorn = scientist.getYearBorn();
+    int yearDied = scientist.getYearDied();
 
-    if (file.is_open())
+    if (yearDied == constants::YEAR_DIED_DEFAULT_VALUE)
     {
-        std::string name = scientist.getName();
-        enum sexType sex = scientist.getSex();
-        int yearBorn = scientist.getYearBorn();
-        int yearDied = scientist.getYearDied();
+        query.prepare("INSERT INTO Scientists (name, gender, yearOfBirth) VALUES(:dbname,:dbgender,:dbyearOfBirth)");
+        query.bindValue(":dbname", QString::fromStdString(name));
+        query.bindValue(":dbgender", QString::fromStdString(utils::sexToString(sex)));
+        query.bindValue(":dbyearOfBirth", QString::number(yearBorn));
 
-        file << name << constants::FILE_DELIMETER
-             << sex << constants::FILE_DELIMETER
-             << yearBorn << constants::FILE_DELIMETER;
-
-        if (yearDied != constants::YEAR_DIED_DEFAULT_VALUE)
-        {
-            file << yearDied;
-        }
-
-        file << '\n';
     }
     else
     {
-        return false;
+        query.prepare("INSERT INTO Scientists (name, gender, yearOfBirth, yearOfDeath) VALUES(:dbname,:dbgender,:dbyearOfBirth, :dbyearOfDeath)");
+        query.bindValue(":dbname", QString::fromStdString(name));
+        query.bindValue(":dbgender", QString::fromStdString(utils::sexToString(sex)));
+        query.bindValue(":dbyearOfBirth", QString::number(yearBorn));
+        query.bindValue(":dbyearOfDeath", QString::number(yearDied));
     }
 
-    file.close();*/
-    return true;
+    query.exec();
+
+    return true; //TODO return false if failed
 }

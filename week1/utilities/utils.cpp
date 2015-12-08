@@ -81,4 +81,10 @@ namespace utils {
     {
         return intToSex(stringToInt(str));
     }
+
+    std::string sexToString(enum sexType gender)
+    {
+        if (gender == male) return "male";
+        else return "female";
+    }
 }
