@@ -347,15 +347,70 @@ void Interface::displayComputerRelations()
 
 void Interface::selectOrder()
 {
-    int userChoice2;
+
+    cout << "Which order would you like to change?" << endl;
+    cout << "Choose one of the following numbers:" << endl;
+    cout << "-----------------------------------------------------" << endl;
+    cout << "1 to change the order of scientists" << endl;
+    cout << "2 to change the order of computers" << endl;
+    cout << "3 to change the order of relations" << endl;
+    int orderChoice;
+    cin >> orderChoice;
+    switch(orderChoice)
+    {
+    case 1:
+        selectScientistOrder();
+        break;
+    case 2:
+        selectComputerOrder();
+        break;
+    case 3:
+        selectRelationOrder();
+        break;
+    default:
+        cout << "Wrong input" << endl;
+        break;
+    }
+}
+
+std::string Interface::selectScientistOrder()
+{
+    string order;
     cout << "Which order would you like to retrieve list items in?" << endl;
     cout << "Choose one of the following numbers:" << endl;
     cout << "-----------------------------------------------------" << endl;
-    cout << "1 for a list of last names in alphabetical order" << endl;
-    cout << "2 for a list of first names in alphabetical order" << endl;
-    cout << "3 for a list sorted by date of birth in ascending order" << endl;
-    cout << "4 for a list sorted by date of birth in descending order" << endl;
-    cin >> userChoice2;
+    cout << "1 for a list sorted by names in ascending order" << endl;
+    cout << "2 for a list sorted by names in descending order" << endl;
+    cout << "3 for a list sorted by year born in ascending order" << endl;
+    cout << "4 for a list sorted by year born in descending order" << endl;
+    cout << "5 for a list sorted by year died in ascending order" << endl;
+    cout << "6 for a list sorted by year died in descending order" << endl;
+    int scientistOrderChoice;
+    cin >> scientistOrderChoice;
+    switch(scientistOrderChoice)
+    {
+        case 1:
+            order = constants::SORT_SCIENTIST_NAME_ASCENDING;
+            break;
+        case 2:
+            order = constants::SORT_SCIENTIST_NAME_DESCENDING;
+            break;
+        case 3:
+            order = constants::SORT_SCIENTIST_YEAR_BORN_ASCENDING;
+            break;
+        case 4:
+            order = constants::SORT_SCIENTIST_YEAR_BORN_DESCENDING;
+            break;
+        case 5:
+            order = constants::SORT_SCIENTIST_YEAR_DIED_ASCENDING;
+            break;
+        case 6:
+            order = constants::SORT_SCIENTIST_YEAR_DIED_DESCENDING;
+            break;
+        default:
+            cout << "Wrong input" << endl;
+            break;
+    }
 
     if(userChoice2 > 0 && userChoice2 < 5)
     {
@@ -363,9 +418,83 @@ void Interface::selectOrder()
     }
     else
     {
-        cout << "Wrong input" << endl;
-        selectOrder();
+        return order;
     }
+}
+
+std::string Interface::selectComputerOrder()
+{
+    string order;
+    cout << "Which order would you like to retrieve list items in?" << endl;
+    cout << "Choose one of the following numbers:" << endl;
+    cout << "-----------------------------------------------------" << endl;
+    cout << "1 for a list sorted by names in ascending order" << endl;
+    cout << "2 for a list sorted by names in descending order" << endl;
+    cout << "3 for a list sorted by year of construction in ascending order" << endl;
+    cout << "4 for a list sorted by year of construction in descending order" << endl;
+    cout << "5 for a list sorted by type in ascending order" << endl;
+    cout << "6 for a list sorted by type in descending order" << endl;
+    int computerOrderChoice;
+    cin >> computerOrderChoice;
+    switch(computerOrderChoice)
+    {
+        case 1:
+            order = constants::SORT_COMPUTER_NAME_ASCENDING;
+            break;
+        case 2:
+            order = constants::SORT_COMPUTER_NAME_DESCENDING;
+            break;
+        case 3:
+            order = constants::SORT_COMPUTER_BUILD_YEAR_ASCENDING;
+            break;
+        case 4:
+            order = constants::SORT_COMPUTER_BUILD_YEAR_DESCENDING;
+            break;
+        case 5:
+            order = constants::SORT_COMPUTER_COMPUTER_TYPE_ASCENDING;
+            break;
+        case 6:
+            order = constants::SORT_COMPUTER_COMPUTER_TYPE_DESCENDING;
+            break;
+        default:
+            cout << "Wrong input" << endl;
+            break;
+    }
+
+    return order;
+}
+
+std::string Interface::selectRelationOrder()
+{
+    string order;
+    cout << "Which order would you like to retrieve list items in?" << endl;
+    cout << "Choose one of the following numbers:" << endl;
+    cout << "-----------------------------------------------------" << endl;
+    cout << "1 for a list sorted by scientists' names in ascending order" << endl;
+    cout << "2 for a list sorted by scientists' names in descending order" << endl;
+    cout << "3 for a list sorted by computers' names in ascending order" << endl;
+    cout << "4 for a list sorted by computers' names in descending order" << endl;
+    int relationOrderChoice;
+    cin >> relationOrderChoice;
+    switch(relationOrderChoice)
+    {
+    case 1:
+        order=constants::SORT_RELATION_SCIENTIST_ASCENDING;
+        break;
+    case 2:
+        order=constants::SORT_RELATION_SCIENTIST_DESCENDING;
+        break;
+    case 3:
+        order=constants::SORT_RELATION_COMPUTER_ASCENDING;
+        break;
+    case 4:
+        order=constants::SORT_RELATION_COMPUTER_DESCENDING;
+    default:
+        cout << "Wrong input" << endl;
+        break;
+    }
+
+    return order;
 }
 
 void Interface::search()

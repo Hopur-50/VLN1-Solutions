@@ -31,6 +31,11 @@ namespace constants
     const std::string SORT_COMPUTER_BUILD_YEAR_DESCENDING = "ORDER BY c.buildYear DESC, name";
     const std::string SORT_COMPUTER_COMPUTER_TYPE_ASCENDING = "ORDER BY c.computerType, name";
     const std::string SORT_COMPUTER_COMPUTER_TYPE_DESCENDING = "ORDER BY c.computerType DESC, name";
+
+    const std::string SORT_RELATION_SCIENTIST_ASCENDING;
+    const std::string SORT_RELATION_SCIENTIST_DESCENDING;
+    const std::string SORT_RELATION_COMPUTER_ASCENDING;
+    const std::string SORT_RELATION_COMPUTER_DESCENDING;
 }
 
 #endif // CONSTANTS_H
