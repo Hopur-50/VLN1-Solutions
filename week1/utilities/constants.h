@@ -7,7 +7,8 @@
  * This file contains constants that this application uses
  */
 
-namespace constants {
+namespace constants
+{
     const std::string DATA_FILE_NAME = "database.txt";
     const char FILE_DELIMETER = '\t';
     const int YEAR_DIED_DEFAULT_VALUE = 13337;

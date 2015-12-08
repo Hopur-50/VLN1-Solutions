@@ -43,31 +43,32 @@ void Interface::menu(int& userChoice)//displays the initial menu for user
     cout << "5 to quit the program" << endl;
 
     cin >> userChoice;
-    switch (userChoice) {
-    case 1:
-        add();
-        break;
-    case 2:
-        display();
-        break;
-    case 3:
-        selectOrder();
-        break;
-    case 4:
-        search();
-        break;
-    case 5:
-        break;
-    default:
-        cout << "Wrong input" << endl;
-        break;
+    switch (userChoice)
+    {
+        case 1:
+            add();
+            break;
+        case 2:
+            display();
+            break;
+        case 3:
+            selectOrder();
+            break;
+        case 4:
+            search();
+            break;
+        case 5:
+            break;
+        default:
+            cout << "Wrong input" << endl;
+            break;
     }
 }
 
 void Interface::add()
 {
-    cout << "Choose a number from the menu" << endl;
-    cout << "-----------------------------" << endl;
+    cout << "Choose one of the following numbers" << endl;
+    cout << "-----------------------------------" << endl;
     cout << "1 to add a scientist" << endl;
     cout << "2 to add a computer" << endl;
     cout << "3 to add a relation" << endl;
@@ -75,19 +76,20 @@ void Interface::add()
     int userChoice2;
     cin >> userChoice2;
 
-    switch (userChoice2) {
-    case 1:
-        addScientist();
-        break;
-    case 2:
-        addComputer();
-        break;
-    case 3:
-        addRelation();
-        break;
-    default:
-        cout << "Wrong input" << endl;
-        break;
+    switch (userChoice2)
+    {
+        case 1:
+            addScientist();
+            break;
+        case 2:
+            addComputer();
+            break;
+        case 3:
+            addRelation();
+            break;
+        default:
+            cout << "Wrong input" << endl;
+            break;
     }
 }
 
@@ -115,6 +117,7 @@ bool Interface::addScientist()
         {
             sex = sexType::female;
         }
+
         int yearBorn = utils::stringToInt(fields.at(2));
 
         if (fields.size() == 3)
@@ -130,6 +133,7 @@ bool Interface::addScientist()
             cout << "Successfully added a scientist" << endl;
         }
     }
+
     cout << "There was an error in your input." << endl;
     return false;
 }
@@ -150,10 +154,10 @@ bool Interface::addComputer()
         string name = fields.at(0);
         string type = fields.at(1);
         bool wasItConstructed;
-        if(fields.at(2)=="Y" || fields.at(2)=="y")
+        if(fields.at(2) == "Y" || fields.at(2) == "y")
         {
             wasItConstructed = true;
-        }else if(fields.at(2)=="N" || fields.at(2)=="n")
+        }else if(fields.at(2) == "N" || fields.at(2) == "n")
         {
             wasItConstructed = false;
         }else
@@ -172,6 +176,7 @@ bool Interface::addComputer()
             return scientistService.addComputer(Computer(name, type, wasItConstructed, yearOfConstruction));
         }
     }
+
     cout << "There was an error in your input." << endl;
     return false;
 }
@@ -186,6 +191,7 @@ bool Interface::addRelation()
     string data;
     getline(cin, data);
     vector<string> fields = utils::splitString(data, ',');
+
     if (fields.size() == 2)
     {
         string scientist = fields.at(0);
@@ -193,6 +199,7 @@ bool Interface::addRelation()
         cout << "Successfully added a relation" << endl;
         return(scientistService.addRelation(scientist, computer));
     }
+
     cout << "There was an error in your input." << endl;
     return false;
 }
@@ -224,11 +231,11 @@ void Interface::display() //Prints from the vector
 
 void Interface::displayAllScientists()
 {
-    std::string orderBy="DELETA ÞESSU";
+    std::string orderBy = "DELETA ÞESSU";
     vector<Scientist> scientists = scientistService.getAllScientists(orderBy);
     displayScientists(scientists);
     cout << '\n';
-    }
+}
 
 void Interface::displayAllComputers()
 {
@@ -248,7 +255,7 @@ void Interface::displayScientists(std::vector<Scientist> scientists)
     cout << "Printing all scientists:\n";
 
     cout << setw(20) << std::left << "Name:"
-         << setw(8) << std::left << "Sex:"
+         << setw(8)  << std::left << "Sex:"
          << setw(12) << std::left << "Year born:"
          << setw(12) << std::left << "Year died:" << endl;
 
@@ -277,7 +284,7 @@ void Interface::displayComputers(std::vector<Computer> computers)
     cout << "Printing all computers:\n";
 
     cout << setw(20) << std::left << "Name:"
-         << setw(8) << std::left << "Type:"
+         << setw(8)  << std::left << "Type:"
          << setw(12) << std::left << "Was it built?:"
          << setw(12) << std::left << "Year built:" << endl;
 
@@ -298,20 +305,23 @@ void Interface::displayComputers(std::vector<Computer> computers)
 
 void Interface::displayRelations()
 {
-    cout << "Choose 1 to display all relations to a scientist" << endl;
-    cout << "Choose 2 to display all relations to a computer" << endl;
+    cout << "Choose one of the following numbers:" << endl;
+    cout << "------------------------- ---------------" << endl;
+    cout << "1 to display all relations to a scientist" << endl;
+    cout << "2 to display all relations to a computer" << endl;
     int userChoice3;
     cin >> userChoice3;
-    switch (userChoice3) {
-    case 1:
-        displayScientistRelations();
-        break;
-    case 2:
-        displayComputerRelations();
-        break;
-    default:
-        cout << "Wrong input" << endl;
-        break;
+    switch (userChoice3)
+    {
+        case 1:
+            displayScientistRelations();
+            break;
+        case 2:
+            displayComputerRelations();
+            break;
+        default:
+            cout << "Wrong input" << endl;
+            break;
     }
 }
 
@@ -347,29 +357,36 @@ void Interface::selectOrder()
     cout << "4 for a list sorted by date of birth in descending order" << endl;
     cin >> userChoice2;
 
-    if(userChoice2 > 0 && userChoice2 < 5) scientistService.change_sort_order(userChoice2);
-    else {
+    if(userChoice2 > 0 && userChoice2 < 5)
+    {
+        scientistService.changeSortOrder(userChoice2);
+    }
+    else
+    {
         cout << "Wrong input" << endl;
         selectOrder();
     }
 }
 
-void Interface::search() //Allows user to search by name or check wich scientist were alice wich year
+void Interface::search()
 {
-    cout << "Choose 1 to search for a scientist" << endl;
-    cout << "Choose 2 to search for a computer" << endl;
+    cout << "Choose one of the following numbers:" << endl;
+    cout << "------------------------------------" << endl;
+    cout << "1 to search for a scientist" << endl;
+    cout << "2 to search for a computer" << endl;
     int userChoice2;
     cin >> userChoice2;
-    switch (userChoice2) {
-    case 1:
-        searchScientist();
-        break;
-    case 2:
-        searchComputer();
-        break;
-    default:
-        cout << "Wrong input" << endl;
-        break;
+    switch (userChoice2)
+    {
+        case 1:
+            searchScientist();
+            break;
+        case 2:
+            searchComputer();
+            break;
+        default:
+            cout << "Wrong input" << endl;
+            break;
     }
 
 }

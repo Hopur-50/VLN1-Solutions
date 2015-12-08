@@ -38,7 +38,7 @@ public:
     bool addRelation(std::string scientist, std::string computer);
     std::vector<Computer> getRelatedComputers(std::string input);
     std::vector<Scientist> getRelatedScientists(std::string input);
-    void change_sort_order(int input);
+    void changeSortOrder(int input);
     std::vector<Computer> searchForComputers(std::string searchTerm);
 
 private:
