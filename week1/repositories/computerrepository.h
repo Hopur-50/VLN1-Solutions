@@ -19,7 +19,7 @@ public:
     bool addComputer(Computer computer);
     std::vector<Scientist> getRelatedScientists(std::string name);
     std::vector<Computer> getAllComputers(std::string orderBy);
-    bool addRelation(std::string scientist, std::string computer);
+    bool addRelation(Scientist scientist, Computer computer);
 
 private:
     std::string fileName;
