@@ -27,8 +27,8 @@ public:
     void displayScientistRelations();
     void displayComputerRelations();
     void selectOrder();
-    std::string selectScientistOrder();
-    std::string selectComputerOrder();
+    void selectScientistOrder();
+    void selectComputerOrder();
     std::string selectRelationOrder();
     void search();
     void searchScientist();

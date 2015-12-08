@@ -41,6 +41,7 @@ std::vector<Computer> ComputerRepository::searchForComputer(std::string searchTe
     }
     return filteredComputers;
 }
+
 bool ComputerRepository::addRelation(std::string scientist, std::string computer)
 {
     QSqlQuery query;
@@ -112,7 +113,7 @@ bool ComputerRepository::addComputer(Computer computer)
     QSqlQuery query;
 
     std::string name = computer.getName();
-    std::string type = computer.getType();                  //Þarf ekki að vera cin á breytum?? virkar ekki í keyrslu
+    std::string type = computer.getType();
     bool wasItConstructed = computer.getWasItConstructed();
     int IntWasItConstructed = wasItConstructed;
 
@@ -138,7 +139,6 @@ bool ComputerRepository::addComputer(Computer computer)
     query.exec();
     return true;
 }
-
 
 std::vector<Computer> ComputerRepository::getAllComputers(std::string orderBy)
 {
