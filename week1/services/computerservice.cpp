@@ -14,6 +14,7 @@ std::vector<Computer> ComputerService::searchForComputers(std::string searchTerm
 {
     return computerRepo.searchForComputer(searchTerm);
 }
+*/ //TODO implement in repo
 
 bool ComputerService::addComputer(Computer computer)
 {
