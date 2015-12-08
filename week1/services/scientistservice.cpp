@@ -4,22 +4,12 @@
 
 ScientistService::ScientistService()
 {
-
+    currentOrder = constants::SORT_SCIENTIST[0];
 }
 
-std::vector<Scientist> ScientistService::getAllScientists(std::string orderBy)
+std::vector<Scientist> ScientistService::getAllScientists()
 {
-    std::vector<Scientist> scientists = scientistRepo.getAllScientists(orderBy);
-
-    //std::sort(scientists.begin(), scientists.end(), ScientistComparator(orderBy, orderAscending));
-
-    return scientists;
-}
-
-std::vector<Computer> ScientistService::getAllComputers()
-{
-    std::vector<Computer> compVec;
-    return compVec;
+    return scientistRepo.getAllScientists(currentOrder);
 }
 
 std::vector<Scientist> ScientistService::searchForScientists(std::string searchTerm)
@@ -32,35 +22,18 @@ bool ScientistService::addScientist(Scientist scientist)
     return scientistRepo.addScientist(scientist);
 }
 
-bool ScientistService::addComputer(Computer computer)
-{
-    return true;
-}
-
 bool ScientistService::addRelation(std::string scientist, std::string computer)
 {
-    return true;
+    return true; //TODO implement
 }
 
 std::vector<Computer> ScientistService::getRelatedComputers(std::string input)
 {
     std::vector<Computer> compVec;
-    return compVec;
-}
-
-std::vector<Scientist> ScientistService::getRelatedScientists(std::string input)
-{
-    std::vector<Scientist> scientistVec;
-    return scientistVec;
+    return compVec; //TODO implement
 }
 
 void ScientistService::changeSortOrder(int input)
 {
-
-}
-
-std::vector<Computer> ScientistService::searchForComputers(std::string searchTerm)
-{
-    std::vector<Computer> compVec;
-    return compVec;
+    currentOrder = constants::SORT_SCIENTIST[input - 1];
 }

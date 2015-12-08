@@ -11,6 +11,11 @@ Interface::Interface()
     start();
 }
 
+Interface::~Interface()
+{
+
+}
+
 void Interface::start()
 {
     QSqlDatabase db;
@@ -194,13 +199,13 @@ bool Interface::addComputer()
         if (fields.size() == 3)
         {
             cout << "Successfully added a computer" << endl;
-            return scientistService.addComputer(Computer(name, type, wasItConstructed));//Skilagildi ef tölvan var ekki búin til, wasItConstructed = false
+            return computerService.addComputer(Computer(name, type, wasItConstructed));
         }
         else
         {
             int yearOfConstruction = utils::stringToInt(fields.at(3)); //Skilagildi ef tölvan var búin til, wasItConstructed = true
             cout << "Successfully added a computer" << endl;
-            return scientistService.addComputer(Computer(name, type, wasItConstructed, yearOfConstruction));
+            return computerService.addComputer(Computer(name, type, wasItConstructed, yearOfConstruction));
         }
     }
 
@@ -272,14 +277,14 @@ void Interface::display() //Prints from the vector
 void Interface::displayAllScientists()
 {
     std::string orderBy = "DELETA ÞESSU";
-    vector<Scientist> scientists = scientistService.getAllScientists(orderBy);
+    vector<Scientist> scientists = scientistService.getAllScientists();
     displayScientists(scientists);
     cout << '\n';
 }
 
 void Interface::displayAllComputers()
 {
-    vector<Computer> computers = scientistService.getAllComputers();
+    vector<Computer> computers = computerService.getAllComputers();
     displayComputers(computers);
     cout << '\n';
 }
@@ -384,7 +389,7 @@ void Interface::displayComputerRelations()
     cout << "Enter the computer whose scientists you would like to see: ";
     string input;
     cin >> input;
-    vector<Scientist> scientists = scientistService.getRelatedScientists(input);
+    vector<Scientist> scientists = computerService.getRelatedScientists(input);
     displayScientists(scientists);
     cout << '\n';
 }
@@ -435,6 +440,9 @@ std::string Interface::selectScientistOrder()
     cout << "6 for a list sorted by year died in descending order" << endl;
     int scientistOrderChoice;
     cin >> scientistOrderChoice;
+
+    scientistService.changeSortOrder(scientistOrderChoice);
+    /*
     switch(scientistOrderChoice)
     {
         case 0:
@@ -462,7 +470,7 @@ std::string Interface::selectScientistOrder()
             selectScientistOrder();
             break;
     }
-
+    */
     return order;
 
 }
@@ -482,6 +490,9 @@ std::string Interface::selectComputerOrder()
     cout << "6 for a list sorted by type in descending order" << endl;
     int computerOrderChoice;
     cin >> computerOrderChoice;
+
+    computerService.changeSortOrder(computerOrderChoice);
+    /*
     switch(computerOrderChoice)
     {
         case 0:
@@ -509,7 +520,7 @@ std::string Interface::selectComputerOrder()
             selectComputerOrder();
             break;
     }
-
+    */
     return order;
 }
 
@@ -590,6 +601,6 @@ void Interface::searchComputer()
     cout << "Type in the search term: ";
     string userInput;
     cin >> userInput;
-    displayComputers(scientistService.searchForComputers(userInput));
+    //displayComputers(computerService.searchForComputers(userInput));
 }
 

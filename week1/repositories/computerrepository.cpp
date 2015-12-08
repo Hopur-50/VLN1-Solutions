@@ -78,7 +78,7 @@ std::vector<Scientist> ComputerRepository::getRelatedScientists(std::string name
     return scientists;
 }
 
-void ComputerRepository::addComputer(Computer computer)
+bool ComputerRepository::addComputer(Computer computer)
 {
     QSqlQuery query;
 
@@ -107,7 +107,7 @@ void ComputerRepository::addComputer(Computer computer)
         query.bindValue(":dbyearOfConstruction", QString::number(yearOfConstruction));
     }
 
-    query.exec();
+    return query.exec();
 }
 
 
