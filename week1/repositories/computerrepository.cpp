@@ -41,6 +41,7 @@ std::vector<Computer> ComputerRepository::searchForComputer(std::string searchTe
     }
     return filteredComputers;
 }
+
 bool ComputerRepository::addRelation(std::string scientist, std::string computer)
 {
     QSqlQuery query;
@@ -138,7 +139,6 @@ bool ComputerRepository::addComputer(Computer computer)
     query.exec();
     return true;
 }
-
 
 std::vector<Computer> ComputerRepository::getAllComputers(std::string orderBy)
 {

@@ -302,7 +302,8 @@ void Interface::displayScientists(std::vector<Scientist> scientists)
 
     cout << "Printing all scientists:\n";
 
-    cout << setw(24) << std::left << "Name:"
+    cout << setw(5)  << std::left << "Nr:"
+         << setw(24) << std::left << "Name:"
          << setw(8)  << std::left << "Sex:"
          << setw(12) << std::left << "Year born:"
          << setw(12) << std::left << "Year died:" << endl;
@@ -314,7 +315,8 @@ void Interface::displayScientists(std::vector<Scientist> scientists)
         int yearDied = scientists.at(i).getYearDied();
         string died = (yearDied == constants::YEAR_DIED_DEFAULT_VALUE) ? "Alive" : utils::intToString(yearDied);
 
-        cout << setw(24) << std::left << scientists.at(i).getName()
+        cout << setw(5)  << std::left << i + 1
+             << setw(24) << std::left << scientists.at(i).getName()
              << setw(8)  << std::left << scientistSex
              << setw(12) << std::left << scientists.at(i).getYearBorn()
              << setw(12) << std::left << died << endl;
@@ -331,9 +333,9 @@ void Interface::displayComputers(std::vector<Computer> computers)
 
     cout << "Printing all computers:\n";
 
-    cout << setw(24) << std::left << "Name:"
-         << setw(8)  << std::left << "Type:"
-         << setw(12) << std::left << "Was it built?:"
+    cout << setw(5)  << std::left << "Nr:"
+         << setw(20) << std::left << "Name:"
+         << setw(15) << std::left << "Type:"
          << setw(12) << std::left << "Year built:" << endl;
 
     for (unsigned int i = 0; i < computers.size(); i++)
@@ -342,11 +344,11 @@ void Interface::displayComputers(std::vector<Computer> computers)
 
         int yearOfConstruction = computers.at(i).getYearOfConstruction();
         //Þarf að laga built um leið og veit hvernig það er storað
-        string built = (yearOfConstruction == constants::YEAR_DIED_DEFAULT_VALUE) ? "Not built" : utils::intToString(yearOfConstruction);
+        string built = (yearOfConstruction == constants::YEAR_OF_CONSTRUCTION_VALUE) ? "Not built" : utils::intToString(yearOfConstruction);
 
-        cout << setw(24) << std::left << computers.at(i).getName()
-             << setw(8)  << std::left << computerType
-             << setw(12) << std::left << computers.at(i).getYearOfConstruction()
+        cout << setw(5)  << std::left << i + 1
+             << setw(20) << std::left << computers.at(i).getName()
+             << setw(15)  << std::left << computerType
              << setw(12) << std::left << built << endl;
     }
 }
@@ -428,9 +430,8 @@ void Interface::selectOrder()
     }
 }
 
-std::string Interface::selectScientistOrder()
+void Interface::selectScientistOrder()
 {
-    string order;
     cout << "Which order would you like to retrieve list items in?" << endl;
     cout << "Choose one of the following numbers:" << endl;
     cout << "-----------------------------------------------------" << endl;
@@ -445,42 +446,10 @@ std::string Interface::selectScientistOrder()
     cin >> scientistOrderChoice;
 
     scientistService.changeSortOrder(scientistOrderChoice);
-    /*
-    switch(scientistOrderChoice)
-    {
-        case 0:
-            break;
-        case 1:
-            order = constants::SORT_SCIENTIST_NAME_ASCENDING;
-            break;
-        case 2:
-            order = constants::SORT_SCIENTIST_NAME_DESCENDING;
-            break;
-        case 3:
-            order = constants::SORT_SCIENTIST_YEAR_BORN_ASCENDING;
-            break;
-        case 4:
-            order = constants::SORT_SCIENTIST_YEAR_BORN_DESCENDING;
-            break;
-        case 5:
-            order = constants::SORT_SCIENTIST_YEAR_DIED_ASCENDING;
-            break;
-        case 6:
-            order = constants::SORT_SCIENTIST_YEAR_DIED_DESCENDING;
-            break;
-        default:
-            cout << "Wrong input" << endl;
-            selectScientistOrder();
-            break;
-    }
-    */
-    return order;
-
 }
 
-std::string Interface::selectComputerOrder()
+void Interface::selectComputerOrder()
 {
-    string order;
     cout << "Which order would you like to retrieve list items in?" << endl;
     cout << "Choose one of the following numbers:" << endl;
     cout << "-----------------------------------------------------" << endl;
@@ -495,36 +464,6 @@ std::string Interface::selectComputerOrder()
     cin >> computerOrderChoice;
 
     computerService.changeSortOrder(computerOrderChoice);
-    /*
-    switch(computerOrderChoice)
-    {
-        case 0:
-            break;
-        case 1:
-            order = constants::SORT_COMPUTER_NAME_ASCENDING;
-            break;
-        case 2:
-            order = constants::SORT_COMPUTER_NAME_DESCENDING;
-            break;
-        case 3:
-            order = constants::SORT_COMPUTER_BUILD_YEAR_ASCENDING;
-            break;
-        case 4:
-            order = constants::SORT_COMPUTER_BUILD_YEAR_DESCENDING;
-            break;
-        case 5:
-            order = constants::SORT_COMPUTER_COMPUTER_TYPE_ASCENDING;
-            break;
-        case 6:
-            order = constants::SORT_COMPUTER_COMPUTER_TYPE_DESCENDING;
-            break;
-        default:
-            cout << "Wrong input" << endl;
-            selectComputerOrder();
-            break;
-    }
-    */
-    return order;
 }
 
 std::string Interface::selectRelationOrder()
