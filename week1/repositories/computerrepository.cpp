@@ -5,9 +5,77 @@
 #include <cstdlib>
 #include <iostream>
 
+
+
 ComputerRepository::ComputerRepository()
 {
     fileName = constants::DATA_FILE_NAME;
+}
+void ComputerRepository::addRelation(std::string scientist, std::string computer)
+{
+    QSqlQuery query;
+
+    query.prepare("SELECT id FROM Computers WHERE name = :dbComputer");
+    query.bindValue(":dbComputer", QString::fromStdString(computer));
+    query.exec();
+    query.next();
+    int cId = query.value(0).toInt();
+
+    query.prepare("SELECT id FROM Scientists WHERE name = :dbScientist");
+    query.bindValue(":dbScientist", QString::fromStdString(scientist));
+    query.exec();
+    query.next();
+    int csId = query.value(0).toInt();
+
+    query.prepare("INSERT INTO relations(cId, csId) VALUES(:dbCId, :dbCsId");
+    query.bindValue(":dbCId", cId);
+    query.bindValue(":dbCsId", csId);
+    query.exec();
+
+
+}
+
+std::vector<Scientist> ComputerRepository::getRelatedScientists(std::string name)
+{
+    QSqlQuery query;
+    std::vector<Scientist> scientists;
+    query.prepare("SELECT id FROM Computers WHERE name = :dbName");
+    query.bindValue(":dbName", QString::fromStdString(name));
+    query.exec();
+    query.next();
+    int computerId = query.value(0).toInt();
+
+    query.prepare("SELECT csId FROM Relations WHERE cId = :dbCId");
+    query.bindValue(":dbCId", computerId);
+    query.exec();
+    int i=0;
+    QSqlQuery query2;
+    while(query.next())
+    {
+        int csId = query.value(i).toInt();
+        query2.prepare("SELECT name, gender, yearOfBirth, yearOfDeath FROM Scientists WHERE id = :dbCsId");
+        query2.bindValue(":dbCsId", csId);
+        query2.exec();
+        while(query2.next())
+        {
+            std::string name = query.value(0).toString().toStdString();
+            enum sexType sex = utils::stringToSex(query.value(1).toString().toStdString());
+            int yearBorn = query.value(2).toInt();
+            int yearDied = query.value(3).toInt();
+
+            if (query.value(3).isNull())
+            {
+                scientists.push_back(Scientist(name, sex, yearBorn));
+            }
+            else
+            {
+                scientists.push_back(Scientist(name, sex, yearBorn, yearDied));
+            }
+        }
+        i++;
+    }
+
+    return scientists;
 }
 
 bool ComputerRepository::addComputer(Computer computer)
@@ -70,83 +138,3 @@ std::vector<Computer> ComputerRepository::getAllComputers(std::string orderBy)
     return computers;
 }
 
-/*
-std::vector<Computer> ComputerRepository::getAllComputers()
-{
-    ifstream file;
-
-    file.open(fileName.c_str());
-
-    vector<Computer> computers;
-
-    if(file.is_open())
-    {
-        string line;
-        while(getline(file, line))
-        {
-            vector<string> fields = utils::splitString(line, constants::FILE_DELIMETER);
-
-            if (fields.size() >= 3)
-            {
-                computers.push_back(Computer(name, type, wasItConstructed));
-            }
-            else
-            {
-                int yearOfConstruction;
-                computers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
-            }
-        }
-    }
-
-    file.close();
-
-    return computers;
-}
-
-std::vector<Computer> searchForComputer(std::string searchTerm)
-{
-    vector <Computer> allComputers = getAllComputers();
-    vector<Computer> filteredComputers;
-    for(unsigned int i = 0; i < allComputers.size(); i++)
-    {
-        if(allComputers.at(i).contains(searchTerm))
-        {
-            filteredComputers.push_back(allComputers.at(i));
-        }
-    }
-    return filteredComputers;
-}
-
-bool addComputer(Computer computer)
-{
-    ofstream file;
-
-    file.open();
-
-    if(file.is_open())
-    {
-        string name = computer.getName();
-        string type = computer.getType();
-        bool wasItConstructed = getWasItConstructed();
-        int yearOfConstruction = getWasItConstructed();
-
-        file << name << constants::FILE_DELIMETER
-             << type << constants::DATA_FILE_NAME
-             << wasItConstructed << constants::DATA_FILE_NAME;
-
-        if(yearOfConstruction != constants::YEAR_DIED_DEFAULT_VALUE)
-        {
-                file << yearOfConstruction;
-        }
-        file << '\n';
-    }
-    else
-    {
-        return false;
-    }
-    file.close();
-    return true;
-
-}
-
-*/
