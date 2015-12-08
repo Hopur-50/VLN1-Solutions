@@ -218,21 +218,21 @@ bool Interface::addComputer()
 
 bool Interface::addRelation()
 {
-    std::vector<Scientist> scientists = scientistService.getAllScientists;
+    std::vector<Scientist> scientists = scientistService.getAllScientists();
     displayScientists(scientists);
     cout << "Choose the number of the scientist to be added in the relation";
     int scientistId;
     cin >> scientistId;
     Scientist scientist = scientists[scientistId-1];
 
-    std::vector<Computer> computers = ComputerService.getAllComputers();
+    std::vector<Computer> computers = computerService.getAllComputers();
     displayComputers(computers);
     cout << "Choose the number of the computer to be added in the relation";
     int computerId;
     cin >> computerId;
     Computer computer = computers[computerId-1];
 
-    return scientistService.addRelation(scientist, computer);
+    return computerService.addRelation(scientist, computer);
 }
 
 void Interface::display() //Prints from the vector
