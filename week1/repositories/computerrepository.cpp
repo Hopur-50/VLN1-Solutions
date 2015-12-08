@@ -10,7 +10,7 @@ ComputerRepository::ComputerRepository()
     fileName = constants::DATA_FILE_NAME;
 }
 
-bool ComputerRepository::addComputer(Computer computer) //Virkar ekki sem void né int fall, finnst samt skrítið að hafa þetta sem bool? R what?
+bool ComputerRepository::addComputer(Computer computer)
 {
     QSqlQuery query;
 
