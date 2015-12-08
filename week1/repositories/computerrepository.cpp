@@ -114,7 +114,7 @@ bool ComputerRepository::addComputer(Computer computer)
     QSqlQuery query;
 
     std::string name = computer.getName();
-    std::string type = computer.getType();                  //Þarf ekki að vera cin á breytum?? virkar ekki í keyrslu
+    std::string type = computer.getType();
     bool wasItConstructed = computer.getWasItConstructed();
     int IntWasItConstructed = wasItConstructed;
 
@@ -168,7 +168,7 @@ std::vector<Computer> ComputerRepository::getAllComputers(std::string orderBy)
         else
         {
             std::cout << "4\n";
-              computers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
+            computers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
         }
     }
 
