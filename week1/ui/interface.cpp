@@ -109,6 +109,7 @@ bool Interface::addScientist()
     cout << "If you would like to go back to the main menu, please type the number 0" << endl;
     cout << "Input: ";
     string data;
+    cin.ignore();
     getline(cin, data);
     vector<string> fields = utils::splitString(data, ','); //Sker strenginn niður á kommu.
 
@@ -161,6 +162,7 @@ bool Interface::addComputer()
     cout << "If you would like to go back to the main menu, please type the number 0" << endl;
     cout << "Input: ";
     string data;
+    cin.ignore();
     getline(cin, data);
     vector<string> fields = utils::splitString(data, ',');
 
@@ -216,6 +218,7 @@ bool Interface::addRelation()
     cout << "If you would like to go back to the main menu, please type the number 0" << endl;
     cout << "Input: ";
     string data;
+    cin.ignore();
     getline(cin, data);
     vector<string> fields = utils::splitString(data, ',');
 
@@ -390,7 +393,7 @@ void Interface::selectOrder()
 {
     cout << "Which order would you like to change?" << endl;
     cout << "Choose one of the following numbers:" << endl;
-    cout << "-----------------------------------------------------" << endl;
+    cout << "-----------------------------------" << endl;
     cout << "0 to go back to main menu" << endl;
     cout << "1 to change the order of scientists" << endl;
     cout << "2 to change the order of computers" << endl;
