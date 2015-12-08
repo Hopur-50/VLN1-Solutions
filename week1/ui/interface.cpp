@@ -426,6 +426,7 @@ std::string Interface::selectScientistOrder()
     cout << "Which order would you like to retrieve list items in?" << endl;
     cout << "Choose one of the following numbers:" << endl;
     cout << "-----------------------------------------------------" << endl;
+    cout << "0 to go back to main menu" << endl;
     cout << "1 for a list sorted by names in ascending order" << endl;
     cout << "2 for a list sorted by names in descending order" << endl;
     cout << "3 for a list sorted by year born in ascending order" << endl;
@@ -436,6 +437,8 @@ std::string Interface::selectScientistOrder()
     cin >> scientistOrderChoice;
     switch(scientistOrderChoice)
     {
+        case 0:
+            break;
         case 1:
             order = constants::SORT_SCIENTIST_NAME_ASCENDING;
             break;
@@ -516,6 +519,7 @@ std::string Interface::selectRelationOrder()
     cout << "Which order would you like to retrieve list items in?" << endl;
     cout << "Choose one of the following numbers:" << endl;
     cout << "-----------------------------------------------------" << endl;
+    cout << "0 to go back to main menu" << endl;
     cout << "1 for a list sorted by scientists' names in ascending order" << endl;
     cout << "2 for a list sorted by scientists' names in descending order" << endl;
     cout << "3 for a list sorted by computers' names in ascending order" << endl;
@@ -524,21 +528,23 @@ std::string Interface::selectRelationOrder()
     cin >> relationOrderChoice;
     switch(relationOrderChoice)
     {
-    case 1:
-        order = constants::SORT_RELATION_SCIENTIST_ASCENDING;
-        break;
-    case 2:
-        order = constants::SORT_RELATION_SCIENTIST_DESCENDING;
-        break;
-    case 3:
-        order = constants::SORT_RELATION_COMPUTER_ASCENDING;
-        break;
-    case 4:
-        order = constants::SORT_RELATION_COMPUTER_DESCENDING;
-    default:
-        cout << "Wrong input" << endl;
-        selectRelationOrder();
-        break;
+        case 0:
+            break;
+        case 1:
+            order = constants::SORT_RELATION_SCIENTIST_ASCENDING;
+            break;
+        case 2:
+            order = constants::SORT_RELATION_SCIENTIST_DESCENDING;
+            break;
+        case 3:
+            order = constants::SORT_RELATION_COMPUTER_ASCENDING;
+            break;
+        case 4:
+            order = constants::SORT_RELATION_COMPUTER_DESCENDING;
+        default:
+            cout << "Wrong input" << endl;
+            selectRelationOrder();
+            break;
     }
 
     return order;
