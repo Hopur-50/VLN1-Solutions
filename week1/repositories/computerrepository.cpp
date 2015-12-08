@@ -5,20 +5,21 @@
 #include <cstdlib>
 #include <iostream>
 
-using namespace std;
-
 ComputerRepository::ComputerRepository()
 {
     fileName = constants::DATA_FILE_NAME;
 }
 
-bool ComputerRepository::addComputer(Computer computer) //Virkar ekki sem void né int fall, finnst samt skrítið að hafa þetta sem bool? R what?
+void ComputerRepository::addComputer(Computer computer) //Virkar ekki sem void né int fall, finnst samt skrítið að hafa þetta sem bool? R what?
 {
     QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
     QString dbComputers = "NefnadbName.db.sqlite";
     db.setDatabaseName(dbComputers);
+
+    /*
     db.open();
+
     if(!db.open())
     {
         cout << "Fail, big time..." << endl;
@@ -27,12 +28,12 @@ bool ComputerRepository::addComputer(Computer computer) //Virkar ekki sem void n
     {
         cout << "Awesomeness incarnate" << endl;
     }
-
+*/
     QSqlQuery query;
 
 
-    string name = computer.getName();
-    string type = computer.getType();
+    std::string name = computer.getName();
+    std::string type = computer.getType();
     bool wasItConstructed = computer.getWasItConstructed();
     int IntWasItConstructed = wasItConstructed;
 
@@ -46,8 +47,9 @@ bool ComputerRepository::addComputer(Computer computer) //Virkar ekki sem void n
     }
     else
     {
-        int yearOfConstruction;
-        string queryAdd = "INSERT INTO Computer (name, type, wasItConstructed, yearOfConstruction) VALUES";
+        int yearOfConstruction = computer.getYearOfConstruction();
+        std::string queryAdd = "INSERT INTO Computer (name, type, wasItConstructed, yearOfConstruction) VALUES";
+
         query.prepare("INSERT INTO Computers (name, type, wasItConstructed, yearOfConstruction) VALUES(:dbname,:dbtype,:dbwasItConstructed,:dbyearOfConstruction)");
         query.bindValue(":dbname", QString::fromStdString(name));
         query.bindValue(":dbtype", QString::fromStdString(type));
@@ -63,15 +65,15 @@ std::vector<Computer> ComputerRepository::getAllComputers(std::string orderBy)
 {
     std::vector<Computer> computers;
 
-    std::string orderBy = QString::fromStdString(constants::SELECT_ALL_COMPUTERS) + " " + QString::fromStdString(orderBy);
+    QString orderQuery = QString::fromStdString(constants::SELECT_ALL_COMPUTERS) + " " + QString::fromStdString(orderBy);
     QSqlQuery query(orderQuery);  //Vantar breytu fyrir framan orderQuery
 
     while (query.next())
     {
         std::string name = query.value(0).toString().toStdString();
         std::string type = query.value(1).toString().toStdString();
-        int wasItConstructed = query.value(2);
-        int yearOfConstruction = query.value(3);
+        int wasItConstructed = query.value(2).toInt();
+        int yearOfConstruction = query.value(3).toInt();
 
             if (query.value(2) == false)
             {

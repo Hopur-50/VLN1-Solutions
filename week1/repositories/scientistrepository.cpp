@@ -39,15 +39,32 @@ std::vector<Scientist> ScientistRepository::getAllScientists(std::string orderBy
 
 std::vector<Scientist> ScientistRepository::searchForScientists(std::string searchTerm)
 {
-    std::vector<Scientist> allScientists = getAllScientists(constants::SORT_SCIENTIST_NAME_ASCENDING);
+    //std::vector<Scientist> allScientists = getAllScientists(constants::SORT_SCIENTIST_NAME_ASCENDING);
     std::vector<Scientist> filteredScientists;
 
-    for (unsigned int i = 0; i < allScientists.size(); i++)
-    {
-        if (allScientists.at(i).contains(searchTerm))
+    QString searchQuery = QString::fromStdString(constants::SELECT_ALL_SCIENTISTS) +
+    " WHERE s.name LIKE %" + QString::fromStdString(searchTerm) + "%" +
+    " OR s.gender LIKE %" + QString::fromStdString(searchTerm) + "%" +
+    " OR s.yearOfBirth LIKE %" + QString::fromStdString(searchTerm) + "%" +
+    " OR s.yearOfDeath LIKE %" + QString::fromStdString(searchTerm) + "%";
+
+    QSqlQuery query(searchQuery);
+
+    while (query.next()) {
+        std::string name = query.value(0).toString().toStdString();
+        enum sexType sex = utils::stringToSex(query.value(1).toString().toStdString());
+        int yearBorn = query.value(2).toInt();
+
+        if (query.value(3).isNull())
         {
-            filteredScientists.push_back(allScientists.at(i));
+            filteredScientists.push_back(Scientist(name, sex, yearBorn));
         }
+        else
+        {
+            int yearDied = query.value(3).toInt();
+            filteredScientists.push_back(Scientist(name, sex, yearBorn, yearDied));
+        }
+
     }
 
     return filteredScientists;
