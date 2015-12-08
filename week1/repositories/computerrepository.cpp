@@ -12,25 +12,7 @@ ComputerRepository::ComputerRepository()
 
 void ComputerRepository::addComputer(Computer computer) //Virkar ekki sem void né int fall, finnst samt skrítið að hafa þetta sem bool? R what?
 {
-    QSqlDatabase db;
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    QString dbComputers = "NefnadbName.db.sqlite";
-    db.setDatabaseName(dbComputers);
-
-    /*
-    db.open();
-
-    if(!db.open())
-    {
-        cout << "Fail, big time..." << endl;
-    }
-    else
-    {
-        cout << "Awesomeness incarnate" << endl;
-    }
-*/
     QSqlQuery query;
-
 
     std::string name = computer.getName();
     std::string type = computer.getType();

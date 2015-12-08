@@ -10,6 +10,7 @@ class Interface
 {
 public:
     Interface();
+    void start();
     void menu(int& userchoice);
     void add();
     bool addScientist();
