@@ -534,7 +534,8 @@ void Interface::searchScientist()
 {
     cout << "Type in the search term: ";
     string userInput;
-    cin >> userInput;
+    cin.ignore();
+    getline(cin, userInput);
     displayScientists(scientistService.searchForScientists(userInput));
 }
 
@@ -542,7 +543,8 @@ void Interface::searchComputer()
 {
     cout << "Type in the search term: ";
     string userInput;
-    cin >> userInput;
+    cin.ignore();
+    getline(cin, userInput);
     //displayComputers(computerService.searchForComputers(userInput));
 }
 
