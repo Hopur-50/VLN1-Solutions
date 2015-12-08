@@ -10,14 +10,16 @@ ComputerRepository::ComputerRepository()
     fileName = constants::DATA_FILE_NAME;
 }
 
-bool ComputerRepository::addComputer(Computer computer)
+void ComputerRepository::addComputer(Computer computer) //Virkar ekki sem void né int fall, finnst samt skrítið að hafa þetta sem bool? R what?
 {
-    /*QSqlDatabase db;
+    QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
     QString dbComputers = "NefnadbName.db.sqlite";
     db.setDatabaseName(dbComputers);
-    db.open();*/
+
     /*
+    db.open();
+
     if(!db.open())
     {
         cout << "Fail, big time..." << endl;
@@ -46,17 +48,46 @@ bool ComputerRepository::addComputer(Computer computer)
     else
     {
         int yearOfConstruction = computer.getYearOfConstruction();
-        // string queryAdd = "INSERT INTO Computer (name, type, wasItConstructed, yearOfConstruction) VALUES";
+        std::string queryAdd = "INSERT INTO Computer (name, type, wasItConstructed, yearOfConstruction) VALUES";
+
         query.prepare("INSERT INTO Computers (name, type, wasItConstructed, yearOfConstruction) VALUES(:dbname,:dbtype,:dbwasItConstructed,:dbyearOfConstruction)");
         query.bindValue(":dbname", QString::fromStdString(name));
         query.bindValue(":dbtype", QString::fromStdString(type));
         query.bindValue(":dbwasItConstructed", QString::number(IntWasItConstructed));
         query.bindValue(":dbyearOfConstruction", QString::number(yearOfConstruction));
     }
+
     query.exec();
 }
 
 
+std::vector<Computer> ComputerRepository::getAllComputers(std::string orderBy)
+{
+    std::vector<Computer> computers;
+
+    QString orderQuery = QString::fromStdString(constants::SELECT_ALL_COMPUTERS) + " " + QString::fromStdString(orderBy);
+    QSqlQuery query(orderQuery);  //Vantar breytu fyrir framan orderQuery
+
+    while (query.next())
+    {
+        std::string name = query.value(0).toString().toStdString();
+        std::string type = query.value(1).toString().toStdString();
+        int wasItConstructed = query.value(2).toInt();
+        int yearOfConstruction = query.value(3).toInt();
+
+            if (query.value(2) == false)
+            {
+                computers.push_back(Computer(name, type, wasItConstructed));
+            }
+            else
+            {
+                  computers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
+            }
+    }
+
+
+    return computers;
+}
 
 /*
 std::vector<Computer> ComputerRepository::getAllComputers()
