@@ -342,7 +342,6 @@ void Interface::displayComputers(std::vector<Computer> computers)
         string computerType = computers.at(i).getType();
 
         int yearOfConstruction = computers.at(i).getYearOfConstruction();
-        //Þarf að laga built um leið og veit hvernig það er storað
         string built = (yearOfConstruction == constants::YEAR_OF_CONSTRUCTION_VALUE) ? "Not built" : utils::intToString(yearOfConstruction);
 
         cout << setw(5)  << std::left << i + 1
