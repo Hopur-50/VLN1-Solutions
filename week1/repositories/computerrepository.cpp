@@ -42,7 +42,7 @@ std::vector<Computer> ComputerRepository::searchForComputer(std::string searchTe
     }
     return filteredComputers;
 }
-void ComputerRepository::addRelation(std::string scientist, std::string computer)
+bool ComputerRepository::addRelation(std::string scientist, std::string computer)
 {
     QSqlQuery query;
 
@@ -61,9 +61,8 @@ void ComputerRepository::addRelation(std::string scientist, std::string computer
     query.prepare("INSERT INTO relations(cId, csId) VALUES(:dbCId, :dbCsId");
     query.bindValue(":dbCId", cId);
     query.bindValue(":dbCsId", csId);
-    query.exec();
 
-
+    return query.exec();
 }
 
 std::vector<Scientist> ComputerRepository::getRelatedScientists(std::string name)
@@ -157,7 +156,7 @@ std::vector<Computer> ComputerRepository::getAllComputers(std::string orderBy)
         std::string name = query.value(0).toString().toStdString();
         std::string type = query.value(1).toString().toStdString();
         bool wasItConstructed = query.value(2).toInt();
-        std::cout << "wasit constr " << wasItConstructed << endl;
+        std::cout << "wasit constr " << wasItConstructed << std::endl;
         int yearOfConstruction = query.value(3).toInt();
 
         if (query.value(2) == false)

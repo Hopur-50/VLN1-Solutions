@@ -242,7 +242,7 @@ bool Interface::addRelation()
         string scientist = fields.at(0);
         string computer = fields.at(1);
         cout << "Successfully added a relation" << endl;
-        return(scientistService.addRelation(scientist, computer));
+        return(computerService.addRelation(scientist, computer));
     }
 
     cout << "There was an error in your input." << endl;
