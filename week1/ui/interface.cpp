@@ -526,7 +526,6 @@ void Interface::search()
             search();
             break;
     }
-
 }
 
 void Interface::searchScientist()
