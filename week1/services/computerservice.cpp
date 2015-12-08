@@ -20,9 +20,9 @@ bool ComputerService::addComputer(Computer computer)
     return computerRepo.addComputer(computer);
 }
 
-bool ComputerService::addRelation(std::string sci, std::string comp)
+bool ComputerService::addRelation(Scientist scientist, Computer computer)
 {
-    return computerRepo.addRelation(sci, comp);
+    return computerRepo.addRelation(scientist, computer);
 }
 
 std::vector<Scientist> ComputerService::getRelatedScientists(std::string input)

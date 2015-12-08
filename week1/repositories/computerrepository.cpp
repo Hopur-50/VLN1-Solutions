@@ -42,7 +42,7 @@ std::vector<Computer> ComputerRepository::searchForComputer(std::string searchTe
     return filteredComputers;
 }
 
-bool ComputerRepository::addRelation(std::string scientist, std::string computer)
+bool ComputerRepository::addRelation(Scientist scientist, Computer computer)
 {
     QSqlQuery query;
 
