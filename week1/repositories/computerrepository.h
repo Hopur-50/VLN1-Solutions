@@ -17,6 +17,7 @@ public:
     std::vector<Computer> searchForComputer(std::string searchTerm);
     void addComputer(Computer computer);
     std::vector<Computer> getAllComputers(std::string orderBy);
+
 private:
     std::string fileName;
 };

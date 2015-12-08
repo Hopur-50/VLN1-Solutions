@@ -99,6 +99,7 @@ bool Interface::addScientist()
     cout << "If you would like to go back to the main menu, please type: back" << endl;
     cout << "Input: ";
     string data;
+    cin.ignore();
     getline(cin, data);
     vector<string> fields = utils::splitString(data, ',');
 
@@ -142,6 +143,7 @@ bool Interface::addComputer()
     cout << "If you would like to go back to the main menu, please type: back" << endl;
     cout << "Input: ";
     string data;
+    cin.ignore();
     getline(cin, data);
     vector<string> fields = utils::splitString(data, ',');
 
@@ -228,7 +230,7 @@ void Interface::displayAllScientists()
     vector<Scientist> scientists = scientistService.getAllScientists(orderBy);
     displayScientists(scientists);
     cout << '\n';
-    }
+}
 
 void Interface::displayAllComputers()
 {
