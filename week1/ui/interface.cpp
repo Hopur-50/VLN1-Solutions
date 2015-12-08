@@ -191,6 +191,7 @@ bool Interface::addRelation()
     cout << "If you would like to go back to the main menu, please type: back" << endl;
     cout << "Input: ";
     string data;
+    cin.ignore();
     getline(cin, data);
     vector<string> fields = utils::splitString(data, ',');
 
