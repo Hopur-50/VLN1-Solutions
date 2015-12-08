@@ -1,7 +1,5 @@
 QT += core sql
 QT -= gui
-QT += core sql
-
 
 TARGET = week1
 CONFIG += console
