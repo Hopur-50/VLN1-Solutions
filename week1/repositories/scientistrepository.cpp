@@ -125,7 +125,7 @@ bool ScientistRepository::addScientist(Scientist scientist)
 
     if (yearDied == constants::YEAR_DIED_DEFAULT_VALUE)
     {
-        query.prepare("INSERT INTO Scientists (name, gender, yearOfBirth) VALUES(:dbname,:dbgender,:dbyearOfBirth)");
+        query.prepare("INSERT INTO Scientists (name, sex, yearOfBirth) VALUES(:dbname,:dbgender,:dbyearOfBirth)");
         query.bindValue(":dbname", QString::fromStdString(name));
         query.bindValue(":dbgender", QString::fromStdString(utils::sexToString(sex)));
         query.bindValue(":dbyearOfBirth", QString::number(yearBorn));
@@ -133,7 +133,7 @@ bool ScientistRepository::addScientist(Scientist scientist)
     }
     else
     {
-        query.prepare("INSERT INTO Scientists (name, gender, yearOfBirth, yearOfDeath) VALUES(:dbname,:dbgender,:dbyearOfBirth, :dbyearOfDeath)");
+        query.prepare("INSERT INTO Scientists (name, sex, yearOfBirth, yearOfDeath) VALUES(:dbname,:dbgender,:dbyearOfBirth, :dbyearOfDeath)");
         query.bindValue(":dbname", QString::fromStdString(name));
         query.bindValue(":dbgender", QString::fromStdString(utils::sexToString(sex)));
         query.bindValue(":dbyearOfBirth", QString::number(yearBorn));

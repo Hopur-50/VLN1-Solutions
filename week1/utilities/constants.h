@@ -16,7 +16,7 @@ namespace constants
 
     const unsigned int MENU_COMMAND_WIDTH = 15;
 
-    const std::string SELECT_ALL_SCIENTISTS = "SELECT name, gender, yearOfBirth, yearOfDeath FROM Scientists s";
+    const std::string SELECT_ALL_SCIENTISTS = "SELECT name, sex, yearOfBirth, yearOfDeath FROM Scientists s";
     const std::string SORT_SCIENTIST [6] = {"ORDER BY s.name",
                                             "ORDER BY s.name DESC",
                                             "ORDER BY s.yearOfBirth, name",
