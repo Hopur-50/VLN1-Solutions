@@ -83,7 +83,6 @@ std::vector<Computer> ScientistRepository::getRelatedComputers(std::string name)
 
 std::vector<Scientist> ScientistRepository::searchForScientists(std::string searchTerm)
 {
-    //std::vector<Scientist> allScientists = getAllScientists(constants::SORT_SCIENTIST_NAME_ASCENDING);
     std::vector<Scientist> filteredScientists;
     QString QSearchTerm = QString::fromStdString(searchTerm);
     QString searchQuery = QString::fromStdString(constants::SELECT_ALL_SCIENTISTS) +

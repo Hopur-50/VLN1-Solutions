@@ -128,13 +128,16 @@ bool Interface::addScientist()
         string name = fields.at(0);
 
         enum sexType sex;
+
         if (fields.at(1) == "male" || fields.at(1) == " male") //Because EVERYONE writes a space after a comma.
         {
             sex = sexType::male;
+            fields.at(1) = sex;
         }
-        else
+        else if(fields.at(1) == "female" || fields.at(1) == " female")
         {
             sex = sexType::female;
+            fields.at(1) = sex;
         }
 
         int yearBorn = utils::stringToInt(fields.at(2));
@@ -182,6 +185,7 @@ bool Interface::addComputer()
         string type = fields.at(1);
 
         bool wasItConstructed;
+
         if(fields.at(2) == "Y" || fields.at(2) == "y") //Ef tölvan var búin til skilar það true en ef ekki þá skilar fallið false
         {
             wasItConstructed = true;
@@ -299,7 +303,7 @@ void Interface::displayScientists(std::vector<Scientist> scientists)
 
     cout << "Printing all scientists:\n";
 
-    cout << setw(20) << std::left << "Name:"
+    cout << setw(24) << std::left << "Name:"
          << setw(8)  << std::left << "Sex:"
          << setw(12) << std::left << "Year born:"
          << setw(12) << std::left << "Year died:" << endl;
@@ -311,7 +315,7 @@ void Interface::displayScientists(std::vector<Scientist> scientists)
         int yearDied = scientists.at(i).getYearDied();
         string died = (yearDied == constants::YEAR_DIED_DEFAULT_VALUE) ? "Alive" : utils::intToString(yearDied);
 
-        cout << setw(20) << std::left << scientists.at(i).getName()
+        cout << setw(24) << std::left << scientists.at(i).getName()
              << setw(8)  << std::left << scientistSex
              << setw(12) << std::left << scientists.at(i).getYearBorn()
              << setw(12) << std::left << died << endl;
@@ -328,7 +332,7 @@ void Interface::displayComputers(std::vector<Computer> computers)
 
     cout << "Printing all computers:\n";
 
-    cout << setw(20) << std::left << "Name:"
+    cout << setw(24) << std::left << "Name:"
          << setw(8)  << std::left << "Type:"
          << setw(12) << std::left << "Was it built?:"
          << setw(12) << std::left << "Year built:" << endl;
@@ -341,7 +345,7 @@ void Interface::displayComputers(std::vector<Computer> computers)
         //Þarf að laga built um leið og veit hvernig það er storað
         string built = (yearOfConstruction == constants::YEAR_DIED_DEFAULT_VALUE) ? "Not built" : utils::intToString(yearOfConstruction);
 
-        cout << setw(20) << std::left << computers.at(i).getName()
+        cout << setw(24) << std::left << computers.at(i).getName()
              << setw(8)  << std::left << computerType
              << setw(12) << std::left << computers.at(i).getYearOfConstruction()
              << setw(12) << std::left << built << endl;
