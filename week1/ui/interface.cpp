@@ -219,7 +219,6 @@ bool Interface::addComputer()
 bool Interface::addRelation()
 {
     int userChoice;
-
     cout << "To add a relation, type in:" << endl;
     cout << "scientist,computer" << endl;
     cout << "Comma separated like in the example above." << endl;
@@ -343,7 +342,6 @@ void Interface::displayComputers(std::vector<Computer> computers)
         string computerType = computers.at(i).getType();
 
         int yearOfConstruction = computers.at(i).getYearOfConstruction();
-        //Þarf að laga built um leið og veit hvernig það er storað
         string built = (yearOfConstruction == constants::YEAR_OF_CONSTRUCTION_VALUE) ? "Not built" : utils::intToString(yearOfConstruction);
 
         cout << setw(5)  << std::left << i + 1
@@ -407,7 +405,7 @@ void Interface::selectOrder()
     cout << "0 to go back to main menu" << endl;
     cout << "1 to change the order of scientists" << endl;
     cout << "2 to change the order of computers" << endl;
-    cout << "3 to change the order of relations" << endl;
+
     int orderChoice;
     cin >> orderChoice;
     switch(orderChoice)
@@ -419,9 +417,6 @@ void Interface::selectOrder()
             break;
         case 2:
             selectComputerOrder();
-            break;
-        case 3:
-            selectRelationOrder();
             break;
         default:
             cout << "Wrong input" << endl;
