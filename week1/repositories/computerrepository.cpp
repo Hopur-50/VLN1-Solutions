@@ -48,13 +48,13 @@ bool ComputerRepository::addRelation(Scientist scientist, Computer computer)
     QSqlQuery query;
 
     query.prepare("SELECT id FROM Computers WHERE name = :dbComputer");
-    query.bindValue(":dbComputer", QString::fromStdString(computer));
+    query.bindValue(":dbComputer", QString::fromStdString(computer.getName()));
     query.exec();
     query.next();
     int cId = query.value(0).toInt();
 
     query.prepare("SELECT id FROM Scientists WHERE name = :dbScientist");
-    query.bindValue(":dbScientist", QString::fromStdString(scientist));
+    query.bindValue(":dbScientist", QString::fromStdString(scientist.getName()));
     query.exec();
     query.next();
     int csId = query.value(0).toInt();
