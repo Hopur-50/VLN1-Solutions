@@ -143,30 +143,24 @@ bool ComputerRepository::addComputer(Computer computer)
 
 std::vector<Computer> ComputerRepository::getAllComputers(std::string orderBy)
 {
-    std::cout << "start\n";
     std::vector<Computer> computers;
 
     QString orderQuery = QString::fromStdString(constants::SELECT_ALL_COMPUTERS) + " " + QString::fromStdString(orderBy);
-    QSqlQuery query(orderQuery);  //Vantar breytu fyrir framan orderQuery
-    std::cout << "1\n";
+    QSqlQuery query(orderQuery);
 
     while (query.next())
     {
-        std::cout << "2\n";
         std::string name = query.value(0).toString().toStdString();
         std::string type = query.value(1).toString().toStdString();
         bool wasItConstructed = query.value(2).toInt();
-        std::cout << "wasit constr " << wasItConstructed << std::endl;
         int yearOfConstruction = query.value(3).toInt();
 
         if (query.value(2) == false)
         {
-            std::cout << "3\n";
             computers.push_back(Computer(name, type, wasItConstructed));
         }
         else
         {
-            std::cout << "4\n";
               computers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
         }
     }
