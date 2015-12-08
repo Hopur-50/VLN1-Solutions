@@ -5,20 +5,19 @@
 #include <cstdlib>
 #include <iostream>
 
-using namespace std;
-
 ComputerRepository::ComputerRepository()
 {
     fileName = constants::DATA_FILE_NAME;
 }
 
-void ComputerRepository::addComputer(Computer computer)
+bool ComputerRepository::addComputer(Computer computer)
 {
     /*QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
     QString dbComputers = "NefnadbName.db.sqlite";
     db.setDatabaseName(dbComputers);
     db.open();*/
+    /*
     if(!db.open())
     {
         cout << "Fail, big time..." << endl;
@@ -27,12 +26,12 @@ void ComputerRepository::addComputer(Computer computer)
     {
         cout << "Awesomeness incarnate" << endl;
     }
-
+*/
     QSqlQuery query;
 
 
-    string name = computer.getName();
-    string type = computer.getType();
+    std::string name = computer.getName();
+    std::string type = computer.getType();
     bool wasItConstructed = computer.getWasItConstructed();
     int IntWasItConstructed = wasItConstructed;
 
@@ -46,9 +45,7 @@ void ComputerRepository::addComputer(Computer computer)
     }
     else
     {
-
-
-        //int yearOfConstruction;
+        int yearOfConstruction = computer.getYearOfConstruction();
         // string queryAdd = "INSERT INTO Computer (name, type, wasItConstructed, yearOfConstruction) VALUES";
         query.prepare("INSERT INTO Computers (name, type, wasItConstructed, yearOfConstruction) VALUES(:dbname,:dbtype,:dbwasItConstructed,:dbyearOfConstruction)");
         query.bindValue(":dbname", QString::fromStdString(name));
