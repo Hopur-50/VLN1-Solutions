@@ -118,9 +118,9 @@ bool ComputerRepository::addComputer(Computer computer)
     bool wasItConstructed = computer.getWasItConstructed();
     int IntWasItConstructed = wasItConstructed;
 
-    if (wasItConstructed != true)
+    if (wasItConstructed == false)
     {
-        query.prepare("INSERT INTO Computers (name, type, wasItConstructed) VALUES(:dbname,:dbtype,:dbwasItConstructed)");
+        query.prepare("INSERT INTO Computers (name, computerType, constructed) VALUES(:dbname,:dbtype,:dbwasItConstructed)");
         query.bindValue(":dbname", QString::fromStdString(name));
         query.bindValue(":dbtype", QString::fromStdString(type));
         query.bindValue(":dbwasItConstructed", QString::number(IntWasItConstructed));
@@ -129,41 +129,47 @@ bool ComputerRepository::addComputer(Computer computer)
     else
     {
         int yearOfConstruction = computer.getYearOfConstruction();
-        std::string queryAdd = "INSERT INTO Computer (name, type, wasItConstructed, yearOfConstruction) VALUES";
-
-        query.prepare("INSERT INTO Computers (name, type, wasItConstructed, yearOfConstruction) VALUES(:dbname,:dbtype,:dbwasItConstructed,:dbyearOfConstruction)");
+        //std::string queryAdd = "INSERT INTO Computer (name, type, wasItConstructed, yearOfConstruction) VALUES";
+        query.prepare("INSERT INTO Computers (name, computerType, constructed, buildYear) VALUES(:dbname,:dbtype,:dbwasItConstructed,:dbyearOfConstruction)");
         query.bindValue(":dbname", QString::fromStdString(name));
         query.bindValue(":dbtype", QString::fromStdString(type));
         query.bindValue(":dbwasItConstructed", QString::number(IntWasItConstructed));
         query.bindValue(":dbyearOfConstruction", QString::number(yearOfConstruction));
     }
 
-    return query.exec();
+    query.exec();
+    return true;
 }
 
 
 std::vector<Computer> ComputerRepository::getAllComputers(std::string orderBy)
 {
+    std::cout << "start\n";
     std::vector<Computer> computers;
 
     QString orderQuery = QString::fromStdString(constants::SELECT_ALL_COMPUTERS) + " " + QString::fromStdString(orderBy);
     QSqlQuery query(orderQuery);  //Vantar breytu fyrir framan orderQuery
+    std::cout << "1\n";
 
     while (query.next())
     {
+        std::cout << "2\n";
         std::string name = query.value(0).toString().toStdString();
         std::string type = query.value(1).toString().toStdString();
-        int wasItConstructed = query.value(2).toInt();
+        bool wasItConstructed = query.value(2).toInt();
+        std::cout << "wasit constr " << wasItConstructed << endl;
         int yearOfConstruction = query.value(3).toInt();
 
-            if (query.value(2) == false)
-            {
-                computers.push_back(Computer(name, type, wasItConstructed));
-            }
-            else
-            {
-                  computers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
-            }
+        if (query.value(2) == false)
+        {
+            std::cout << "3\n";
+            computers.push_back(Computer(name, type, wasItConstructed));
+        }
+        else
+        {
+            std::cout << "4\n";
+              computers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
+        }
     }
 
     return computers;

@@ -31,7 +31,7 @@ namespace constants
     const std::string SORT_SCIENTIST_YEAR_DIED_ASCENDING = "ORDER BY s.yearOfDeath, name";
     const std::string SORT_SCIENTIST_YEAR_DIED_DESCENDING = "ORDER BY s.yearOfDeath DESC, name";
     */
-    const std::string SELECT_ALL_COMPUTERS = "SELECT name, buildYear, computerType, construct FROM Computers c";
+    const std::string SELECT_ALL_COMPUTERS = "SELECT name, computerType, constructed, buildYear FROM Computers c";
     const std::string SORT_COMPUTER [6] = {"ORDER BY c.name",
                                            "ORDER BY c.name DESC",
                                            "ORDER BY c.buildYear, name",
