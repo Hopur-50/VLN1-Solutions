@@ -218,32 +218,21 @@ bool Interface::addComputer()
 
 bool Interface::addRelation()
 {
-    int userChoice;
-    cout << "To add a relation, type in:" << endl;
-    cout << "scientist,computer" << endl;
-    cout << "Comma separated like in the example above." << endl;
-    cout << "If you would like to go back to the main menu, please type the number 0" << endl;
-    cout << "Input: ";
-    string data;
-    cin.ignore();
-    getline(cin, data);
-    vector<string> fields = utils::splitString(data, ',');
+    std::vector<Scientist> scientists = scientistService.getAllScientists;
+    displayScientists(scientists);
+    cout << "Choose the number of the scientist to be added in the relation";
+    int scientistId;
+    cin >> scientistId;
+    Scientist scientist = scientists[scientistId-1];
 
-    if(data == "0" || data == " 0")
-    {
-        menu(userChoice);
-    }
+    std::vector<Computer> computers = ComputerService.getAllComputers();
+    displayComputers(computers);
+    cout << "Choose the number of the computer to be added in the relation";
+    int computerId;
+    cin >> computerId;
+    Computer computer = computers[computerId-1];
 
-    if (fields.size() == 2)
-    {
-        string scientist = fields.at(0);
-        string computer = fields.at(1);
-        cout << "Successfully added a relation" << endl;
-        return(computerService.addRelation(scientist, computer));
-    }
-
-    cout << "There was an error in your input." << endl;
-    return false;
+    return scientistService.addRelation(scientist, computer);
 }
 
 void Interface::display() //Prints from the vector
