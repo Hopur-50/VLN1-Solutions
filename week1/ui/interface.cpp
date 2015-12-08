@@ -131,13 +131,11 @@ bool Interface::addScientist()
 
         if (fields.at(1) == "male" || fields.at(1) == " male") //Because EVERYONE writes a space after a comma.
         {
-            cout << "hae karl";
             sex = sexType::male;
         }
 
         else if(fields.at(1) == "female" || fields.at(1) == " female")
         {
-            cout << "hae kona";
             sex = sexType::female;
         }
 
@@ -242,7 +240,7 @@ bool Interface::addRelation()
         string scientist = fields.at(0);
         string computer = fields.at(1);
         cout << "Successfully added a relation" << endl;
-        return(scientistService.addRelation(scientist, computer));
+        return(computerService.addRelation(scientist, computer));
     }
 
     cout << "There was an error in your input." << endl;
@@ -597,7 +595,8 @@ void Interface::searchScientist()
 {
     cout << "Type in the search term: ";
     string userInput;
-    cin >> userInput;
+    cin.ignore();
+    getline(cin, userInput);
     displayScientists(scientistService.searchForScientists(userInput));
 }
 
@@ -605,7 +604,8 @@ void Interface::searchComputer()
 {
     cout << "Type in the search term: ";
     string userInput;
-    cin >> userInput;
+    cin.ignore();
+    getline(cin, userInput);
     //displayComputers(computerService.searchForComputers(userInput));
 }
 

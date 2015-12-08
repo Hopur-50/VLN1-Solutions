@@ -33,7 +33,6 @@ public:
      * @return true if it was a success, false if it was a failure
      */
     bool addScientist(Scientist scientist);
-    bool addRelation(std::string scientist, std::string computer);
     std::vector<Computer> getRelatedComputers(std::string input);
     void changeSortOrder(int input);
 
