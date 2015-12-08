@@ -2,7 +2,7 @@
 
 ComputerService::ComputerService()
 {
-
+    currentOrder = constants::SORT_COMPUTER[0];
 }
 
 std::vector<Computer> ComputerService::getAllComputers()
@@ -14,7 +14,6 @@ std::vector<Computer> ComputerService::searchForComputers(std::string searchTerm
 {
     return computerRepo.searchForComputer(searchTerm);
 }
-
 
 bool ComputerService::addComputer(Computer computer)
 {

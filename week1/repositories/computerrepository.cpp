@@ -6,11 +6,10 @@
 #include <iostream>
 
 
-
 ComputerRepository::ComputerRepository()
 {
-    fileName = constants::DATA_FILE_NAME;
 }
+
 std::vector<Computer> ComputerRepository::searchForComputer(std::string searchTerm)
 {
     std::vector<Computer> filteredComputers;

@@ -7,7 +7,6 @@
 
 ScientistRepository::ScientistRepository()
 {
-    fileName = constants::DATA_FILE_NAME;
 }
 
 std::vector<Scientist> ScientistRepository::getAllScientists(std::string orderBy)
@@ -140,7 +139,5 @@ bool ScientistRepository::addScientist(Scientist scientist)
         query.bindValue(":dbyearOfDeath", QString::number(yearDied));
     }
 
-    query.exec();
-
-    return true; //TODO return false if failed
+    return query.exec();
 }
