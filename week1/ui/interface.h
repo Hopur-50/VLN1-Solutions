@@ -3,6 +3,7 @@
 #include "models/computer.h"
 
 #include "services/scientistservice.h"
+#include "services/computerservice.h"
 
 using namespace std;
 
@@ -10,6 +11,7 @@ class Interface
 {
 public:
     Interface();
+    ~Interface();
     void start();
     void menu(int& userchoice);
     void add();
@@ -34,6 +36,7 @@ public:
 
 private:
     ScientistService scientistService;
+    ComputerService computerService;
 };
 
 #endif // INTERFACE_H

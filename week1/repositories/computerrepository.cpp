@@ -10,7 +10,7 @@ ComputerRepository::ComputerRepository()
     fileName = constants::DATA_FILE_NAME;
 }
 
-void ComputerRepository::addComputer(Computer computer) //Virkar ekki sem void né int fall, finnst samt skrítið að hafa þetta sem bool? R what?
+bool ComputerRepository::addComputer(Computer computer) //Virkar ekki sem void né int fall, finnst samt skrítið að hafa þetta sem bool? R what?
 {
     QSqlQuery query;
 
@@ -39,7 +39,7 @@ void ComputerRepository::addComputer(Computer computer) //Virkar ekki sem void n
         query.bindValue(":dbyearOfConstruction", QString::number(yearOfConstruction));
     }
 
-    query.exec();
+    return query.exec();
 }
 
 

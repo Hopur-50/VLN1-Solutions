@@ -2,6 +2,7 @@
 #define SCIENTISTSERVICE_H
 
 #include "repositories/scientistrepository.h"
+#include "utilities/constants.h"
 
 /**
  * @brief The ScientistService acts as a middle layer between the UI and Data layers, also handles sorting
@@ -17,9 +18,7 @@ public:
      * @param orderAscending Should the list be sorted in ascending order?
      * @return a vector containing all scientists in the repository
      */
-    std::vector<Computer> getAllComputers();
-
-    std::vector<Scientist> getAllScientists(std::string orderBy);
+    std::vector<Scientist> getAllScientists();
 
     /**
      * @brief searchForScientists fetches all scientists from file and filters them on searchTerm
@@ -34,15 +33,13 @@ public:
      * @return true if it was a success, false if it was a failure
      */
     bool addScientist(Scientist scientist);
-    bool addComputer(Computer computer);
     bool addRelation(std::string scientist, std::string computer);
     std::vector<Computer> getRelatedComputers(std::string input);
-    std::vector<Scientist> getRelatedScientists(std::string input);
     void changeSortOrder(int input);
-    std::vector<Computer> searchForComputers(std::string searchTerm);
 
 private:
     ScientistRepository scientistRepo;
+    std::string currentOrder;
 };
 
 #endif // SCIENTISTSERVICE_H
