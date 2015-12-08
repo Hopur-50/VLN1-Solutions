@@ -12,7 +12,8 @@
  * This file contains reusable utility functions used throughout the application
  */
 
-namespace utils {    
+namespace utils
+{
     std::vector<std::string> splitString(std::string line, char delimeter);
 
     int stringToInt(std::string str);

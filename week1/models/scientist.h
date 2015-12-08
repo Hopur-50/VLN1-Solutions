@@ -3,7 +3,8 @@
 
 #include <string>
 
-enum sexType{
+enum sexType
+{
     female,
     male
 };

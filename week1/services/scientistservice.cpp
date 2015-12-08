@@ -1,5 +1,4 @@
 #include "services/scientistservice.h"
-//#include "utilities/scientistcomparator.h"
 
 #include <algorithm>
 
@@ -55,7 +54,7 @@ std::vector<Scientist> ScientistService::getRelatedScientists(std::string input)
     return scientistVec;
 }
 
-void ScientistService::change_sort_order(int input)
+void ScientistService::changeSortOrder(int input)
 {
 
 }
