@@ -22,8 +22,7 @@ bool ComputerService::addComputer(Computer computer)
 
 std::vector<Scientist> ComputerService::getRelatedScientists(std::string input)
 {
-    std::vector<Scientist> scientistVec;
-    return scientistVec; //TODO implement
+    return computerRepo.getRelatedScientists(input);
 }
 
 void ComputerService::changeSortOrder(int input)

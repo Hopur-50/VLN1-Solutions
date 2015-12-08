@@ -13,7 +13,6 @@ class ComputerRepository
 {
 public:
     ComputerRepository();
-    void OpenDatabase();
 
     std::vector<Computer> getAllComputers();
     std::vector<Computer> searchForComputer(std::string searchTerm);
