@@ -32,7 +32,7 @@ void Interface::start()
     }
 }
 
-void Interface::menu(int& userChoice)//displays the initial menu for user
+void Interface::menu(int& userChoice) //Displays the main menu for user
 {
     cout << "Choose a number from the menu" << endl;
     cout << "-----------------------------" << endl;
@@ -57,10 +57,11 @@ void Interface::menu(int& userChoice)//displays the initial menu for user
         case 4:
             search();
             break;
-        case 5:
+        case 5:     //Quits the program
             break;
         default:
             cout << "Wrong input" << endl;
+            menu(userChoice);
             break;
     }
 }
@@ -69,15 +70,19 @@ void Interface::add()
 {
     cout << "Choose one of the following numbers" << endl;
     cout << "-----------------------------------" << endl;
+    cout << "0 go to main menu" << endl;
     cout << "1 to add a scientist" << endl;
     cout << "2 to add a computer" << endl;
     cout << "3 to add a relation" << endl;
+
 
     int userChoice2;
     cin >> userChoice2;
 
     switch (userChoice2)
     {
+        case 0:        //Main menu
+            break;
         case 1:
             addScientist();
             break;
@@ -89,20 +94,28 @@ void Interface::add()
             break;
         default:
             cout << "Wrong input" << endl;
+            add();
             break;
     }
 }
 
 bool Interface::addScientist()
 {
+    int userChoice;
+
     cout << "To add a scientist, type in:" << endl;
     cout << "Name,sex,yearBorn,yearDied (optional)" << endl;
     cout << "Comma separated like in the example above." << endl;
-    cout << "If you would like to go back to the main menu, please type: back" << endl;
+    cout << "If you would like to go back to the main menu, please type the number 0" << endl;
     cout << "Input: ";
     string data;
     getline(cin, data);
-    vector<string> fields = utils::splitString(data, ',');
+    vector<string> fields = utils::splitString(data, ','); //Sker strenginn niður á kommu.
+
+    if(data == "0" || data == " 0")
+    {
+        menu(userChoice);
+    }
 
     if (fields.size() > 2 && fields.size() < 5)
     {
@@ -140,38 +153,50 @@ bool Interface::addScientist()
 
 bool Interface::addComputer()
 {
+    int userChoice;
+
     cout << "To add a computer, type in:" << endl;
     cout << "Name,type,wasItConstructed?(Y/N),yearOfConstruction (optional)" << endl;
     cout << "Comma separated like in the example above." << endl;
-    cout << "If you would like to go back to the main menu, please type: back" << endl;
+    cout << "If you would like to go back to the main menu, please type the number 0" << endl;
     cout << "Input: ";
     string data;
     getline(cin, data);
     vector<string> fields = utils::splitString(data, ',');
 
+    if(data == "0" || data == " 0")
+    {
+        menu(userChoice);
+    }
+
     if (fields.size() > 2 && fields.size() < 5)
     {
         string name = fields.at(0);
         string type = fields.at(1);
+
         bool wasItConstructed;
-        if(fields.at(2) == "Y" || fields.at(2) == "y")
+        if(fields.at(2) == "Y" || fields.at(2) == "y") //Ef tölvan var búin til skilar það true en ef ekki þá skilar fallið false
         {
             wasItConstructed = true;
-        }else if(fields.at(2) == "N" || fields.at(2) == "n")
+
+        }
+        else if(fields.at(2) == "N" || fields.at(2) == "n")
         {
             wasItConstructed = false;
-        }else
-        {
-            return false;
-        }
-        if (fields.size() == 3)
-        {
-            cout << "Successfully added a computer" << endl;
-            return scientistService.addComputer(Computer(name, type, wasItConstructed));
         }
         else
         {
-            int yearOfConstruction = utils::stringToInt(fields.at(3));
+            return false;
+        }
+
+        if (fields.size() == 3)
+        {
+            cout << "Successfully added a computer" << endl;
+            return scientistService.addComputer(Computer(name, type, wasItConstructed));//Skilagildi ef tölvan var ekki búin til, wasItConstructed = false
+        }
+        else
+        {
+            int yearOfConstruction = utils::stringToInt(fields.at(3)); //Skilagildi ef tölvan var búin til, wasItConstructed = true
             cout << "Successfully added a computer" << endl;
             return scientistService.addComputer(Computer(name, type, wasItConstructed, yearOfConstruction));
         }
@@ -183,14 +208,21 @@ bool Interface::addComputer()
 
 bool Interface::addRelation()
 {
+    int userChoice;
+
     cout << "To add a relation, type in:" << endl;
     cout << "scientist,computer" << endl;
     cout << "Comma separated like in the example above." << endl;
-    cout << "If you would like to go back to the main menu, please type: back" << endl;
+    cout << "If you would like to go back to the main menu, please type the number 0" << endl;
     cout << "Input: ";
     string data;
     getline(cin, data);
     vector<string> fields = utils::splitString(data, ',');
+
+    if(data == "0" || data == " 0")
+    {
+        menu(userChoice);
+    }
 
     if (fields.size() == 2)
     {
@@ -208,24 +240,29 @@ void Interface::display() //Prints from the vector
 {
     cout << "Choose a number from the menu" << endl;
     cout << "-----------------------------" << endl;
+    cout << "0 go to main menu" << endl;
     cout << "1 to display scientists" << endl;
     cout << "2 to display computers" << endl;
     cout << "3 to display relations" << endl;
     int userChoice2;
     cin >> userChoice2;
-    switch (userChoice2) {
-    case 1:
-        displayAllScientists();
-        break;
-    case 2:
-        displayAllComputers();
-        break;
-    case 3:
-        displayRelations();
-        break;
-    default:
-        cout << "Wrong input" << endl;
-        break;
+    switch (userChoice2)
+    {
+        case 0:
+            break;
+        case 1:
+            displayAllScientists();
+            break;
+        case 2:
+            displayAllComputers();
+            break;
+        case 3:
+            displayRelations();
+            break;
+        default:
+            cout << "Wrong input" << endl;
+            display();
+            break;
     }
 }
 
@@ -267,7 +304,7 @@ void Interface::displayScientists(std::vector<Scientist> scientists)
         string died = (yearDied == constants::YEAR_DIED_DEFAULT_VALUE) ? "Alive" : utils::intToString(yearDied);
 
         cout << setw(20) << std::left << scientists.at(i).getName()
-             << setw(8) << std::left << scientistSex
+             << setw(8)  << std::left << scientistSex
              << setw(12) << std::left << scientists.at(i).getYearBorn()
              << setw(12) << std::left << died << endl;
     }
@@ -297,7 +334,7 @@ void Interface::displayComputers(std::vector<Computer> computers)
         string built = (yearOfConstruction == constants::YEAR_DIED_DEFAULT_VALUE) ? "Not built" : utils::intToString(yearOfConstruction);
 
         cout << setw(20) << std::left << computers.at(i).getName()
-             << setw(8) << std::left << computerType
+             << setw(8)  << std::left << computerType
              << setw(12) << std::left << computers.at(i).getYearOfConstruction()
              << setw(12) << std::left << built << endl;
     }
@@ -306,13 +343,16 @@ void Interface::displayComputers(std::vector<Computer> computers)
 void Interface::displayRelations()
 {
     cout << "Choose one of the following numbers:" << endl;
-    cout << "------------------------- ---------------" << endl;
+    cout << "-----------------------------------" << endl;
+    cout << "0 to go back to main menu" << endl;
     cout << "1 to display all relations to a scientist" << endl;
     cout << "2 to display all relations to a computer" << endl;
     int userChoice3;
     cin >> userChoice3;
     switch (userChoice3)
     {
+        case 0:
+            break;
         case 1:
             displayScientistRelations();
             break;
@@ -321,6 +361,7 @@ void Interface::displayRelations()
             break;
         default:
             cout << "Wrong input" << endl;
+            displayRelations();
             break;
     }
 }
@@ -347,10 +388,10 @@ void Interface::displayComputerRelations()
 
 void Interface::selectOrder()
 {
-
     cout << "Which order would you like to change?" << endl;
     cout << "Choose one of the following numbers:" << endl;
     cout << "-----------------------------------------------------" << endl;
+    cout << "0 to go back to main menu" << endl;
     cout << "1 to change the order of scientists" << endl;
     cout << "2 to change the order of computers" << endl;
     cout << "3 to change the order of relations" << endl;
@@ -358,18 +399,21 @@ void Interface::selectOrder()
     cin >> orderChoice;
     switch(orderChoice)
     {
-    case 1:
-        selectScientistOrder();
-        break;
-    case 2:
-        selectComputerOrder();
-        break;
-    case 3:
-        selectRelationOrder();
-        break;
-    default:
-        cout << "Wrong input" << endl;
-        break;
+        case 0:
+            break;
+        case 1:
+            selectScientistOrder();
+            break;
+        case 2:
+            selectComputerOrder();
+            break;
+        case 3:
+            selectRelationOrder();
+            break;
+        default:
+            cout << "Wrong input" << endl;
+            selectOrder();
+            break;
     }
 }
 
@@ -409,6 +453,7 @@ std::string Interface::selectScientistOrder()
             break;
         default:
             cout << "Wrong input" << endl;
+            selectScientistOrder();
             break;
     }
 
@@ -422,6 +467,7 @@ std::string Interface::selectComputerOrder()
     cout << "Which order would you like to retrieve list items in?" << endl;
     cout << "Choose one of the following numbers:" << endl;
     cout << "-----------------------------------------------------" << endl;
+    cout << "0 to go back to main menu" << endl;
     cout << "1 for a list sorted by names in ascending order" << endl;
     cout << "2 for a list sorted by names in descending order" << endl;
     cout << "3 for a list sorted by year of construction in ascending order" << endl;
@@ -432,6 +478,8 @@ std::string Interface::selectComputerOrder()
     cin >> computerOrderChoice;
     switch(computerOrderChoice)
     {
+        case 0:
+            break;
         case 1:
             order = constants::SORT_COMPUTER_NAME_ASCENDING;
             break;
@@ -452,6 +500,7 @@ std::string Interface::selectComputerOrder()
             break;
         default:
             cout << "Wrong input" << endl;
+            selectComputerOrder();
             break;
     }
 
@@ -473,18 +522,19 @@ std::string Interface::selectRelationOrder()
     switch(relationOrderChoice)
     {
     case 1:
-        order=constants::SORT_RELATION_SCIENTIST_ASCENDING;
+        order = constants::SORT_RELATION_SCIENTIST_ASCENDING;
         break;
     case 2:
-        order=constants::SORT_RELATION_SCIENTIST_DESCENDING;
+        order = constants::SORT_RELATION_SCIENTIST_DESCENDING;
         break;
     case 3:
-        order=constants::SORT_RELATION_COMPUTER_ASCENDING;
+        order = constants::SORT_RELATION_COMPUTER_ASCENDING;
         break;
     case 4:
-        order=constants::SORT_RELATION_COMPUTER_DESCENDING;
+        order = constants::SORT_RELATION_COMPUTER_DESCENDING;
     default:
         cout << "Wrong input" << endl;
+        selectRelationOrder();
         break;
     }
 
@@ -495,12 +545,15 @@ void Interface::search()
 {
     cout << "Choose one of the following numbers:" << endl;
     cout << "------------------------------------" << endl;
+    cout << "0 to go back to main menu" << endl;
     cout << "1 to search for a scientist" << endl;
     cout << "2 to search for a computer" << endl;
     int userChoice2;
     cin >> userChoice2;
     switch (userChoice2)
     {
+        case 0:
+            break;
         case 1:
             searchScientist();
             break;
@@ -509,6 +562,7 @@ void Interface::search()
             break;
         default:
             cout << "Wrong input" << endl;
+            search();
             break;
     }
 
