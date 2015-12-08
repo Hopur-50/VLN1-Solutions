@@ -66,11 +66,15 @@ void Interface::menu(int& userChoice)//displays the initial menu for user
 
 void Interface::add()
 {
-    cout << "Choose 1 to add a scientist" << endl;
-    cout << "Choose 2 to add a computer" << endl;
-    cout << "Choose 3 to add a relation" << endl;
+    cout << "Choose a number from the menu" << endl;
+    cout << "-----------------------------" << endl;
+    cout << "1 to add a scientist" << endl;
+    cout << "2 to add a computer" << endl;
+    cout << "3 to add a relation" << endl;
+
     int userChoice2;
     cin >> userChoice2;
+
     switch (userChoice2) {
     case 1:
         addScientist();
@@ -195,9 +199,11 @@ bool Interface::addRelation()
 
 void Interface::display() //Prints from the vector
 {
-    cout << "Choose 1 to display scientists" << endl;
-    cout << "Choose 2 to display computers" << endl;
-    cout << "Choose 3 to display relations" << endl;
+    cout << "Choose a number from the menu" << endl;
+    cout << "-----------------------------" << endl;
+    cout << "1 to display scientists" << endl;
+    cout << "2 to display computers" << endl;
+    cout << "3 to display relations" << endl;
     int userChoice2;
     cin >> userChoice2;
     switch (userChoice2) {

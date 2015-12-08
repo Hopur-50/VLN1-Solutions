@@ -53,8 +53,6 @@ SOURCES       = ../week1/main.cpp \
 		../week1/services/scientistservice.cpp \
 		../week1/utilities/utils.cpp \
 		../week1/models/computer.cpp \
-		../week1/utilities/computercomparator.cpp \
-		../week1/utilities/scientistcomparator.cpp \
 		../week1/ui/interface.cpp \
 		../week1/repositories/scientistrepository.cpp \
 		../week1/repositories/computerrepository.cpp 
@@ -63,8 +61,6 @@ OBJECTS       = main.o \
 		scientistservice.o \
 		utils.o \
 		computer.o \
-		computercomparator.o \
-		scientistcomparator.o \
 		interface.o \
 		scientistrepository.o \
 		computerrepository.o
@@ -189,6 +185,7 @@ DIST          = ../../../Qt/5.5/clang_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/5.5/clang_64/mkspecs/features/qt_config.prf \
 		../../../Qt/5.5/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../Qt/5.5/clang_64/mkspecs/features/spec_post.prf \
+		../week1/.qmake.stash \
 		../../../Qt/5.5/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt/5.5/clang_64/mkspecs/features/default_pre.prf \
 		../../../Qt/5.5/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -212,18 +209,14 @@ DIST          = ../../../Qt/5.5/clang_64/mkspecs/features/spec_pre.prf \
 		../week1/utilities/utils.h \
 		../week1/utilities/constants.h \
 		../week1/services/scientistservice.h \
-		../week1/utilities/scientistcomparator.h \
 		../week1/models/computer.h \
 		../week1/ui/interface.h \
-		../week1/utilities/computercomparator.h \
 		../week1/repositories/scientistrepository.h \
 		../week1/repositories/computerrepository.h ../week1/main.cpp \
 		../week1/models/scientist.cpp \
 		../week1/services/scientistservice.cpp \
 		../week1/utilities/utils.cpp \
 		../week1/models/computer.cpp \
-		../week1/utilities/computercomparator.cpp \
-		../week1/utilities/scientistcomparator.cpp \
 		../week1/ui/interface.cpp \
 		../week1/repositories/scientistrepository.cpp \
 		../week1/repositories/computerrepository.cpp
@@ -390,6 +383,7 @@ Makefile: ../week1/week1.pro ../../../Qt/5.5/clang_64/mkspecs/macx-clang/qmake.c
 		../../../Qt/5.5/clang_64/mkspecs/features/qt_config.prf \
 		../../../Qt/5.5/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../Qt/5.5/clang_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../Qt/5.5/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt/5.5/clang_64/mkspecs/features/default_pre.prf \
 		../../../Qt/5.5/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -534,6 +528,7 @@ Makefile: ../week1/week1.pro ../../../Qt/5.5/clang_64/mkspecs/macx-clang/qmake.c
 ../../../Qt/5.5/clang_64/mkspecs/features/qt_config.prf:
 ../../../Qt/5.5/clang_64/mkspecs/macx-clang/qmake.conf:
 ../../../Qt/5.5/clang_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../Qt/5.5/clang_64/mkspecs/features/exclusive_builds.prf:
 ../../../Qt/5.5/clang_64/mkspecs/features/default_pre.prf:
 ../../../Qt/5.5/clang_64/mkspecs/features/mac/default_pre.prf:
@@ -570,8 +565,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../week1/models/scientist.h ../week1/utilities/utils.h ../week1/utilities/constants.h ../week1/services/scientistservice.h ../week1/utilities/scientistcomparator.h ../week1/models/computer.h ../week1/ui/interface.h ../week1/utilities/computercomparator.h ../week1/repositories/scientistrepository.h ../week1/repositories/computerrepository.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../week1/main.cpp ../week1/models/scientist.cpp ../week1/services/scientistservice.cpp ../week1/utilities/utils.cpp ../week1/models/computer.cpp ../week1/utilities/computercomparator.cpp ../week1/utilities/scientistcomparator.cpp ../week1/ui/interface.cpp ../week1/repositories/scientistrepository.cpp ../week1/repositories/computerrepository.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../week1/models/scientist.h ../week1/utilities/utils.h ../week1/utilities/constants.h ../week1/services/scientistservice.h ../week1/models/computer.h ../week1/ui/interface.h ../week1/repositories/scientistrepository.h ../week1/repositories/computerrepository.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../week1/main.cpp ../week1/models/scientist.cpp ../week1/services/scientistservice.cpp ../week1/utilities/utils.cpp ../week1/models/computer.cpp ../week1/ui/interface.cpp ../week1/repositories/scientistrepository.cpp ../week1/repositories/computerrepository.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -678,8 +673,7 @@ scientistservice.o: ../week1/services/scientistservice.cpp ../week1/services/sci
 		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqlrelationaldelegate.h \
 		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqlrelationaltablemodel.h \
 		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqltablemodel.h \
-		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qtsqlversion.h \
-		../week1/utilities/scientistcomparator.h
+		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qtsqlversion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scientistservice.o ../week1/services/scientistservice.cpp
 
 utils.o: ../week1/utilities/utils.cpp ../week1/utilities/utils.h \
@@ -688,14 +682,6 @@ utils.o: ../week1/utilities/utils.cpp ../week1/utilities/utils.h \
 
 computer.o: ../week1/models/computer.cpp ../week1/models/computer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o computer.o ../week1/models/computer.cpp
-
-computercomparator.o: ../week1/utilities/computercomparator.cpp ../week1/utilities/computercomparator.h \
-		../week1/models/computer.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o computercomparator.o ../week1/utilities/computercomparator.cpp
-
-scientistcomparator.o: ../week1/utilities/scientistcomparator.cpp ../week1/utilities/scientistcomparator.h \
-		../week1/models/scientist.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scientistcomparator.o ../week1/utilities/scientistcomparator.cpp
 
 interface.o: ../week1/ui/interface.cpp ../week1/ui/interface.h \
 		../week1/models/computer.h \

@@ -17,10 +17,12 @@ std::vector<Scientist> ScientistRepository::getAllScientists(std::string orderBy
     QString orderQuery = QString::fromStdString(constants::SELECT_ALL_SCIENTISTS) + " " + QString::fromStdString(orderBy);
     QSqlQuery query(orderQuery);
 
-    while (query.next()) {
+    while (query.next())
+    {
         std::string name = query.value(0).toString().toStdString();
         enum sexType sex = utils::stringToSex(query.value(1).toString().toStdString());
         int yearBorn = query.value(2).toInt();
+        int yearDied = query.value(3).toInt();
 
         if (query.value(3).isNull())
         {
@@ -28,7 +30,7 @@ std::vector<Scientist> ScientistRepository::getAllScientists(std::string orderBy
         }
         else
         {
-            int yearDied = query.value(3).toInt();
+
             scientists.push_back(Scientist(name, sex, yearBorn, yearDied));
         }
 
@@ -50,7 +52,8 @@ std::vector<Scientist> ScientistRepository::searchForScientists(std::string sear
 
     QSqlQuery query(searchQuery);
 
-    while (query.next()) {
+    while (query.next())
+    {
         std::string name = query.value(0).toString().toStdString();
         enum sexType sex = utils::stringToSex(query.value(1).toString().toStdString());
         int yearBorn = query.value(2).toInt();

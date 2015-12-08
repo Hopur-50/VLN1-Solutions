@@ -15,8 +15,6 @@ SOURCES += main.cpp \
     services/scientistservice.cpp \
     utilities/utils.cpp \
     models/computer.cpp \
-    utilities/computercomparator.cpp \
-    utilities/scientistcomparator.cpp \
     ui/interface.cpp \
     repositories/scientistrepository.cpp \
     repositories/computerrepository.cpp
@@ -25,9 +23,7 @@ HEADERS += \
     utilities/utils.h \
     utilities/constants.h \
     services/scientistservice.h \
-    utilities/scientistcomparator.h \
     models/computer.h \
     ui/interface.h \
-    utilities/computercomparator.h \
     repositories/scientistrepository.h \
     repositories/computerrepository.h
