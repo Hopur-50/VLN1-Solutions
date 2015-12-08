@@ -412,14 +412,8 @@ std::string Interface::selectScientistOrder()
             break;
     }
 
-    if(userChoice2 > 0 && userChoice2 < 5)
-    {
-        scientistService.changeSortOrder(userChoice2);
-    }
-    else
-    {
-        return order;
-    }
+    return order;
+
 }
 
 std::string Interface::selectComputerOrder()
