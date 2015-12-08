@@ -187,6 +187,7 @@ DIST          = ../../../Qt/5.5/clang_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/5.5/clang_64/mkspecs/features/qt_config.prf \
 		../../../Qt/5.5/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../Qt/5.5/clang_64/mkspecs/features/spec_post.prf \
+		../week1/.qmake.stash \
 		../../../Qt/5.5/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt/5.5/clang_64/mkspecs/features/default_pre.prf \
 		../../../Qt/5.5/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -386,6 +387,7 @@ Makefile: ../week1/week1.pro ../../../Qt/5.5/clang_64/mkspecs/macx-clang/qmake.c
 		../../../Qt/5.5/clang_64/mkspecs/features/qt_config.prf \
 		../../../Qt/5.5/clang_64/mkspecs/macx-clang/qmake.conf \
 		../../../Qt/5.5/clang_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../Qt/5.5/clang_64/mkspecs/features/exclusive_builds.prf \
 		../../../Qt/5.5/clang_64/mkspecs/features/default_pre.prf \
 		../../../Qt/5.5/clang_64/mkspecs/features/mac/default_pre.prf \
@@ -530,6 +532,7 @@ Makefile: ../week1/week1.pro ../../../Qt/5.5/clang_64/mkspecs/macx-clang/qmake.c
 ../../../Qt/5.5/clang_64/mkspecs/features/qt_config.prf:
 ../../../Qt/5.5/clang_64/mkspecs/macx-clang/qmake.conf:
 ../../../Qt/5.5/clang_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../Qt/5.5/clang_64/mkspecs/features/exclusive_builds.prf:
 ../../../Qt/5.5/clang_64/mkspecs/features/default_pre.prf:
 ../../../Qt/5.5/clang_64/mkspecs/features/mac/default_pre.prf:
@@ -685,7 +688,24 @@ utils.o: ../week1/utilities/utils.cpp ../week1/utilities/utils.h \
 		../week1/models/scientist.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o utils.o ../week1/utilities/utils.cpp
 
-computer.o: ../week1/models/computer.cpp ../week1/models/computer.h
+computer.o: ../week1/models/computer.cpp ../week1/models/computer.h \
+		../week1/utilities/constants.h \
+		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/QtSql \
+		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsql.h \
+		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqldatabase.h \
+		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqldriver.h \
+		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqldriverplugin.h \
+		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqlerror.h \
+		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqlfield.h \
+		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqlindex.h \
+		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqlquery.h \
+		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqlrecord.h \
+		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqlresult.h \
+		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqlquerymodel.h \
+		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqlrelationaldelegate.h \
+		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqlrelationaltablemodel.h \
+		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qsqltablemodel.h \
+		../../../Qt/5.5/clang_64/lib/QtSql.framework/Headers/qtsqlversion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o computer.o ../week1/models/computer.cpp
 
 interface.o: ../week1/ui/interface.cpp ../week1/ui/interface.h \
