@@ -219,7 +219,6 @@ bool Interface::addComputer()
 bool Interface::addRelation()
 {
     int userChoice;
-
     cout << "To add a relation, type in:" << endl;
     cout << "scientist,computer" << endl;
     cout << "Comma separated like in the example above." << endl;
@@ -342,7 +341,6 @@ void Interface::displayComputers(std::vector<Computer> computers)
         string computerType = computers.at(i).getType();
 
         int yearOfConstruction = computers.at(i).getYearOfConstruction();
-        //Þarf að laga built um leið og veit hvernig það er storað
         string built = (yearOfConstruction == constants::YEAR_OF_CONSTRUCTION_VALUE) ? "Not built" : utils::intToString(yearOfConstruction);
 
         cout << setw(5)  << std::left << i + 1
@@ -406,7 +404,7 @@ void Interface::selectOrder()
     cout << "0 to go back to main menu" << endl;
     cout << "1 to change the order of scientists" << endl;
     cout << "2 to change the order of computers" << endl;
-    cout << "3 to change the order of relations" << endl;
+
     int orderChoice;
     cin >> orderChoice;
     switch(orderChoice)
@@ -418,9 +416,6 @@ void Interface::selectOrder()
             break;
         case 2:
             selectComputerOrder();
-            break;
-        case 3:
-            selectRelationOrder();
             break;
         default:
             cout << "Wrong input" << endl;
@@ -465,42 +460,6 @@ void Interface::selectComputerOrder()
     computerService.changeSortOrder(computerOrderChoice);
 }
 
-std::string Interface::selectRelationOrder()
-{
-    string order;
-    cout << "Which order would you like to retrieve list items in?" << endl;
-    cout << "Choose one of the following numbers:" << endl;
-    cout << "-----------------------------------------------------" << endl;
-    cout << "0 to go back to main menu" << endl;
-    cout << "1 for a list sorted by scientists' names in ascending order" << endl;
-    cout << "2 for a list sorted by scientists' names in descending order" << endl;
-    cout << "3 for a list sorted by computers' names in ascending order" << endl;
-    cout << "4 for a list sorted by computers' names in descending order" << endl;
-    int relationOrderChoice;
-    cin >> relationOrderChoice;
-    switch(relationOrderChoice)
-    {
-        case 0:
-            break;
-        case 1:
-            order = constants::SORT_RELATION_SCIENTIST_ASCENDING;
-            break;
-        case 2:
-            order = constants::SORT_RELATION_SCIENTIST_DESCENDING;
-            break;
-        case 3:
-            order = constants::SORT_RELATION_COMPUTER_ASCENDING;
-            break;
-        case 4:
-            order = constants::SORT_RELATION_COMPUTER_DESCENDING;
-        default:
-            cout << "Wrong input" << endl;
-            selectRelationOrder();
-            break;
-    }
-
-    return order;
-}
 
 void Interface::search()
 {
