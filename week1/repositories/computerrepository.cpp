@@ -4,6 +4,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
 
 ComputerRepository::ComputerRepository()
 {
@@ -69,13 +70,15 @@ std::vector<Computer> ComputerRepository::getAllComputers(std::string orderBy)
 
 std::vector<Computer> ComputerRepository::searchForComputer(std::string searchTerm)
 {
+
     std::vector<Computer> filteredComputers;
     QString QSearchTerm = QString::fromStdString(searchTerm);
+
     QString searchQuery = QString::fromStdString(constants::SELECT_ALL_COMPUTERS)+
-    "WHERE c.name LIKE %" + QSearchTerm + "%" +
-    "OR c.computerType LIKE %" + QSearchTerm + "%" +
-    "OR c.constructed LIKE %" + QSearchTerm + "%" +
-    "OR c.buildYear LIKE %" + QSearchTerm + "%";
+    "WHERE c.name LIKE '%'" + QSearchTerm + '%' +
+    "OR c.computerType LIKE '%'" + QSearchTerm + '%' +
+    "OR c.constructed LIKE '%'" + QSearchTerm + '%' +
+    "OR c.buildYear LIKE '%'" + QSearchTerm + '%';
 
     QSqlQuery query(searchQuery);
 
