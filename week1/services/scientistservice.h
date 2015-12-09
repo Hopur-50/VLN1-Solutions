@@ -11,7 +11,7 @@ public:
     std::vector<Scientist> getAllScientists();
     std::vector<Scientist> searchForScientists(std::string searchTerm);
     bool addScientist(Scientist scientist);
-    std::vector<Computer> getRelatedComputers(std::string input);
+    std::vector<Computer> getRelatedComputers(Scientist scientist);
     void changeSortOrder(int input);
 
 private:

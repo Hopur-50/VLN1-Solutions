@@ -1,4 +1,5 @@
 #include "services/computerservice.h"
+#include<iostream>
 
 ComputerService::ComputerService()
 {
@@ -20,14 +21,15 @@ bool ComputerService::addComputer(Computer computer)
     return computerRepo.addComputer(computer);
 }
 
-bool ComputerService::addRelation(std::string sci, std::string comp)
+bool ComputerService::addRelation(Scientist scientist, Computer computer)
 {
-    return computerRepo.addRelation(sci, comp);
+    std::cout << "SERVICEADDINGRELATION\n";
+    return computerRepo.addRelation(scientist, computer);
 }
 
-std::vector<Scientist> ComputerService::getRelatedScientists(std::string input)
+std::vector<Scientist> ComputerService::getRelatedScientists(Computer computer)
 {
-    return computerRepo.getRelatedScientists(input);
+    return computerRepo.getRelatedScientists(computer);
 }
 
 void ComputerService::changeSortOrder(int input)

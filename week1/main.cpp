@@ -9,7 +9,7 @@ using namespace std;
 int main()
 {
     Interface message;
-    message.start();
+
     int userChoice;
 
     do

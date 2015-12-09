@@ -7,6 +7,34 @@
 
 ScientistRepository::ScientistRepository()
 {
+
+}
+
+bool ScientistRepository::addScientist(Scientist scientist)
+{
+    QSqlQuery query;
+
+    std::string name = scientist.getName();
+    enum sexType sex = scientist.getSex();
+    int yearBorn = scientist.getYearBorn();
+    int yearDied = scientist.getYearDied();
+
+    if (yearDied == constants::YEAR_DIED_DEFAULT_VALUE)
+    {
+        query.prepare("INSERT INTO Scientists (name, gender, yearOfBirth) VALUES(:dbname,:dbgender,:dbyearOfBirth)");
+        query.bindValue(":dbname", QString::fromStdString(name));
+        query.bindValue(":dbgender", QString::fromStdString(utils::sexToString(sex)));
+        query.bindValue(":dbyearOfBirth", QString::number(yearBorn));
+    }
+    else
+    {
+        query.prepare("INSERT INTO Scientists (name, gender, yearOfBirth, yearOfDeath) VALUES(:dbname,:dbgender,:dbyearOfBirth, :dbyearOfDeath)");
+        query.bindValue(":dbname", QString::fromStdString(name));
+        query.bindValue(":dbgender", QString::fromStdString(utils::sexToString(sex)));
+        query.bindValue(":dbyearOfBirth", QString::number(yearBorn));
+        query.bindValue(":dbyearOfDeath", QString::number(yearDied));
+    }
+    return query.exec();
 }
 
 std::vector<Scientist> ScientistRepository::getAllScientists(std::string orderBy)
@@ -21,6 +49,7 @@ std::vector<Scientist> ScientistRepository::getAllScientists(std::string orderBy
         std::string name = query.value(0).toString().toStdString();
         std::string sexString = query.value(1).toString().toStdString();
         enum sexType sex;
+
         if(sexString == "m" || sexString == " m" || sexString == "male" || sexString == " male") //We change sex to string so we can read correctly from the database.
         {
             sex = male;
@@ -39,12 +68,9 @@ std::vector<Scientist> ScientistRepository::getAllScientists(std::string orderBy
         }
         else
         {
-
             scientists.push_back(Scientist(name, sex, yearBorn, yearDied));
         }
-
     }
-
     return scientists;
 }
 
@@ -91,7 +117,6 @@ std::vector<Computer> ScientistRepository::getRelatedComputers(std::string name)
         }
         i++;
     }
-
     return computers;
 }
 
@@ -123,35 +148,52 @@ std::vector<Scientist> ScientistRepository::searchForScientists(std::string sear
             filteredScientists.push_back(Scientist(name, sex, yearBorn, yearDied));
         }
     }
-
     return filteredScientists;
 }
 
-bool ScientistRepository::addScientist(Scientist scientist)
+std::vector<Computer> ScientistRepository::getRelatedComputers(Scientist scientist)
 {
     QSqlQuery query;
+    std::vector<Computer> computers;
+    query.prepare("SELECT id FROM Scientists WHERE name = :dbName");
+    query.bindValue(":dbName", QString::fromStdString(scientist.getName()));
+    query.exec();
+    query.next();
+    int scientistId = query.value(0).toInt();
 
-    std::string name = scientist.getName();
-    enum sexType sex = scientist.getSex();
-    int yearBorn = scientist.getYearBorn();
-    int yearDied = scientist.getYearDied();
+    query.prepare("SELECT computersID FROM Relations WHERE scientistsID = :dbCsId");
+    query.bindValue(":dbCsId", scientistId);
+    query.exec();
 
-    if (yearDied == constants::YEAR_DIED_DEFAULT_VALUE)
+    int i = 0;
+    QSqlQuery query2;
+
+    while(query.next())
     {
-        query.prepare("INSERT INTO Scientists (name, gender, yearOfBirth) VALUES(:dbname,:dbgender,:dbyearOfBirth)");
-        query.bindValue(":dbname", QString::fromStdString(name));
-        query.bindValue(":dbgender", QString::fromStdString(utils::sexToString(sex)));
-        query.bindValue(":dbyearOfBirth", QString::number(yearBorn));
+        int cId=query.value(i).toInt();
+        query2.prepare("SELECT name, buildYear, computerType, constructed FROM Computers WHERE id = :dbCId");
+        query2.bindValue(":dbCId", cId);
+        query2.exec();
 
-    }
-    else
-    {
-        query.prepare("INSERT INTO Scientists (name, gender, yearOfBirth, yearOfDeath) VALUES(:dbname,:dbgender,:dbyearOfBirth, :dbyearOfDeath)");
-        query.bindValue(":dbname", QString::fromStdString(name));
-        query.bindValue(":dbgender", QString::fromStdString(utils::sexToString(sex)));
-        query.bindValue(":dbyearOfBirth", QString::number(yearBorn));
-        query.bindValue(":dbyearOfDeath", QString::number(yearDied));
-    }
+        while(query2.next())
+        {
+            std::string name = query2.value(0).toString().toStdString();
+            int buildYear = query2.value(1).toInt();
+            std::string type = query2.value(2).toString().toStdString();
+            bool wasItConstructed = query2.value(3).toBool();
 
-    return query.exec();
+            if(query2.value(1).isNull())
+            {
+                computers.push_back(Computer(name, type, wasItConstructed));
+            }
+            else
+            {
+                computers.push_back(Computer(name, type, wasItConstructed, buildYear));
+            }
+        }
+        i++;
+    }
+    return computers;
 }
+
+

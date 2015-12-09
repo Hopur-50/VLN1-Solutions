@@ -8,33 +8,16 @@
 
 Interface::Interface()
 {
-    start();
-}
-
-Interface::~Interface()
-{
-
-}
-
-void Interface::start()
-{
-    QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
     QString dbName = "secondDatabase.sqlite";
     db.setDatabaseName(dbName);
 
     db.open();
+}
 
-    QSqlQuery query(db);
-
-    if(!db.open())
-    {
-        cout << "Failed to open the database" << endl;
-    }
-    else
-    {
-        cout << "Connected..." << endl;
-    }
+Interface::~Interface()
+{
+    db.close();
 }
 
 void Interface::menu(int& userChoice) //Displays the main menu for user
@@ -95,7 +78,14 @@ void Interface::add()
             addComputer();
             break;
         case 3:
-            addRelation();
+            if(addRelation())
+            {
+                cout << "SUCCESS" << endl;
+            }
+            else
+            {
+                cout << "FAILURE" << endl;
+            }
             break;
         default:
             cout << "Wrong input" << endl;
@@ -240,19 +230,26 @@ bool Interface::addRelation()
 
     if(data == "0" || data == " 0")
     {
-        menu(userChoice);
+        menu(userChoice);               //If user puts blanc space before the 0.
     }
 
-    if (fields.size() == 2)
-    {
-        string scientist = fields.at(0);
-        string computer = fields.at(1);
-        cout << "Successfully added a relation" << endl;
-        return(computerService.addRelation(scientist, computer));
-    }
+    std::vector<Scientist> scientists = scientistService.getAllScientists();
+    displayScientists(scientists);
+    cout << "Choose the number of the scientist to be added in the relation: ";
+    int scientistId;
+    cin >> scientistId;
+    Scientist scientist = scientists[scientistId-1];
 
-    cout << "There was an error in your input." << endl;
-    return false;
+    std::vector<Computer> computers = computerService.getAllComputers();
+    displayComputers(computers);
+    cout << "Choose the number of the computer to be added in the relation: ";
+
+    int computerId;
+    cin >> computerId;
+
+    Computer computer = computers[computerId-1];
+
+    return computerService.addRelation(scientist, computer);
 }
 
 void Interface::display() //Prints from the vector
@@ -389,10 +386,13 @@ void Interface::displayRelations()
 
 void Interface::displayScientistRelations()
 {
-    cout << "Enter the scientist whose computers you would like to see: ";
-    string input;
-    cin >> input;
-    vector<Computer> computers = scientistService.getRelatedComputers(input);
+    std::vector<Scientist> scientists = scientistService.getAllScientists();
+    displayScientists(scientists);
+    cout << "Choose the number of the scientist whose relations you wish to see: ";
+    int scientistId;
+    cin >> scientistId;
+    Scientist scientist = scientists[scientistId-1];
+    vector<Computer> computers = scientistService.getRelatedComputers(scientist);
     displayComputers(computers);
     cout << '\n';
 }
@@ -400,9 +400,13 @@ void Interface::displayScientistRelations()
 void Interface::displayComputerRelations()
 {
     cout << "Enter the computer whose scientists you would like to see: ";
-    string input;
-    cin >> input;
-    vector<Scientist> scientists = computerService.getRelatedScientists(input);
+    std::vector<Computer> computers = computerService.getAllComputers();
+    displayComputers(computers);
+    cout << "Choose the number of the computer whose relations you would like to see: ";
+    int computerId;
+    cin >> computerId;
+    Computer computer = computers[computerId-1];
+    vector<Scientist> scientists = computerService.getRelatedScientists(computer);
     displayScientists(scientists);
     cout << '\n';
 }
@@ -453,6 +457,7 @@ void Interface::selectScientistOrder()
     cin >> scientistOrderChoice;
 
     scientistService.changeSortOrder(scientistOrderChoice);
+    displayAllScientists();
 }
 
 void Interface::selectComputerOrder()
@@ -472,6 +477,7 @@ void Interface::selectComputerOrder()
     cin >> computerOrderChoice;
 
     computerService.changeSortOrder(computerOrderChoice);
+    displayAllComputers();
 }
 
 
@@ -482,6 +488,7 @@ void Interface::search()
     cout << "0 to go back to main menu" << endl;
     cout << "1 to search for a scientist" << endl;
     cout << "2 to search for a computer" << endl;
+
     int userChoice2;
     cin >> userChoice2;
 

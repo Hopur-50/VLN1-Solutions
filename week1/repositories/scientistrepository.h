@@ -17,6 +17,10 @@ public:
     std::vector<Computer> getRelatedComputers(std::string name);
     std::vector<Scientist> searchForScientists(std::string searchTerm);
     bool addScientist(Scientist scientist);
+    bool addScientist(Scientist scientist);
+    std::vector<Scientist> getAllScientists(std::string orderBy);
+    std::vector<Scientist> searchForScientists(std::string searchTerm);
+    std::vector<Computer> getRelatedComputers(Scientist scientist);
 
 private:
     std::string fileName;

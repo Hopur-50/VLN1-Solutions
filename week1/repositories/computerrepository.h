@@ -14,12 +14,11 @@ class ComputerRepository
 public:
     ComputerRepository();
 
-    std::vector<Computer> getAllComputers();
-    std::vector<Computer> searchForComputer(std::string searchTerm);
     bool addComputer(Computer computer);
-    std::vector<Scientist> getRelatedScientists(std::string name);
     std::vector<Computer> getAllComputers(std::string orderBy);
-    bool addRelation(std::string scientist, std::string computer);
+    std::vector<Computer> searchForComputer(std::string searchTerm);
+    std::vector<Scientist> getRelatedScientists(Computer computer);
+    bool addRelation(Scientist scientist, Computer computer);
 
 private:
     std::string fileName;
