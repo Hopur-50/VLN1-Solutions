@@ -7,7 +7,7 @@
  * This file contains constants that this application uses
  */
 
-namespace constants
+namespace constants                             //All constants have snake_casing names with capital letters
 {
     const int YEAR_DIED_DEFAULT_VALUE = 13337;
     const int YEAR_OF_CONSTRUCTION_VALUE = 80083;

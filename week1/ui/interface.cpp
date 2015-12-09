@@ -31,6 +31,7 @@ void Interface::menu(int& userChoice) //Displays the main menu for user
     cout << "5 to quit the program" << endl;
 
     cin >> userChoice;
+
     switch (userChoice)
     {
         case 1:
@@ -62,7 +63,6 @@ void Interface::add()
     cout << "1 to add a scientist" << endl;
     cout << "2 to add a computer" << endl;
     cout << "3 to add a relation" << endl;
-
 
     int userChoice2;
     cin >> userChoice2;
@@ -103,10 +103,13 @@ bool Interface::addScientist()
     cout << "Comma separated like in the example above." << endl;
     cout << "If you would like to go back to the main menu, please type the number 0" << endl;
     cout << "Input: ";
+
     string data;
+
     cin.ignore();
     getline(cin, data);
-    vector<string> fields = utils::splitString(data, ','); //Sker strenginn niður á kommu.
+
+    vector<string> fields = utils::splitString(data, ','); //Cuts the string whenever there is a comma
 
     if(data == "0" || data == " 0")
     {
@@ -144,8 +147,8 @@ bool Interface::addScientist()
             cout << "Successfully added a scientist" << endl;
         }
     }
-
     cout << "There was an error in your input." << endl;
+
     return false;
 }
 
@@ -158,9 +161,12 @@ bool Interface::addComputer()
     cout << "Comma separated like in the example above." << endl;
     cout << "If you would like to go back to the main menu, please type the number 0" << endl;
     cout << "Input: ";
+
     string data;
+
     cin.ignore();
     getline(cin, data);
+
     vector<string> fields = utils::splitString(data, ',');
 
     if(data == "0" || data == " 0")
@@ -175,12 +181,12 @@ bool Interface::addComputer()
 
         bool wasItConstructed;
 
-        if(fields.at(2) == "Y" || fields.at(2) == "y") //Ef tölvan var búin til skilar það true en ef ekki þá skilar fallið false
+        if(fields.at(2) == "Y" || fields.at(2) == "y") //If the computer was created the boolean returns true, otherwise false.
         {
             wasItConstructed = true;
-
         }
-        else if(fields.at(2) == "N" || fields.at(2) == "n")
+
+        if(fields.at(2) == "N" || fields.at(2) == "n")
         {
             wasItConstructed = false;
         }
@@ -203,11 +209,30 @@ bool Interface::addComputer()
     }
 
     cout << "There was an error in your input." << endl;
+
     return false;
 }
 
 bool Interface::addRelation()
 {
+    int userChoice;
+    cout << "To add a relation, type in:" << endl;
+    cout << "scientist,computer" << endl;
+    cout << "Comma separated like in the example above." << endl;
+    cout << "If you would like to go back to the main menu, please type the number 0" << endl;
+    cout << "Input: ";
+    string data;
+
+    cin.ignore();
+    getline(cin, data);
+
+    vector<string> fields = utils::splitString(data, ',');
+
+    if(data == "0" || data == " 0")
+    {
+        menu(userChoice);               //If user puts blanc space before the 0.
+    }
+
     std::vector<Scientist> scientists = scientistService.getAllScientists();
     displayScientists(scientists);
     cout << "Choose the number of the scientist to be added in the relation: ";
@@ -218,8 +243,10 @@ bool Interface::addRelation()
     std::vector<Computer> computers = computerService.getAllComputers();
     displayComputers(computers);
     cout << "Choose the number of the computer to be added in the relation: ";
+
     int computerId;
     cin >> computerId;
+
     Computer computer = computers[computerId-1];
 
     return computerService.addRelation(scientist, computer);
@@ -336,8 +363,10 @@ void Interface::displayRelations()
     cout << "0 to go back to main menu" << endl;
     cout << "1 to display all relations to a scientist" << endl;
     cout << "2 to display all relations to a computer" << endl;
+
     int userChoice3;
     cin >> userChoice3;
+
     switch (userChoice3)
     {
         case 0:
@@ -393,6 +422,7 @@ void Interface::selectOrder()
 
     int orderChoice;
     cin >> orderChoice;
+
     switch(orderChoice)
     {
         case 0:
@@ -422,6 +452,7 @@ void Interface::selectScientistOrder()
     cout << "4 for a list sorted by year born in descending order" << endl;
     cout << "5 for a list sorted by year died in ascending order" << endl;
     cout << "6 for a list sorted by year died in descending order" << endl;
+
     int scientistOrderChoice;
     cin >> scientistOrderChoice;
 
@@ -441,13 +472,13 @@ void Interface::selectComputerOrder()
     cout << "4 for a list sorted by year of construction in descending order" << endl;
     cout << "5 for a list sorted by type in ascending order" << endl;
     cout << "6 for a list sorted by type in descending order" << endl;
+
     int computerOrderChoice;
     cin >> computerOrderChoice;
 
     computerService.changeSortOrder(computerOrderChoice);
     displayAllComputers();
 }
-
 
 void Interface::search()
 {
@@ -456,8 +487,10 @@ void Interface::search()
     cout << "0 to go back to main menu" << endl;
     cout << "1 to search for a scientist" << endl;
     cout << "2 to search for a computer" << endl;
+
     int userChoice2;
     cin >> userChoice2;
+
     switch (userChoice2)
     {
         case 0:

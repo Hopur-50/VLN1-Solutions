@@ -9,7 +9,7 @@ Scientist::Scientist(string name, enum sexType sex, int yearBorn)
     this->name = name;
     this->sex = sex;
     this->yearBorn = yearBorn;
-    this->yearDied = constants::YEAR_DIED_DEFAULT_VALUE;  //Ef að tölvunarfræðingurinn er ekki dáinn
+    this->yearDied = constants::YEAR_DIED_DEFAULT_VALUE;  //If the computer scientist is alive.
 }
 
 Scientist::Scientist(string name, enum sexType sex, int yearBorn, int yearDied)
@@ -17,7 +17,7 @@ Scientist::Scientist(string name, enum sexType sex, int yearBorn, int yearDied)
     this->name = name;
     this->sex = sex;
     this->yearBorn = yearBorn;
-    this->yearDied = yearDied;
+    this->yearDied = yearDied;                          //If the computer scientist has passed away.
 }
 
 std::string Scientist::getName() const
@@ -38,51 +38,4 @@ int Scientist::getYearBorn() const
 int Scientist::getYearDied() const
 {
     return yearDied;
-}
-
-bool Scientist::contains(string searchTerm)
-{
-    string searchTermLower = utils::stringToLower(searchTerm);
-
-    string nameLower = utils::stringToLower(name);
-    if (nameLower.find(searchTermLower) != string::npos)
-    {
-        return true;
-    }
-
-    if ((searchTermLower == "male" || searchTermLower == " male") && sex == sexType::male)
-    {
-        return true;
-    }
-
-    if ((searchTermLower == "female" || searchTermLower == " female")  && sex == sexType::female)
-    {
-        return true;
-    }
-
-    string yearBornString = utils::intToString(yearBorn);
-
-    if (yearBornString.find(searchTerm) != string::npos)
-    {
-        return true;
-    }
-
-    if (yearDied != constants::YEAR_DIED_DEFAULT_VALUE)
-    {
-        string yearDiedString = utils::intToString(yearDied);
-
-        if (yearDiedString.find(searchTerm) != string::npos)
-        {
-            return true;
-        }
-    }
-    else
-    {
-        if (searchTermLower == "alive") //If user inputs 0, it changes to alive
-        {
-            return true;
-        }
-    }
-
-    return false;
 }
