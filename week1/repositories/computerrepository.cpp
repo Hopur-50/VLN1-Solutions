@@ -4,6 +4,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
 
 ComputerRepository::ComputerRepository()
 {
@@ -84,10 +85,10 @@ std::vector<Computer> ComputerRepository::searchForComputers(std::string searchT
     {
         std::string name = query.value(0).toString().toStdString();
         std::string type = query.value(1).toString().toStdString();
-        int wasItConstructed = query.value(3).toInt();
-        int yearOfConstruction = query.value(4).toInt();
+        int wasItConstructed = query.value(2).toInt();
+        int yearOfConstruction = query.value(3).toInt();
 
-        if(wasItConstructed == 0)
+        if(query.value(2).isNull())
         {
             foundComputers.push_back(Computer(name, type, wasItConstructed));
         }
@@ -203,3 +204,4 @@ bool ComputerRepository::addRelation(Scientist scientist, Computer computer)
     insertQuery.bindValue(":dbCsId", QString::number(csId));
     return insertQuery.exec();
 }
+
