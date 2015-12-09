@@ -3,11 +3,6 @@
 
 #include <string>
 
-/*
-enum computerType{
-
-};*/
-
 class Computer
 {
 public:
