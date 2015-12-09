@@ -7,7 +7,6 @@ Computer::Computer(std::string name, std::string type, bool wasItConstructed)
     this->type = type;
     this->wasItConstructed = wasItConstructed;
     this->yearOfConstruction = constants::YEAR_OF_CONSTRUCTION_VALUE;
-
 }
 
 Computer::Computer(std::string name, std::string type, bool wasItConstructed, int yearOfConstruction)
@@ -16,7 +15,6 @@ Computer::Computer(std::string name, std::string type, bool wasItConstructed, in
     this->type = type;
     this->wasItConstructed = wasItConstructed;
     this->yearOfConstruction = yearOfConstruction;
-
 }
 
 std::string Computer::getName() const
@@ -32,11 +30,9 @@ std::string Computer::getType() const
 int Computer::getYearOfConstruction() const
 {
     return yearOfConstruction;
-
 }
 
 bool Computer::getWasItConstructed() const
 {
     return wasItConstructed;
-
 }

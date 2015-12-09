@@ -8,10 +8,7 @@ enum sexType
     female,
     male
 };
-
-/**
- * @brief The data model for scientists
- */
+                            //All classes are PascalCasing and all functions and variables are camelCasing.
 class Scientist
 {
 public:

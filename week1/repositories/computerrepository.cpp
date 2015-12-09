@@ -5,9 +5,9 @@
 #include <cstdlib>
 #include <iostream>
 
-
 ComputerRepository::ComputerRepository()
 {
+
 }
 
 std::vector<Computer> ComputerRepository::searchForComputer(std::string searchTerm)
@@ -50,12 +50,14 @@ bool ComputerRepository::addRelation(std::string scientist, std::string computer
     query.bindValue(":dbComputer", QString::fromStdString(computer));
     query.exec();
     query.next();
+
     int cId = query.value(0).toInt();
 
     query.prepare("SELECT id FROM Scientists WHERE name = :dbScientist");
     query.bindValue(":dbScientist", QString::fromStdString(scientist));
     query.exec();
     query.next();
+
     int csId = query.value(0).toInt();
 
     query.prepare("INSERT INTO relations(cId, csId) VALUES(:dbCId, :dbCsId");
@@ -123,7 +125,6 @@ bool ComputerRepository::addComputer(Computer computer)
         query.bindValue(":dbname", QString::fromStdString(name));
         query.bindValue(":dbtype", QString::fromStdString(type));
         query.bindValue(":dbwasItConstructed", QString::number(IntWasItConstructed));
-
     }
     else
     {

@@ -3,7 +3,8 @@
 #include <sstream>
 #include <cstdlib>
 
-namespace utils {
+namespace utils
+{
     std::vector<std::string> splitString(std::string line, char delimeter) 
     {
         std::vector<std::string> result;
@@ -16,7 +17,8 @@ namespace utils {
 
             if (currentChar == delimeter) 
             {
-                if  (currentWord.length()) {
+                if  (currentWord.length())
+                {
                     result.push_back(currentWord);
                     currentWord = "";
                 }
@@ -34,11 +36,10 @@ namespace utils {
         {
             result.push_back(currentWord);
         }
-
         return result;
     }
 
-    int stringToInt(std::string str) 
+    int stringToInt(std::string str)
     {
         return atoi(str.c_str());
     }
@@ -51,7 +52,6 @@ namespace utils {
         {
             char currentCharacter = str[i];
 
-            // http://www.asciitable.com/
             if (currentCharacter <= 90 && currentCharacter >= 65)
             {
                 result += currentCharacter + 32;
@@ -61,7 +61,6 @@ namespace utils {
                 result += currentCharacter;
             }
         }
-
         return result;
     }
 
@@ -84,7 +83,13 @@ namespace utils {
 
     std::string sexToString(enum sexType gender)
     {
-        if (gender == male) return "male";
-        else return "female";
+        if (gender == male)
+        {
+            return "male";
+        }
+        else
+        {
+            return "female";
+        }
     }
 }

@@ -21,7 +21,7 @@ std::vector<Scientist> ScientistRepository::getAllScientists(std::string orderBy
         std::string name = query.value(0).toString().toStdString();
         std::string sexString = query.value(1).toString().toStdString();
         enum sexType sex;
-        if(sexString == "m" || sexString == " m" || sexString == "male" || sexString == " male")
+        if(sexString == "m" || sexString == " m" || sexString == "male" || sexString == " male") //We change sex to string so we can read correctly from the database.
         {
             sex = male;
         }
@@ -29,6 +29,7 @@ std::vector<Scientist> ScientistRepository::getAllScientists(std::string orderBy
         {
             sex = female;
         }
+
         int yearBorn = query.value(2).toInt();
         int yearDied = query.value(3).toInt();
 
@@ -55,19 +56,24 @@ std::vector<Computer> ScientistRepository::getRelatedComputers(std::string name)
     query.bindValue(":dbName", QString::fromStdString(name));
     query.exec();
     query.next();
+
     int scientistId = query.value(0).toInt();
 
     query.prepare("SELECT cId FROM Relations WHERE csId = :dbCsId");
     query.bindValue(":dbCsId", scientistId);
     query.exec();
-    int i=0;
+
+    int i = 0;
     QSqlQuery query2;
+
     while(query.next())
     {
-        int cId=query.value(i).toInt();
+        int cId = query.value(i).toInt();
+
         query2.prepare("SELECT name, buildYear, computerType, constructed FROM Computers WHERE id = :dbCId");
         query2.bindValue(":dbCId", cId);
         query2.exec();
+
         while(query2.next())
         {
             std::string name = query2.value(0).toString().toStdString();
@@ -116,7 +122,6 @@ std::vector<Scientist> ScientistRepository::searchForScientists(std::string sear
             int yearDied = query.value(3).toInt();
             filteredScientists.push_back(Scientist(name, sex, yearBorn, yearDied));
         }
-
     }
 
     return filteredScientists;
