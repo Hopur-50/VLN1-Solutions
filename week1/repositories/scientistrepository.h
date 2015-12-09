@@ -24,7 +24,7 @@ public:
      */
     std::vector<Scientist> getAllScientists(std::string orderBy);
 
-    std::vector<Computer> getRelatedComputers(std::string name);
+    std::vector<Computer> getRelatedComputers(Scientist scientist);
 
     /**
      * @brief searchForScientists fetches all scientists from file and filters them on searchTerm

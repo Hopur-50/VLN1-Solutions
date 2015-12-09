@@ -95,7 +95,14 @@ void Interface::add()
             addComputer();
             break;
         case 3:
-            addRelation();
+            if(addRelation())
+            {
+                cout << "SUCCESS" << endl;
+            }
+            else
+            {
+                cout << "FAILURE" << endl;
+            }
             break;
         default:
             cout << "Wrong input" << endl;
@@ -367,10 +374,13 @@ void Interface::displayRelations()
 
 void Interface::displayScientistRelations()
 {
-    cout << "Enter the scientist whose computers you would like to see: ";
-    string input;
-    cin >> input;
-    vector<Computer> computers = scientistService.getRelatedComputers(input);
+    std::vector<Scientist> scientists = scientistService.getAllScientists();
+    displayScientists(scientists);
+    cout << "Choose the number of the scientist whose relations you wish to see: ";
+    int scientistId;
+    cin >> scientistId;
+    Scientist scientist = scientists[scientistId-1];
+    vector<Computer> computers = scientistService.getRelatedComputers(scientist);
     displayComputers(computers);
     cout << '\n';
 }
@@ -378,9 +388,13 @@ void Interface::displayScientistRelations()
 void Interface::displayComputerRelations()
 {
     cout << "Enter the computer whose scientists you would like to see: ";
-    string input;
-    cin >> input;
-    vector<Scientist> scientists = computerService.getRelatedScientists(input);
+    std::vector<Computer> computers = computerService.getAllComputers();
+    displayComputers(computers);
+    cout << "Choose the number of the computer whose relations you would like to see: ";
+    int computerId;
+    cin >> computerId;
+    Computer computer = computers[computerId-1];
+    vector<Scientist> scientists = computerService.getRelatedScientists(computer);
     displayScientists(scientists);
     cout << '\n';
 }
