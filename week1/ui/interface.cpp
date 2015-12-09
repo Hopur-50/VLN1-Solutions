@@ -167,6 +167,7 @@ bool Interface::addComputer()
         menu(userChoice);
     }
 
+
     if (fields.size() > 2 && fields.size() < 5)
     {
         string name = fields.at(0);
