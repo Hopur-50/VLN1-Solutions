@@ -115,12 +115,11 @@ std::vector<Scientist> ComputerRepository::getRelatedScientists(Computer compute
     query.bindValue(":dbCId", computerId);
     query.exec();
 
-    int i = 0;
     QSqlQuery query2;
 
     while(query.next())
     {
-        int csId = query.value(i).toInt();
+        int csId = query.value(0).toInt();
         query2.prepare("SELECT name, gender, yearOfBirth, yearOfDeath FROM Scientists WHERE id = :dbCsId");
         query2.bindValue(":dbCsId", csId);
         query2.exec();
@@ -148,11 +147,8 @@ std::vector<Scientist> ComputerRepository::getRelatedScientists(Computer compute
             {
                 scientists.push_back(Scientist(name, sex, yearBorn, yearDied));
             }
-
         }
-        i++;
     }
-
     return scientists;
 }
 
