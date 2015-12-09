@@ -100,17 +100,41 @@ std::vector<Computer> ComputerRepository::searchForComputer(std::string searchTe
     return filteredComputers;
 }
 
-std::vector<Scientist> ComputerRepository::getRelatedScientists(std::string name)
+/*bool ComputerRepository::addRelation(Scientist scientist, Computer computer)
+{
+    std::cout << "REPOADDINGRELATION\n";
+    QSqlQuery query;
+
+    query.prepare("SELECT id FROM Computers WHERE name = :dbComputer");
+    query.bindValue(":dbComputer", QString::fromStdString(computer.getName()));
+    query.exec();
+    query.next();
+    int cId = query.value(0).toInt();
+
+    query.prepare("SELECT id FROM Scientists WHERE name = :dbScientist");
+    query.bindValue(":dbScientist", QString::fromStdString(scientist.getName()));
+    query.exec();
+    query.next();
+    int csId = query.value(0).toInt();
+
+    query.prepare("INSERT INTO Relations(computersID, scientistsID) VALUES(:dbCId, :dbCsId");
+    query.bindValue(":dbCId", cId);
+    query.bindValue(":dbCsId", csId);
+
+    return query.exec();
+}*/
+
+std::vector<Scientist> ComputerRepository::getRelatedScientists(Computer computer)
 {
     QSqlQuery query;
     std::vector<Scientist> scientists;
     query.prepare("SELECT id FROM Computers WHERE name = :dbName");
-    query.bindValue(":dbName", QString::fromStdString(name));
+    query.bindValue(":dbName", QString::fromStdString(computer.getName()));
     query.exec();
     query.next();
     int computerId = query.value(0).toInt();
 
-    query.prepare("SELECT csId FROM Relations WHERE cId = :dbCId");
+    query.prepare("SELECT scientistsID FROM Relations WHERE computersID = :dbCId");
     query.bindValue(":dbCId", computerId);
     query.exec();
     int i=0;

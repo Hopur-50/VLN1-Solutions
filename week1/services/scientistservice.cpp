@@ -22,9 +22,9 @@ bool ScientistService::addScientist(Scientist scientist)
     return scientistRepo.addScientist(scientist);
 }
 
-std::vector<Computer> ScientistService::getRelatedComputers(std::string input)
+std::vector<Computer> ScientistService::getRelatedComputers(Scientist scientist)
 {
-    return scientistRepo.getRelatedComputers(input);
+    return scientistRepo.getRelatedComputers(scientist);
 }
 
 void ScientistService::changeSortOrder(int input)

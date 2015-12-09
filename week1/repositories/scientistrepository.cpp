@@ -109,17 +109,17 @@ std::vector<Scientist> ScientistRepository::searchForScientists(std::string sear
     return filteredScientists;
 }
 
-std::vector<Computer> ScientistRepository::getRelatedComputers(std::string name)
+std::vector<Computer> ScientistRepository::getRelatedComputers(Scientist scientist)
 {
     QSqlQuery query;
     std::vector<Computer> computers;
     query.prepare("SELECT id FROM Scientists WHERE name = :dbName");
-    query.bindValue(":dbName", QString::fromStdString(name));
+    query.bindValue(":dbName", QString::fromStdString(scientist.getName()));
     query.exec();
     query.next();
     int scientistId = query.value(0).toInt();
 
-    query.prepare("SELECT cId FROM Relations WHERE csId = :dbCsId");
+    query.prepare("SELECT computersID FROM Relations WHERE scientistsID = :dbCsId");
     query.bindValue(":dbCsId", scientistId);
     query.exec();
     int i=0;
