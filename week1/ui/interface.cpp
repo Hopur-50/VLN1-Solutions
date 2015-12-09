@@ -8,33 +8,16 @@
 
 Interface::Interface()
 {
-    start();
-}
-
-Interface::~Interface()
-{
-
-}
-
-void Interface::start()
-{
-    QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
     QString dbName = "secondDatabase.sqlite";
     db.setDatabaseName(dbName);
 
     db.open();
+}
 
-    QSqlQuery query(db);
-
-    if(!db.open())
-    {
-        cout << "Failed to open the database" << endl;
-    }
-    else
-    {
-        cout << "Connected..." << endl;
-    }
+Interface::~Interface()
+{
+    db.close();
 }
 
 void Interface::menu(int& userChoice) //Displays the main menu for user
