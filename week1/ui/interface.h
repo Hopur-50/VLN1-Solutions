@@ -12,7 +12,6 @@ class Interface
 public:
     Interface();
     ~Interface();
-    void start();
     void menu(int& userchoice);
     void add();
     bool addScientist();
@@ -37,6 +36,7 @@ public:
 private:
     ScientistService scientistService;
     ComputerService computerService;
+    QSqlDatabase db;
 };
 
 #endif // INTERFACE_H

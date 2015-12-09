@@ -8,33 +8,16 @@
 
 Interface::Interface()
 {
-    start();
-}
-
-Interface::~Interface()
-{
-
-}
-
-void Interface::start()
-{
-    QSqlDatabase db;
     db = QSqlDatabase::addDatabase("QSQLITE");
     QString dbName = "secondDatabase.sqlite";
     db.setDatabaseName(dbName);
 
     db.open();
+}
 
-    QSqlQuery query(db);
-
-    if(!db.open())
-    {
-        cout << "Failed to open the database" << endl;
-    }
-    else
-    {
-        cout << "Connected..." << endl;
-    }
+Interface::~Interface()
+{
+    db.close();
 }
 
 void Interface::menu(int& userChoice) //Displays the main menu for user
@@ -227,14 +210,14 @@ bool Interface::addRelation()
 {
     std::vector<Scientist> scientists = scientistService.getAllScientists();
     displayScientists(scientists);
-    cout << "Choose the number of the scientist to be added in the relation";
+    cout << "Choose the number of the scientist to be added in the relation: ";
     int scientistId;
     cin >> scientistId;
     Scientist scientist = scientists[scientistId-1];
 
     std::vector<Computer> computers = computerService.getAllComputers();
     displayComputers(computers);
-    cout << "Choose the number of the computer to be added in the relation";
+    cout << "Choose the number of the computer to be added in the relation: ";
     int computerId;
     cin >> computerId;
     Computer computer = computers[computerId-1];
@@ -443,6 +426,7 @@ void Interface::selectScientistOrder()
     cin >> scientistOrderChoice;
 
     scientistService.changeSortOrder(scientistOrderChoice);
+    displayAllScientists();
 }
 
 void Interface::selectComputerOrder()
@@ -461,6 +445,7 @@ void Interface::selectComputerOrder()
     cin >> computerOrderChoice;
 
     computerService.changeSortOrder(computerOrderChoice);
+    displayAllComputers();
 }
 
 
