@@ -78,14 +78,7 @@ void Interface::add()
             addComputer();
             break;
         case 3:
-            if(addRelation())
-            {
-                cout << "SUCCESS" << endl;
-            }
-            else
-            {
-                cout << "FAILURE" << endl;
-            }
+            addRelation();
             break;
         default:
             cout << "Wrong input" << endl;
@@ -406,6 +399,7 @@ void Interface::displayComputerRelations()
     int computerId;
     cin >> computerId;
     Computer computer = computers[computerId-1];
+    std::cout << computer.getName();
     vector<Scientist> scientists = computerService.getRelatedScientists(computer);
     displayScientists(scientists);
     cout << '\n';
