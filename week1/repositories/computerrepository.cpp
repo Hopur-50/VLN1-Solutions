@@ -71,26 +71,13 @@ std::vector<Computer> ComputerRepository::getAllComputers(std::string orderBy)
 
 std::vector<Computer> ComputerRepository::searchForComputers(std::string searchTerm)
 {
-<<<<<<< HEAD
-
-    std::vector<Computer> filteredComputers;
-=======
     std::vector<Computer> foundComputers;
->>>>>>> d3d3d2d2da3652fde360fa5076c31842ee096dea
     QString QSearchTerm = QString::fromStdString(searchTerm);
-
     QString searchQuery = QString::fromStdString(constants::SELECT_ALL_COMPUTERS)+
-<<<<<<< HEAD
-    "WHERE c.name LIKE '%'" + QSearchTerm + '%' +
-    "OR c.computerType LIKE '%'" + QSearchTerm + '%' +
-    "OR c.constructed LIKE '%'" + QSearchTerm + '%' +
-    "OR c.buildYear LIKE '%'" + QSearchTerm + '%';
-=======
     " WHERE c.name LIKE '%" + QSearchTerm + "%'" +
     " OR c.computerType LIKE '%" + QSearchTerm + "%'" +
     " OR c.constructed LIKE '%" + QSearchTerm + "%'" +
     " OR c.buildYear LIKE '%" + QSearchTerm + "%'";
->>>>>>> d3d3d2d2da3652fde360fa5076c31842ee096dea
 
     QSqlQuery query(searchQuery);
 
@@ -107,12 +94,7 @@ std::vector<Computer> ComputerRepository::searchForComputers(std::string searchT
         }
         else
         {
-<<<<<<< HEAD
-
-            filteredComputers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
-=======
             foundComputers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
->>>>>>> d3d3d2d2da3652fde360fa5076c31842ee096dea
         }
     }
     return foundComputers;
