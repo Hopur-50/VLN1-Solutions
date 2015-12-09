@@ -141,17 +141,26 @@ std::vector<Scientist> ComputerRepository::getRelatedScientists(Computer compute
     while(query.next())
     {
         int csId = query.value(i).toInt();
-        query2.prepare("SELECT name, sex, yearOfBirth, yearOfDeath FROM Scientists WHERE id = :dbCsId");
+        query2.prepare("SELECT name, gender, yearOfBirth, yearOfDeath FROM Scientists WHERE id = :dbCsId");
         query2.bindValue(":dbCsId", csId);
         query2.exec();
         while(query2.next())
         {
-            std::string name = query.value(0).toString().toStdString();
-            enum sexType sex = utils::stringToSex(query.value(1).toString().toStdString());
-            int yearBorn = query.value(2).toInt();
-            int yearDied = query.value(3).toInt();
+            std::string name = query2.value(0).toString().toStdString();
+            enum sexType sex;
+            std::string sexString = query2.value(1).toString().toStdString();
+            if(sexString == "m" || sexString == " m" || sexString == "male" || sexString == " male")
+            {
+                sex = male;
+            }
+            else
+            {
+                sex = female;
+            }
+            int yearBorn = query2.value(2).toInt();
+            int yearDied = query2.value(3).toInt();
 
-            if (query.value(3).isNull())
+            if (query2.value(3).isNull())
             {
                 scientists.push_back(Scientist(name, sex, yearBorn));
             }
@@ -159,6 +168,7 @@ std::vector<Scientist> ComputerRepository::getRelatedScientists(Computer compute
             {
                 scientists.push_back(Scientist(name, sex, yearBorn, yearDied));
             }
+
         }
         i++;
     }
@@ -175,16 +185,19 @@ bool ComputerRepository::addRelation(Scientist scientist, Computer computer)
     query.exec();
     query.next();
     int cId = query.value(0).toInt();
+    std::cout << cId << "\n";
 
-    query.prepare("SELECT id FROM Scientists WHERE name = :dbScientist");
-    query.bindValue(":dbScientist", QString::fromStdString(scientist.getName()));
-    query.exec();
-    query.next();
-    int csId = query.value(0).toInt();
+    QSqlQuery query2;
+    query2.prepare("SELECT id FROM Scientists WHERE name = :dbScientist");
+    query2.bindValue(":dbScientist", QString::fromStdString(scientist.getName()));
+    query2.exec();
+    query2.next();
+    int csId = query2.value(0).toInt();
+    std::cout << csId << "\n";
 
-    query.prepare("INSERT INTO relations(cId, csId) VALUES(:dbCId, :dbCsId");
-    query.bindValue(":dbCId", cId);
-    query.bindValue(":dbCsId", csId);
-
-    return query.exec();
+    QSqlQuery insertQuery;
+    insertQuery.prepare("INSERT INTO Relations (computersID, scientistsID) VALUES (:dbCId, :dbCsId)");
+    insertQuery.bindValue(":dbCId", QString::number(cId));
+    insertQuery.bindValue(":dbCsId", QString::number(csId));
+    return insertQuery.exec();
 }

@@ -23,7 +23,6 @@ bool ComputerService::addComputer(Computer computer)
 
 bool ComputerService::addRelation(Scientist scientist, Computer computer)
 {
-    std::cout << "SERVICEADDINGRELATION\n";
     return computerRepo.addRelation(scientist, computer);
 }
 
