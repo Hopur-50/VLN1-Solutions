@@ -152,7 +152,7 @@ bool Interface::addComputer()
     int userChoice;
 
     cout << "To add a computer, type in:" << endl;
-    cout << "Name, type, wasItConstructed? (Y/N), yearOfConstruction(optional)" << endl;
+    cout << "Name,type,wasItConstructed?(Y/N),yearOfConstruction(optional)" << endl;
     cout << "Comma separated like in the example above." << endl;
     cout << "If you would like to go back to the main menu, please type the number 0" << endl;
     cout << "Input: ";
@@ -170,38 +170,35 @@ bool Interface::addComputer()
     }
 
 
-    if (fields.size() > 2 && fields.size() < 5)
+    string name = fields.at(0);
+    string type = fields.at(1);
+
+    bool wasItConstructed;
+
+    if(fields.at(2) == "Y" || fields.at(2) == "y") //If the computer was created the boolean returns true, otherwise false.
     {
-        string name = fields.at(0);
-        string type = fields.at(1);
+        wasItConstructed = true;
+    }
+    else if(fields.at(2) == "N" || fields.at(2) == "n")
+    {
+        wasItConstructed = false;
+    }
+    else
+    {
 
-        bool wasItConstructed;
+        return false;
+    }
 
-        if(fields.at(2) == "Y" || fields.at(2) == "y") //If the computer was created the boolean returns true, otherwise false.
-        {
-            wasItConstructed = true;
-        }
-
-        if(fields.at(2) == "N" || fields.at(2) == "n")
-        {
-            wasItConstructed = false;
-        }
-        else
-        {
-            return false;
-        }
-
-        if (fields.size() == 3)
-        {
-            cout << "Successfully added a computer" << endl;
-            return computerService.addComputer(Computer(name, type, wasItConstructed));
-        }
-        else
-        {
-            int yearOfConstruction = utils::stringToInt(fields.at(3)); //Skilagildi ef tölvan var búin til, wasItConstructed = true
-            cout << "Successfully added a computer" << endl;
-            return computerService.addComputer(Computer(name, type, wasItConstructed, yearOfConstruction));
-        }
+    if(fields.size() == 3)
+    {
+        cout << "Successfully added a computer" << endl;
+        return computerService.addComputer(Computer(name, type, wasItConstructed));
+    }
+    else if(fields.size() == 4)
+    {
+        int yearOfConstruction = utils::stringToInt(fields.at(3)); //Skilagildi ef tölvan var búin til, wasItConstructed = true
+        cout << "Successfully added a computer" << endl;
+        return computerService.addComputer(Computer(name, type, wasItConstructed, yearOfConstruction));
     }
 
     cout << "There was an error in your input." << endl;
