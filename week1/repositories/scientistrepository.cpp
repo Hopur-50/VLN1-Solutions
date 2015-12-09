@@ -161,4 +161,3 @@ std::vector<Computer> ScientistRepository::getRelatedComputers(Scientist scienti
     return computers;
 }
 
-
