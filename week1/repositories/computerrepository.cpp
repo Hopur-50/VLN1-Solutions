@@ -150,36 +150,6 @@ bool ComputerRepository::addRelation(Scientist scientist, Computer computer)
     query.prepare("SELECT id FROM Computers WHERE name = :dbComputer");
     query.bindValue(":dbComputer", QString::fromStdString(computer.getName()));
     query.exec();
-<<<<<<< HEAD
-    return true;
-}
-
-std::vector<Computer> ComputerRepository::getAllComputers(std::string orderBy)
-{
-    std::vector<Computer> computers;
-
-    QString orderQuery = QString::fromStdString(constants::SELECT_ALL_COMPUTERS) + " " + QString::fromStdString(orderBy);
-    QSqlQuery query(orderQuery);
-
-    while (query.next())
-    {
-        std::string name = query.value(0).toString().toStdString();
-        std::string type = query.value(1).toString().toStdString();
-        bool wasItConstructed = query.value(2).toInt();
-        int yearOfConstruction = query.value(3).toInt();
-
-        if (query.value(2) == false)
-        {
-            computers.push_back(Computer(name, type, wasItConstructed));
-        }
-        else
-        {
-            computers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
-            computers.push_back(Computer(name, type, wasItConstructed, yearOfConstruction));
-        }
-    }
-    return computers;
-=======
     query.next();
     int cId = query.value(0).toInt();
 
@@ -194,5 +164,5 @@ std::vector<Computer> ComputerRepository::getAllComputers(std::string orderBy)
     query.bindValue(":dbCsId", csId);
 
     return query.exec();
->>>>>>> f08c959f299b1c3e7cb9934cfcb8d02648370486
 }
+
