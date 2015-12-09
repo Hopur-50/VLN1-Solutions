@@ -4,6 +4,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
 
 ScientistRepository::ScientistRepository()
 {
@@ -78,35 +79,44 @@ std::vector<Scientist> ScientistRepository::getAllScientists(std::string orderBy
 
 std::vector<Scientist> ScientistRepository::searchForScientists(std::string searchTerm)
 {
-    std::vector<Scientist> filteredScientists;
+    std::vector<Scientist> foundScientists;
     QString QSearchTerm = QString::fromStdString(searchTerm);
     QString searchQuery = QString::fromStdString(constants::SELECT_ALL_SCIENTISTS) +
-    " WHERE s.name LIKE %" + QSearchTerm + "%" +
-    " OR s.gender LIKE %" + QSearchTerm + "%" +
-    " OR s.yearOfBirth LIKE %" + QSearchTerm + "%" +
-    " OR s.yearOfDeath LIKE %" + QSearchTerm + "%";
+    " WHERE s.name LIKE '%" + QSearchTerm + "%'" +
+    " OR s.gender LIKE '%" + QSearchTerm + "%'" +
+    " OR s.yearOfBirth LIKE '%" + QSearchTerm + "%'" +
+    " OR s.yearOfDeath LIKE '%" + QSearchTerm + "%'";
 
     QSqlQuery query(searchQuery);
 
     while (query.next())
     {
         std::string name = query.value(0).toString().toStdString();
-        enum sexType sex = utils::stringToSex(query.value(1).toString().toStdString());
-        int yearBorn = query.value(2).toInt();
-
-        if (query.value(3).isNull())
+        std::string sexString = query.value(1).toString().toStdString();
+        enum sexType sex;
+        if(sexString == "m" || sexString == " m" || sexString == "male" || sexString == " male")
         {
-            filteredScientists.push_back(Scientist(name, sex, yearBorn));
+            sex = male;
         }
         else
         {
-            int yearDied = query.value(3).toInt();
-            filteredScientists.push_back(Scientist(name, sex, yearBorn, yearDied));
+            sex = female;
         }
+        int yearBorn = query.value(2).toInt();
+        int yearDied = query.value(3).toInt();
 
+        if (query.value(3).isNull())
+        {
+            foundScientists.push_back(Scientist(name, sex, yearBorn));
+        }
+        else
+        {
+
+            foundScientists.push_back(Scientist(name, sex, yearBorn, yearDied));
+        }
     }
 
-    return filteredScientists;
+    return foundScientists;
 }
 
 std::vector<Computer> ScientistRepository::getRelatedComputers(std::string name)

@@ -432,7 +432,6 @@ void Interface::selectComputerOrder()
     computerService.changeSortOrder(computerOrderChoice);
 }
 
-
 void Interface::search()
 {
     cout << "Choose one of the following numbers:" << endl;
