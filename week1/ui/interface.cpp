@@ -30,8 +30,9 @@ void Interface::menu(int& userChoice) //Displays the main menu for user
     cout << "4 to search for scientists or computers" << endl;
     cout << "5 to quit the program" << endl;
 
-    cin >> userChoice;
-
+    string input;
+    cin >> input;
+    userChoice = utils::stringToInt(input);
     switch (userChoice)
     {
         case 1:
@@ -64,8 +65,9 @@ void Interface::add()
     cout << "2 to add a computer" << endl;
     cout << "3 to add a relation" << endl;
 
-    int userChoice2;
-    cin >> userChoice2;
+    string input;
+    cin >> input;
+    int userChoice2 = utils::stringToInt(input);
 
     switch (userChoice2)
     {
@@ -209,23 +211,6 @@ bool Interface::addComputer()
 
 bool Interface::addRelation()
 {
-    int userChoice;
-    cout << "To add a relation, type in:" << endl;
-    cout << "scientist,computer" << endl;
-    cout << "Comma separated like in the example above." << endl;
-    cout << "If you would like to go back to the main menu, please type the number 0" << endl;
-    cout << "Input: ";
-    string data;
-
-    cin.ignore();
-    getline(cin, data);
-
-    vector<string> fields = utils::splitString(data, ',');
-
-    if(data == "0" || data == " 0")
-    {
-        menu(userChoice);               //If user puts blanc space before the 0.
-    }
 
     std::vector<Scientist> scientists = scientistService.getAllScientists();
     displayScientists(scientists);
@@ -393,14 +378,12 @@ void Interface::displayScientistRelations()
 
 void Interface::displayComputerRelations()
 {
-    cout << "Enter the computer whose scientists you would like to see: ";
     std::vector<Computer> computers = computerService.getAllComputers();
     displayComputers(computers);
     cout << "Choose the number of the computer whose relations you would like to see: ";
     int computerId;
     cin >> computerId;
     Computer computer = computers[computerId-1];
-    std::cout << computer.getName();
     vector<Scientist> scientists = computerService.getRelatedScientists(computer);
     displayScientists(scientists);
     cout << '\n';

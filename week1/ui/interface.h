@@ -12,7 +12,7 @@ class Interface
 public:
     Interface();
     ~Interface();
-    void menu(int& userchoice);
+    void menu(int &userchoice);
     void add();
     bool addScientist();
     bool addComputer();
