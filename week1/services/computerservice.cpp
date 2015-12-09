@@ -13,7 +13,7 @@ std::vector<Computer> ComputerService::getAllComputers()
 
 std::vector<Computer> ComputerService::searchForComputers(std::string searchTerm)
 {
-    return computerRepo.searchForComputer(searchTerm);
+    return computerRepo.searchForComputers(searchTerm);
 }
 
 bool ComputerService::addComputer(Computer computer)
