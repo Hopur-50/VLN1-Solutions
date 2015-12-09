@@ -16,7 +16,7 @@ public:
     bool addScientist(Scientist scientist);
     std::vector<Scientist> getAllScientists(std::string orderBy);
     std::vector<Scientist> searchForScientists(std::string searchTerm);
-    std::vector<Computer> getRelatedComputers(std::string name);    
+    std::vector<Computer> getRelatedComputers(Scientist scientist);
 
 private:
     std::string fileName;

@@ -11,6 +11,7 @@ int main()
     Interface message;
 
     int userChoice;
+
     do
     {
         message.menu(userChoice);
